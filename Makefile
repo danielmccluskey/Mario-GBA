@@ -35,10 +35,8 @@ MUSIC		:=
 #---------------------------------------------------------------------------------
 ARCH	:=	-mthumb -mthumb-interwork
 
-CFLAGS	:=	-g -Wall -O3\
+CFLAGS	:=	-gdwarf-2 -Wall\
 		-mcpu=arm7tdmi -mtune=arm7tdmi\
- 		-fomit-frame-pointer\
-		-ffast-math \
 		$(ARCH)
 
 CFLAGS	+=	$(INCLUDE)
@@ -127,7 +125,7 @@ clean:
 	@echo clean ...
 	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).gba 
  
- 
+
 #---------------------------------------------------------------------------------
 else
  

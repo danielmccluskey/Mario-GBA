@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Game Controllers">
+      <UniqueIdentifier>{8e5ca267-793a-4611-9e9c-15e2c27dba63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GBA Reg">
+      <UniqueIdentifier>{908eaca9-d01f-4312-9af9-8962f7044a1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GBA Reg">
+      <UniqueIdentifier>{314a7ecf-1065-4f67-a3df-fa9d343810ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Controllers">
+      <UniqueIdentifier>{e0f9e74e-8661-46df-aaeb-2aa1a6deb2c9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+    <Text Include="Makefile" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\rocket4bpp.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\particles.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gba_math.c">
+      <Filter>Source Files\GBA Reg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gab_mathUtil.c">
+      <Filter>Source Files\GBA Reg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gba_drawing.c">
+      <Filter>Source Files\GBA Reg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gba_gfx.c">
+      <Filter>Source Files\GBA Reg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gba_input.c">
+      <Filter>Source Files\GBA Reg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sinlut.c">
+      <Filter>Source Files\GBA Reg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files\Game Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TileLookUp.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DM_MarioManager.cpp">
+      <Filter>Source Files\Game Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DM_SpriteManager.cpp">
+      <Filter>Source Files\Game Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DM_TileManager.cpp">
+      <Filter>Source Files\Game Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="include\BG_Collisions.h">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\rocket4bpp.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\particles.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DM_MarioManager.h">
+      <Filter>Header Files\Game Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DM_SpriteManager.h">
+      <Filter>Header Files\Game Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DM_SpritesStruct.h">
+      <Filter>Header Files\Game Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DM_TileManager.h">
+      <Filter>Header Files\Game Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sinlut.h">
+      <Filter>Header Files\GBA Reg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba.h">
+      <Filter>Header Files\GBA Reg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba_drawing.h">
+      <Filter>Header Files\GBA Reg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba_gfx.h">
+      <Filter>Header Files\GBA Reg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba_input.h">
+      <Filter>Header Files\GBA Reg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba_math.h">
+      <Filter>Header Files\GBA Reg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba_mathUtil.h">
+      <Filter>Header Files\GBA Reg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba_reg.h">
+      <Filter>Header Files\GBA Reg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gba_types.h">
+      <Filter>Header Files\GBA Reg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Intellisense.h">
+      <Filter>Header Files\GBA Reg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\maptest.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mario.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TileLookUp.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
