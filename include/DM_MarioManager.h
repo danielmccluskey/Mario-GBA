@@ -9,6 +9,8 @@ class MarioManager
 {
 public:
 	s32 ix; s32 iy;
+	s32 last_ix; s32 last_iy;
+
 	s32 iSpriteID;
 
 	s32 iMapOffset = 0;

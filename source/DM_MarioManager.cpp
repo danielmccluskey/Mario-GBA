@@ -52,53 +52,97 @@ void MarioManager::MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager)
 		iVelocityY = fixAdder(a_iy, iVelocityY);
 	}
 }
+u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,
+	const unsigned short* tilemap, u32 tilemap_w, u32 tilemap_h) {
 
+	/* adjust for the scroll */
+	x += xscroll;
+	y += yscroll;
+
+	/* convert from screen coordinates to tile coordinates */
+	x >>= 3;
+	y >>= 3;
+
+	y = 44 + y;
+
+	/* account for wraparound */
+	while (x >= tilemap_w) {
+		x -= tilemap_w;
+	}
+	while (y >= tilemap_h) {
+		y -= tilemap_h;
+	}
+	while (x < 0) {
+		x += tilemap_w;
+	}
+	while (y < 0) {
+		y += tilemap_h;
+	}
+
+	/* lookup this tile from the map */
+	s32 index = y * tilemap_w + x;
+
+	/* return the tile */
+	return tilemap[index];
+}
 void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 {
-	iVelocityY = fixAdder(iVelocityY, 30);
+
+	last_ix = ix;
+	last_iy = iy;
+	
+	ix = fixAdder(ix, iVelocityX);
+
+	
 
 	u32 ax = (fix2inter(ix)) >> 3;
 	u32 ay = (fix2inter(iy)) >> 3;
-	ay = 44 + ay;
 
-	iMapOffset = iMapOffset >> 3;
 
-	//Collision Points to test
-	u16 BottomLeft = bgCollision[(((ay + 2) * 424) + ax + iMapOffset)];
-	u16 BottomRight = bgCollision[(((ay + 2) * 424) + ax + 2 + iMapOffset)];
-	u16 TopLeft = bgCollision[(((ay) * 424) + ax + iMapOffset)];
-	u16 TopRight = bgCollision[(((ay) * 424) + ax + 2 + iMapOffset)];
-
-	
-	if (iVelocityX > 0 && (TopRight > 0))
+	u16 tile = tile_lookup((ix >> 8), (iy >> 8), iMapOffset,
+	0, bgCollision, 424, 64);
+	iVelocityY = fixAdder(iVelocityY, 32);
+	if (tile > 0)
 	{
-		iVelocityX = -32;
-	}
-
-	if (iVelocityY < 0 && ((TopLeft > 0 || TopRight > 0)))
-	{
-		iVelocityY = 8;
-	}
-
-	if (BottomLeft > 0 || BottomRight > 0)
-	{
+		
 		iVelocityY = 0;
-		bOnGround = true;
-		if (bJump)
-		{
-			iVelocityY = -1024;
-		}
+		iy &= ~0x7ff;
+
+		
 	}
-	else
+	
+	
+	
+	iy = fixAdder(iy, iVelocityY);
+	/*if (iVelocityY < 0 && ((TopLeft > 0 || TopRight > 0)))
 	{
-		bOnGround = false;
-	}
-	bJump = false;
+		iy = last_iy;
+		iVelocityY = 8;
+	}*/
+
+	//if (BottomLeft > 0 || BottomRight > 0)
+	//{
+	//	//iVelocityY = -31;
+	//	iy = last_iy;
+	//	bOnGround = true;
+	//	if (bJump)
+	//	{
+	//		iVelocityY = -1024;
+	//	}
+	//}
+
+	//else
+	//{
+	//	bOnGround = false;
+	//	iVelocityY = fixAdder(iVelocityY, 32);
+	//	iy = fixAdder(iy, iVelocityY);
+	//	
+	//}
+	//bJump = false;
 
 	//iVelocityY = fixAdder(ix, int2fixer(test));
 
-	ix = fixAdder(ix, iVelocityX);
-	iy = fixAdder(iy, iVelocityY);
+	
 	a_SpriteManager.MoveSprite(fix2inter(ix), fix2inter(iy), iSpriteID);
 	if (iVelocityX >= 32)
 	{
