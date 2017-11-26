@@ -13,6 +13,8 @@ public:
 
 	s32 iSpriteID;
 
+	s32 iFrame = 0;
+
 	s32 iMapOffset = 0;
 
 	bool bJump = false;

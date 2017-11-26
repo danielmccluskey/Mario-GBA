@@ -61,9 +61,11 @@ void SpriteManager::SetVFlip(bool a_bFlip, s32 a_SpriteID)
 		SpriteArray[a_SpriteID]->attr1 &= 0xdfff;
 	}
 }
-void SpriteManager::HideSprite()
+void SpriteManager::SetFrame(s32 a_iframe, s32 a_iSpriteID)
 {
 
+	SpriteArray[a_iSpriteID]->attr2 &= 0xfc00;
+	SpriteArray[a_iSpriteID]->attr2 |= (a_iframe & 0x03ff);
 }
 void SpriteManager::MoveSprite(s16 a_ix, s16 a_iy, s32 a_SpriteID)
 {
@@ -93,6 +95,15 @@ u16 SpriteManager::setSpriteAttr1(u16 a_x, u8 a_affine, u8 a_horiFlip, u8 a_vert
 		((a_size & 0x1) << 14);
 	return attrib1;
 }
+u16 SpriteManager::setSpriteAttr2(u32 a_tileId, u32 a_palBank, u32 a_priority)
+{
+	u16 attrib2 = (((a_tileId) & 0x3FF) |
+		(((a_palBank) & 15) << 12) |
+		(((a_priority) & 3) << 10));
+	return attrib2;
+}
+
+
 
 void SpriteManager::UpdateSprites()
 {

@@ -19,11 +19,13 @@ public:
 	void ShowSprite();
 	void SetHFlip(bool a_bFlip, s32 a_SpriteID);
 	void SetVFlip(bool a_bFlip, s32 a_SpriteID);
+	void SetFrame(s32 a_iframe, s32 a_iSpriteID);
 	void MoveSprite(s16 a_ix, s16 a_iy, s32 a_SpriteID);
 	void UpdateSprites();
 	void TranslateSprite(s32 a_ix, s32 a_iy, s32 a_SpriteID);
 	u16 setSpriteAttr0(u16 a_y, u8 a_objectMode, u8 a_gfxMode, u8 a_mosaic, u8 a_colormode, u8 a_shape);
 	u16 setSpriteAttr1(u16 a_x, u8 a_affine, u8 a_horiFlip, u8 a_vertFlip, u8 a_size);
+	u16 setSpriteAttr2(u32 a_tileId, u32 a_palBank, u32 a_priority);
 
 };
 

@@ -27,7 +27,7 @@ fixed	int2fixer(s32 a_i)
 void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
 {
 	iSpriteID = a_SpriteManager.SpriteIndex;
-	a_SpriteManager.CreateSprite((u16*)marTiles, (u16*)marPal, 256, 24, 4);
+	a_SpriteManager.CreateSprite((u16*)marTiles, (u16*)marPal, 512, 24, 4);
 	a_SpriteManager.MoveSprite(0, 120, 0);
 
 	iVelocityX = 0;
@@ -91,7 +91,7 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 	last_ix = ix;
 	last_iy = iy;
 	
-	ix = fixAdder(ix, iVelocityX);
+	
 
 	
 
@@ -99,50 +99,70 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 	u32 ay = (fix2inter(iy)) >> 3;
 
 
-	u16 tile = tile_lookup((ix >> 8), (iy >> 8), iMapOffset,
+	u16 TopLeft = tile_lookup((ix >> 8), (iy >> 8), iMapOffset,
 	0, bgCollision, 424, 64);
-	iVelocityY = fixAdder(iVelocityY, 32);
-	if (tile > 0)
+	u16 BottomLeft = tile_lookup((ix >> 8), (iy >> 8)+16, iMapOffset,
+		0, bgCollision, 424, 64);
+	u16 TopRight = tile_lookup((ix >> 8)+16, (iy >> 8), iMapOffset,
+		0, bgCollision, 424, 64);
+	u16 BottomRight = tile_lookup((ix >> 8)+16, (iy >> 8)+16, iMapOffset,
+		0, bgCollision, 424, 64);
+	
+	
+	/*if (iVelocityX > 0 && ((TopRight > 0 || BottomRight > 0)))
 	{
-		
-		iVelocityY = 0;
-		iy &= ~0x7ff;
+		iVelocityX = -300;
+	}*/
 
+	a_SpriteManager.SetFrame(0, iSpriteID);
+
+	if (iVelocityX != 0)
+	{		
+		iFrame += 4;
+		if (iFrame >= 16)
+		{
+			iFrame = 0;
+		}
+		
 		
 	}
+
+	ix = fixAdder(ix, iVelocityX);
 	
-	
-	
-	iy = fixAdder(iy, iVelocityY);
-	/*if (iVelocityY < 0 && ((TopLeft > 0 || TopRight > 0)))
+	if (iVelocityY < 0 && ((TopLeft > 0 || TopRight > 0)))
 	{
 		iy = last_iy;
 		iVelocityY = 8;
-	}*/
+	}
 
-	//if (BottomLeft > 0 || BottomRight > 0)
-	//{
-	//	//iVelocityY = -31;
-	//	iy = last_iy;
-	//	bOnGround = true;
-	//	if (bJump)
-	//	{
-	//		iVelocityY = -1024;
-	//	}
-	//}
+	if (BottomLeft > 0 || BottomRight > 0)
+	{
+		//iVelocityY = -31;
+		iy &= ~0x7ff;
+		bOnGround = true;
+		if (bJump)
+		{
+			iFrame = 4;
+			iVelocityY = -1024;
+			iy = fixAdder(iy, iVelocityY);
+			
+		}
+		
+	}
 
-	//else
-	//{
-	//	bOnGround = false;
-	//	iVelocityY = fixAdder(iVelocityY, 32);
-	//	iy = fixAdder(iy, iVelocityY);
-	//	
-	//}
-	//bJump = false;
-
-	//iVelocityY = fixAdder(ix, int2fixer(test));
-
+	else
+	{
+		bOnGround = false;
+		iVelocityY = fixAdder(iVelocityY, 32);
+		iy = fixAdder(iy, iVelocityY);
+		
+	}
+	bJump = false;
 	
+	
+	//iVelocityY = fixAdder(ix, int2fixer(test));
+	//iy = fixAdder(iy, iVelocityY);
+	a_SpriteManager.SetFrame(iFrame, iSpriteID);
 	a_SpriteManager.MoveSprite(fix2inter(ix), fix2inter(iy), iSpriteID);
 	if (iVelocityX >= 32)
 	{

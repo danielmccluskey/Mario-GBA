@@ -56,6 +56,7 @@ int main()
 		if (keyDown(KEYS::UP))
 		{
 			MarioSprite.bJump = true;
+			Spritemanager.SpriteArray[MarioSprite.iSpriteID]->attr2 = SetAttrib2(4, 0, 0);
 		}
 		if (keyDown(KEYS::DOWN))
 		{			
