@@ -46,9 +46,6 @@
     <ClCompile Include="source\gba_drawing.c">
       <Filter>Source Files\GBA Reg</Filter>
     </ClCompile>
-    <ClCompile Include="source\gba_gfx.c">
-      <Filter>Source Files\GBA Reg</Filter>
-    </ClCompile>
     <ClCompile Include="source\gba_input.c">
       <Filter>Source Files\GBA Reg</Filter>
     </ClCompile>
@@ -72,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="include\BG_Collisions.h">
       <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gba_gfx.c">
+      <Filter>Source Files\GBA Reg</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

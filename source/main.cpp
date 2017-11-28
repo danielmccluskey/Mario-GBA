@@ -62,12 +62,12 @@ int main()
 		{			
 			MarioSprite.MoveMario(int2fix(0), int2fix(1), Spritemanager);			
 		}		
-		if (fix2int(MarioSprite.ix) <= 80 && Tilemanager.i_x >= 1 && keyDown(KEYS::LEFT))
+		if (fix2int(MarioSprite.ix) <= 40 && Tilemanager.i_x >= 1 && keyDown(KEYS::LEFT))
 		{
-			Tilemanager.i_x -= 2;
+			//Tilemanager.i_x -= 2;
 			MarioSprite.iVelocityX = int2fix(0);
-			Tilemanager.scroll_x-=2;
-			Tilemanager.left = true;
+			//Tilemanager.scroll_x-=2;
+			//Tilemanager.left = true;
 
 		}
 		if (fix2int(MarioSprite.ix) >= 160 && keyDown(KEYS::RIGHT) && Tilemanager.scroll_x <= 3392-248)// Tilemanager.i_x <= 424 - 31 &&

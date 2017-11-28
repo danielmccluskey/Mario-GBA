@@ -1,4 +1,4 @@
-particles.o: c:/Users/dmccl/Desktop/Week_7/source/particles.c \
- c:/Users/dmccl/Desktop/Week_7/include/Intellisense.h
+particles.o: c:/Users/s1600056/Downloads/Newfolder/source/particles.c \
+ c:/Users/s1600056/Downloads/Newfolder/include/Intellisense.h
 
-c:/Users/dmccl/Desktop/Week_7/include/Intellisense.h:
+c:/Users/s1600056/Downloads/Newfolder/include/Intellisense.h:

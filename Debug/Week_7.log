@@ -1,17 +1,9 @@
-﻿  DM_MarioManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/dmccl/Desktop/Mario/build/DM_MarioManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/dmccl/Desktop/Mario/include -I/c/devkitPro/libgba/include -I/c/Users/dmccl/Desktop/Mario/build -fno-rtti -fno-exceptions -c /c/Users/dmccl/Desktop/Mario/source/DM_MarioManager.cpp -o DM_MarioManager.o 
-  In file included from c:/Users/dmccl/Desktop/Mario/include/gba.h:11:0,
-                   from c:/Users/dmccl/Desktop/Mario/source/DM_MarioManager.cpp:3:
-  c:/Users/dmccl/Desktop/Mario/include/gba_mathUtil.h:12:12: warning: declaration of 's32 abs(s32)' conflicts with built-in declaration 'int abs(int)' [-Wbuiltin-declaration-mismatch]
-   extern s32 abs(s32 a_val);
-              ^~~
-  c:/Users/dmccl/Desktop/Mario/source/DM_MarioManager.cpp: In member function 'void MarioManager::UpdateMario(SpriteManager&)':
-  c:/Users/dmccl/Desktop/Mario/source/DM_MarioManager.cpp:98:6: warning: unused variable 'ax' [-Wunused-variable]
-    u32 ax = (fix2inter(ix)) >> 3;
-        ^~
-  c:/Users/dmccl/Desktop/Mario/source/DM_MarioManager.cpp:99:6: warning: unused variable 'ay' [-Wunused-variable]
-    u32 ay = (fix2inter(iy)) >> 3;
-        ^~
+﻿  main.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/s1600056/Downloads/Newfolder/build/main.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/s1600056/Downloads/Newfolder/include -I/c/devkitPro/libgba/include -I/c/Users/s1600056/Downloads/Newfolder/build -fno-rtti -fno-exceptions -c /c/Users/s1600056/Downloads/Newfolder/source/main.cpp -o main.o 
+  c:/Users/s1600056/Downloads/Newfolder/source/main.cpp: In function 'int main()':
+  c:/Users/s1600056/Downloads/Newfolder/source/main.cpp:40:6: warning: unused variable 'frame' [-Wunused-variable]
+    s32 frame = 0;
+        ^~~~~
   linking cartridge
-  built ... Mario.gba
+  built ... Newfolder.gba
   ROM fixed!
