@@ -6,7 +6,7 @@
 #include "maptest.h"
 #include "gba_reg.h"
 #include "gba_gfx.h"
-
+#include "rocket4bpp.h"
 #include <string.h>
 
 
@@ -82,6 +82,24 @@ void TileManager::SetPos(s32 a_ix, s32 a_iy)
 
 void TileManager::ScrollBackGround()
 {
+
+
+	switch (iframe)
+	{
+	case 0:
+		memcpy(&tile_mem[0][0], bgTilesA, 816 * 2);
+		break;
+	case 1:
+		memcpy(&tile_mem[0][0], bgTilesB, 816 * 2);
+		break;
+	case 2:
+		memcpy(&tile_mem[0][0], bgTilesC, 816 * 2);
+		iframe = 0;
+		break;
+
+	}
+
+	iframe++;
 	BG_HOFFSET0 = scroll_x;
 	BG_VOFFSET0 = scroll_y;
 	// Pixel coords

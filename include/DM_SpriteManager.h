@@ -11,9 +11,11 @@ public:
 	s32 testx = 0;
 	//SpriteInfo* SpriteInformation[128];
 	volatile ObjectAttribute* SpriteArray[128];
-
+	bool OccupiedSprite[128];
 	s32 SpriteIndex = 0;
-	void CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock);
+	u16 CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock);
+	void DeleteSprite(s32 a_iSpriteID);
+	void LoadTiles(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock);
 	void InitialiseArray();
 	void HideSprite();
 	void ShowSprite();

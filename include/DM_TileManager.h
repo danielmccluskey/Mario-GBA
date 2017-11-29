@@ -12,6 +12,8 @@ public:
 	s32 scroll_x = 0;
 	s32 scroll_y = 0;
 
+	s32 iframe = 0;
+
 	s32 i_x = 0, i_y = 0;
 	bool left = false;
 	bool right = false;

@@ -71,6 +71,8 @@
     <ClCompile Include="source\gba_input.c" />
     <ClCompile Include="source\gba_math.c" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Mario_Small.c" />
+    <ClCompile Include="source\Mario_Tall.c" />
     <ClCompile Include="source\particles.c" />
     <ClCompile Include="source\rocket4bpp.c" />
     <ClCompile Include="source\sinlut.c" />
@@ -92,6 +94,8 @@
     <ClInclude Include="include\Intellisense.h" />
     <ClInclude Include="include\maptest.h" />
     <ClInclude Include="include\Mario.h" />
+    <ClInclude Include="include\Mario_Small.h" />
+    <ClInclude Include="include\Mario_Tall.h" />
     <ClInclude Include="include\particles.h" />
     <ClInclude Include="include\rocket4bpp.h" />
     <ClInclude Include="include\sinlut.h" />

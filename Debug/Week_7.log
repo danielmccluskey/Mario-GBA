@@ -1,9 +1,11 @@
-﻿  main.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/s1600056/Downloads/Newfolder/build/main.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/s1600056/Downloads/Newfolder/include -I/c/devkitPro/libgba/include -I/c/Users/s1600056/Downloads/Newfolder/build -fno-rtti -fno-exceptions -c /c/Users/s1600056/Downloads/Newfolder/source/main.cpp -o main.o 
-  c:/Users/s1600056/Downloads/Newfolder/source/main.cpp: In function 'int main()':
-  c:/Users/s1600056/Downloads/Newfolder/source/main.cpp:40:6: warning: unused variable 'frame' [-Wunused-variable]
-    s32 frame = 0;
-        ^~~~~
+﻿  DM_SpriteManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/dmccl/Desktop/Mario/build/DM_SpriteManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/dmccl/Desktop/Mario/include -I/c/devkitPro/libgba/include -I/c/Users/dmccl/Desktop/Mario/build -fno-rtti -fno-exceptions -c /c/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp -o DM_SpriteManager.o 
+  c:/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp: In member function 'u16 SpriteManager::setSpriteAttr0(u16, u8, u8, u8, u8, u8)':
+  c:/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp:96:20: warning: suggest parentheses around arithmetic in operand of '|' [-Wparentheses]
+    u16 attrib0 = a_y & A0_YMASK |
+  c:/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp: In member function 'u16 SpriteManager::setSpriteAttr1(u16, u8, u8, u8, u8)':
+  c:/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp:106:20: warning: suggest parentheses around arithmetic in operand of '|' [-Wparentheses]
+    u16 attrib1 = a_x & A0_YMASK |
   linking cartridge
-  built ... Newfolder.gba
+  built ... Mario.gba
   ROM fixed!

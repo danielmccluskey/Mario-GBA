@@ -73,6 +73,12 @@
     <ClCompile Include="source\gba_gfx.c">
       <Filter>Source Files\GBA Reg</Filter>
     </ClCompile>
+    <ClCompile Include="source\Mario_Small.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mario_Tall.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\rocket4bpp.h">
@@ -130,6 +136,12 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TileLookUp.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mario_Small.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mario_Tall.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>

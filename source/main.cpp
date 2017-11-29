@@ -31,6 +31,9 @@ int main()
 	MarioManager MarioSprite;
 	MarioSprite.CreateMario(Spritemanager);
 	
+	MarioManager MarioSpriteaa;
+	MarioSpriteaa.CreateMario(Spritemanager);
+
 
 	TileManager Tilemanager;
 	
@@ -56,13 +59,13 @@ int main()
 		if (keyDown(KEYS::UP))
 		{
 			MarioSprite.bJump = true;
-			Spritemanager.SpriteArray[MarioSprite.iSpriteID]->attr2 = SetAttrib2(4, 0, 0);
 		}
 		if (keyDown(KEYS::DOWN))
 		{			
-			MarioSprite.MoveMario(int2fix(0), int2fix(1), Spritemanager);			
+			MarioSprite.MoveMario(int2fix(0), int2fix(1), Spritemanager);	
+			MarioSprite.TransformMario(1, Spritemanager);
 		}		
-		if (fix2int(MarioSprite.ix) <= 40 && Tilemanager.i_x >= 1 && keyDown(KEYS::LEFT))
+		if (fix2int(MarioSprite.ix) <= 4 && Tilemanager.i_x >= 1 && keyDown(KEYS::LEFT))
 		{
 			//Tilemanager.i_x -= 2;
 			MarioSprite.iVelocityX = int2fix(0);

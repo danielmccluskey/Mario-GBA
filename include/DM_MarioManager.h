@@ -14,6 +14,8 @@ public:
 	s32 iSpriteID;
 
 	s32 iFrame = 0;
+	s32 iSpriteHeight = 16;
+	s32 iSpriteWidth = 16;
 
 	s32 iMapOffset = 0;
 
@@ -29,6 +31,7 @@ public:
 	void CreateMario(SpriteManager& a_SpriteManager);
 	void MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
 	void UpdateMario(SpriteManager& a_SpriteManager);
+	void TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager);
 
 };
 

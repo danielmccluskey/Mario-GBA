@@ -1,16 +1,34 @@
 #include "DM_MarioManager.h"
-#include "Mario.h"
+#include "Mario_Small.h"
+#include "Mario_Tall.h"
 #include "gba.h"
 #include "BG_Collisions.h"
 #include "gba_math.h"
 
+enum MARIOTYPES
+{
+	NORMAL,
+	TALL,
+	FIRE
+};
 
+enum MarioFrames
+{
+	STAND,
+	WALK1,
+	WALK2,
+	WALK3,
+	WALK4,
+	JUMP,
+	DEATH,
+	SWIM1
+};
 
 void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
 {
 	iSpriteID = a_SpriteManager.SpriteIndex;
-	a_SpriteManager.CreateSprite((u16*)marTiles, (u16*)marPal, 512, 24, 4);
-	a_SpriteManager.MoveSprite(0, 120, 0);
+	a_SpriteManager.CreateSprite((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*3, 4);
+	a_SpriteManager.MoveSprite(0, 120, iSpriteID);
 
 	iVelocityX = 0;
 	iVelocityY = 0;
@@ -20,6 +38,38 @@ void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
 
 	ix = 0;
 	iy = 120;
+}
+
+void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager)
+{
+	switch (a_iMarioType)
+	{
+	case NORMAL:
+	{
+		iSpriteHeight = 16;
+		a_SpriteManager.LoadTiles((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen * 3, 4);
+		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_SQUARE);
+
+		break;
+	}
+	case TALL:
+	{
+		iSpriteHeight = 32;
+		a_SpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 3, 4);
+		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
+		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(0, 1, 0, 0, A1_SIZE_2);
+		break;
+	}
+	case FIRE:
+	{
+		break;
+	}
+
+
+
+
+	}
+
 }
 
 void MarioManager::MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager)
@@ -35,9 +85,8 @@ void MarioManager::MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager)
 	}
 }
 u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,
-	const unsigned short* tilemap, u32 tilemap_w, u32 tilemap_h) {
+	u16* tilemap, u32 tilemap_w, u32 tilemap_h) {
 
-	/* adjust for the scroll */
 	x += xscroll;
 	y += yscroll;
 
@@ -70,32 +119,26 @@ u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,
 
 void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 {
+	s32 iTileX = ix >> 8;
+	s32 iTileY = iy >> 8;
 
-	last_ix = ix;
-	last_iy = iy;
+	u16 TopLeft = tile_lookup(iTileX, iTileY, iMapOffset,
+	44*8, (u16*)bgCollision, 424, 64);
+	u16 BottomLeft = tile_lookup(iTileX, iTileY +iSpriteHeight, iMapOffset,
+		44*8, (u16*)bgCollision, 424, 64);
+	u16 TopRight = tile_lookup(iTileX +iSpriteWidth, iTileY, iMapOffset,
+		44*8, (u16*)bgCollision, 424, 64);
+	u16 BottomRight = tile_lookup(iTileX +iSpriteWidth, iTileY +iSpriteHeight, iMapOffset,
+		44*8, (u16*)bgCollision, 424, 64);
+
+	u16 AlmostBotRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight-2, iMapOffset,
+		44 * 8, (u16*)bgCollision, 424, 64);
 	
 	
-
-	
-
-	//u32 ax = (fix2inter(ix)) >> 3;
-	//u32 ay = (fix2inter(iy)) >> 3;
-
-
-	u16 TopLeft = tile_lookup((ix >> 8), (iy >> 8), iMapOffset,
-	44*8, bgCollision, 424, 64);
-	u16 BottomLeft = tile_lookup((ix >> 8), (iy >> 8)+16, iMapOffset,
-		44*8, bgCollision, 424, 64);
-	u16 TopRight = tile_lookup((ix >> 8)+16, (iy >> 8), iMapOffset,
-		44*8, bgCollision, 424, 64);
-	u16 BottomRight = tile_lookup((ix >> 8)+16, (iy >> 8)+16, iMapOffset,
-		44*8, bgCollision, 424, 64);
-	
-	
-	/*if (iVelocityX > 0 && ((TopRight > 0 || BottomRight > 0)))
+	if (iVelocityX > 0 && ((TopRight > 0 || AlmostBotRight > 0)))
 	{
-		iVelocityX = -300;
-	}*/
+		iVelocityX = 0;
+	}
 
 	a_SpriteManager.SetFrame(0, iSpriteID);
 
@@ -114,7 +157,6 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 	
 	if (iVelocityY < 0 && ((TopLeft > 0 || TopRight > 0)))
 	{
-		iy = last_iy;
 		iVelocityY = 8;
 	}
 

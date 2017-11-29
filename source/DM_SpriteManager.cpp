@@ -4,26 +4,50 @@
 #include "gba_gfx.h"
 
 
-void SpriteManager::CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock)
+u16 SpriteManager::CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock)
 {
-	memcpy(pal_sp_mem, a_Palette, a_PaletteSize);
-	memcpy(&tile_mem[a_TileBlock][0], a_Tiles, a_TileSize);
+	
+	
+	SpriteIndex = 256;
+	for (int i = 0; i < 128; i++)
+	{
+		if (OccupiedSprite[i] == false)
+		{
+			OccupiedSprite[i] = true;
+			SpriteIndex = i;
+			break;
+		}
+	}
+	if (SpriteIndex == 256)
+	{
+		return;
+	}
 
-
+	LoadTiles((u16*)a_Tiles, (u16*)a_Palette, a_TileSize, a_PaletteSize *2, SpriteIndex+4);
 	//SpriteInformation[SpriteIndex]->i_x = 50;
 	//SpriteInformation[SpriteIndex]->i_y = 50;
 
 
-	SpriteArray[SpriteIndex] = &MEM_OAM[0];
+	SpriteArray[SpriteIndex] = &MEM_OAM[SpriteIndex];
 
-	SpriteArray[SpriteIndex]->attr0 = setSpriteAttr0(0, 0, 0, 0, A0_4BPP, A0_SQUARE);
-	SpriteArray[SpriteIndex]->attr1 = setSpriteAttr1(0, 0, 0, 0, 1);
+	SpriteArray[SpriteIndex]->attr0 = setSpriteAttr0(0, 0, 0, 0, A0_4BPP, A0_TALL);
+	SpriteArray[SpriteIndex]->attr1 = setSpriteAttr1(0, 0, 0, 0, A1_SIZE_2);
 	SpriteArray[SpriteIndex]->attr2 = 0;
 
 
 
-	SpriteIndex++;
+	return SpriteIndex;
+}
 
+void SpriteManager::DeleteSprite(s32 a_iSpriteID)
+{
+	OccupiedSprite[a_iSpriteID] = false;
+}
+
+void SpriteManager::LoadTiles(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock)
+{
+	memcpy(pal_sp_mem, a_Palette, a_PaletteSize);
+	memcpy(&tile_mem[a_TileBlock][0], a_Tiles, a_TileSize);
 }
 
 void SpriteManager::InitialiseArray()
@@ -92,7 +116,7 @@ u16 SpriteManager::setSpriteAttr1(u16 a_x, u8 a_affine, u8 a_horiFlip, u8 a_vert
 		((a_affine & 0x3) << 9) |
 		((a_horiFlip & 0x3) << 12) |
 		((a_vertFlip & 0x1) << 13) |
-		((a_size & 0x1) << 14);
+		((a_size & 0x3) << 14);
 	return attrib1;
 }
 u16 SpriteManager::setSpriteAttr2(u32 a_tileId, u32 a_palBank, u32 a_priority)
