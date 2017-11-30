@@ -14,6 +14,9 @@ public:
 	s32 iSpriteID;
 
 	s32 iFrame = 0;
+	s32 iFrameSize = 4;
+	s32 iAnimationDelay = 20;
+
 	s32 iSpriteHeight = 16;
 	s32 iSpriteWidth = 16;
 

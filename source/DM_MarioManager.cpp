@@ -4,6 +4,7 @@
 #include "gba.h"
 #include "BG_Collisions.h"
 #include "gba_math.h"
+#include "DM_ParticleManager.h"
 
 enum MARIOTYPES
 {
@@ -38,6 +39,10 @@ void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
 
 	ix = 0;
 	iy = 120;
+
+	ParticleManager particleee;
+	particleee.InitArray(a_SpriteManager);
+	particleee.DeleteArray(a_SpriteManager);
 }
 
 void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager)
@@ -133,9 +138,14 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 
 	u16 AlmostBotRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight-2, iMapOffset,
 		44 * 8, (u16*)bgCollision, 424, 64);
-	
+	u16 AlmostBotLeft = tile_lookup(iTileX, iTileY + iSpriteHeight - 2, iMapOffset,
+		44 * 8, (u16*)bgCollision, 424, 64);
 	
 	if (iVelocityX > 0 && ((TopRight > 0 || AlmostBotRight > 0)))
+	{
+		iVelocityX = 0;
+	}
+	if (iVelocityX < 0 && ((TopLeft > 0 || AlmostBotLeft > 0)))
 	{
 		iVelocityX = 0;
 	}

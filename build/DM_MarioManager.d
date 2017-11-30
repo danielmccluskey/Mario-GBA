@@ -14,7 +14,8 @@ DM_MarioManager.o: \
  c:/Users/dmccl/Desktop/Mario/include/gba_mathUtil.h \
  c:/Users/dmccl/Desktop/Mario/include/gba_drawing.h \
  c:/Users/dmccl/Desktop/Mario/include/BG_Collisions.h \
- c:/Users/dmccl/Desktop/Mario/include/gba_math.h
+ c:/Users/dmccl/Desktop/Mario/include/gba_math.h \
+ c:/Users/dmccl/Desktop/Mario/include/DM_ParticleManager.h
 
 c:/Users/dmccl/Desktop/Mario/include/DM_MarioManager.h:
 
@@ -45,3 +46,5 @@ c:/Users/dmccl/Desktop/Mario/include/gba_drawing.h:
 c:/Users/dmccl/Desktop/Mario/include/BG_Collisions.h:
 
 c:/Users/dmccl/Desktop/Mario/include/gba_math.h:
+
+c:/Users/dmccl/Desktop/Mario/include/DM_ParticleManager.h:

@@ -20,18 +20,18 @@ u16 SpriteManager::CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s3
 	}
 	if (SpriteIndex == 256)
 	{
-		return;
+		return 255;
 	}
 
-	LoadTiles((u16*)a_Tiles, (u16*)a_Palette, a_TileSize, a_PaletteSize *2, SpriteIndex+4);
+	LoadTiles((u16*)a_Tiles, (u16*)a_Palette, a_TileSize, a_PaletteSize *2, a_TileBlock );
 	//SpriteInformation[SpriteIndex]->i_x = 50;
 	//SpriteInformation[SpriteIndex]->i_y = 50;
 
 
 	SpriteArray[SpriteIndex] = &MEM_OAM[SpriteIndex];
 
-	SpriteArray[SpriteIndex]->attr0 = setSpriteAttr0(0, 0, 0, 0, A0_4BPP, A0_TALL);
-	SpriteArray[SpriteIndex]->attr1 = setSpriteAttr1(0, 0, 0, 0, A1_SIZE_2);
+	SpriteArray[SpriteIndex]->attr0 = setSpriteAttr0(0, 0, 0, 0, A0_4BPP, A0_SQUARE);
+	SpriteArray[SpriteIndex]->attr1 = setSpriteAttr1(0, 0, 0, 0, A1_SIZE_1);
 	SpriteArray[SpriteIndex]->attr2 = 0;
 
 
@@ -42,6 +42,7 @@ u16 SpriteManager::CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s3
 void SpriteManager::DeleteSprite(s32 a_iSpriteID)
 {
 	OccupiedSprite[a_iSpriteID] = false;
+	SpriteArray[a_iSpriteID]->attr0 = setSpriteAttr0(0, 2, 0, 0, A0_4BPP, A0_SQUARE);
 }
 
 void SpriteManager::LoadTiles(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock)

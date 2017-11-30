@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\BG_Collisions.h" />
+    <ClCompile Include="source\DM_AIManager.cpp" />
     <ClCompile Include="source\DM_MarioManager.cpp" />
     <ClCompile Include="source\DM_SpriteManager.cpp" />
     <ClCompile Include="source\DM_TileManager.cpp" />
@@ -79,7 +80,9 @@
     <ClCompile Include="source\TileLookUp.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\DM_AIManager.h" />
     <ClInclude Include="include\DM_MarioManager.h" />
+    <ClInclude Include="include\DM_ParticleManager.h" />
     <ClInclude Include="include\DM_SpriteManager.h" />
     <ClInclude Include="include\DM_SpritesStruct.h" />
     <ClInclude Include="include\DM_TileManager.h" />
@@ -100,6 +103,7 @@
     <ClInclude Include="include\rocket4bpp.h" />
     <ClInclude Include="include\sinlut.h" />
     <ClInclude Include="include\TileLookUp.h" />
+    <ClInclude Include="source\DM_ParticleManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Makefile">

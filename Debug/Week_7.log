@@ -1,11 +1,17 @@
-﻿  DM_SpriteManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/dmccl/Desktop/Mario/build/DM_SpriteManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/dmccl/Desktop/Mario/include -I/c/devkitPro/libgba/include -I/c/Users/dmccl/Desktop/Mario/build -fno-rtti -fno-exceptions -c /c/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp -o DM_SpriteManager.o 
-  c:/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp: In member function 'u16 SpriteManager::setSpriteAttr0(u16, u8, u8, u8, u8, u8)':
-  c:/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp:96:20: warning: suggest parentheses around arithmetic in operand of '|' [-Wparentheses]
-    u16 attrib0 = a_y & A0_YMASK |
-  c:/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp: In member function 'u16 SpriteManager::setSpriteAttr1(u16, u8, u8, u8, u8)':
-  c:/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp:106:20: warning: suggest parentheses around arithmetic in operand of '|' [-Wparentheses]
-    u16 attrib1 = a_x & A0_YMASK |
+﻿  DM_MarioManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/dmccl/Desktop/Mario/build/DM_MarioManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/dmccl/Desktop/Mario/include -I/c/devkitPro/libgba/include -I/c/Users/dmccl/Desktop/Mario/build -fno-rtti -fno-exceptions -c /c/Users/dmccl/Desktop/Mario/source/DM_MarioManager.cpp -o DM_MarioManager.o 
+  In file included from c:/Users/dmccl/Desktop/Mario/include/gba.h:11:0,
+                   from c:/Users/dmccl/Desktop/Mario/source/DM_MarioManager.cpp:4:
+  c:/Users/dmccl/Desktop/Mario/include/gba_mathUtil.h:12:12: warning: declaration of 's32 abs(s32)' conflicts with built-in declaration 'int abs(int)' [-Wbuiltin-declaration-mismatch]
+   extern s32 abs(s32 a_val);
+              ^~~
+  DM_ParticleManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/dmccl/Desktop/Mario/build/DM_ParticleManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/dmccl/Desktop/Mario/include -I/c/devkitPro/libgba/include -I/c/Users/dmccl/Desktop/Mario/build -fno-rtti -fno-exceptions -c /c/Users/dmccl/Desktop/Mario/source/DM_ParticleManager.cpp -o DM_ParticleManager.o 
+  In file included from c:/Users/dmccl/Desktop/Mario/include/gba.h:11:0,
+                   from c:/Users/dmccl/Desktop/Mario/source/DM_ParticleManager.cpp:1:
+  c:/Users/dmccl/Desktop/Mario/include/gba_mathUtil.h:12:12: warning: declaration of 's32 abs(s32)' conflicts with built-in declaration 'int abs(int)' [-Wbuiltin-declaration-mismatch]
+   extern s32 abs(s32 a_val);
+              ^~~
   linking cartridge
   built ... Mario.gba
   ROM fixed!
