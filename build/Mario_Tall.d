@@ -1,1 +1,1 @@
-Mario_Tall.o: c:/Users/s1600056/Downloads/ayyy/source/Mario_Tall.c
+Mario_Tall.o: c:/Users/dmccl/Desktop/Mario/source/Mario_Tall.c

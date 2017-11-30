@@ -7,6 +7,21 @@
 #include "gba_math.h"
 
 
+
+
+
+//temp defines for sprite palette banks and tile blocks
+
+#define MarioTileBlock 0
+#define ParticleTileBlock 128
+#define FireballTileBlock 140
+
+#define MarioPalb 0
+#define ParticlePalb 12
+#define FireballPalb 12
+
+
+
 //base address pointer for base register
 #define REG_DISPLAYCONTROL *((vu32*)(REG_BASE))
 
@@ -95,7 +110,10 @@ extern void setBG_Control_Register(u8 a_regNum, u8 a_priority, u8 a_tileBlockID,
 #define pal_sp_mem		((u16*)(MEM_PALETTE + 0x200))
 
 extern u16* palette_bg_block_address(u32 a_blockNum);
-extern u16* palette_sp_block_address(u32 a_blockNum);
+
+
+	
+
 //====================================================================================
 //defines and functionality for Sprites & OAM
 //====================================================================================
@@ -108,9 +126,14 @@ typedef TILE8 TILEBLOCK8[256];
 
 #define tile_mem ((TILEBLOCK*)0x06000000)
 #define tile8_mem ((TILEBLOCK8*)0x06000000)
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 extern u16* sprite_tile_block_address(u32 a_tile_number);
-
+extern u16* palette_sp_block_address(u32 a_blockNum);
+#ifdef __cplusplus
+}
+#endif
 #define ENABLE_OBJECTS 0x1000
 #define MAPPINGMODE_1D 0x0040
 

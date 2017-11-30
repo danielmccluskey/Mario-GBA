@@ -1,1 +1,1 @@
-Mario_Small.o: c:/Users/s1600056/Downloads/ayyy/source/Mario_Small.c
+Mario_Small.o: c:/Users/dmccl/Desktop/Mario/source/Mario_Small.c

@@ -4,7 +4,7 @@
 #include "gba_gfx.h"
 
 
-u16 SpriteManager::CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock)
+u16 SpriteManager::CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock, s32 a_PaletteBank)
 {
 	
 	
@@ -23,7 +23,7 @@ u16 SpriteManager::CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s3
 		return 255;
 	}
 
-	LoadTiles((u16*)a_Tiles, (u16*)a_Palette, a_TileSize, a_PaletteSize *2, a_TileBlock );
+	LoadTiles((u16*)a_Tiles, (u16*)a_Palette, a_TileSize, a_PaletteSize *2, a_TileBlock, a_PaletteBank);
 	//SpriteInformation[SpriteIndex]->i_x = 50;
 	//SpriteInformation[SpriteIndex]->i_y = 50;
 
@@ -32,7 +32,7 @@ u16 SpriteManager::CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s3
 
 	SpriteArray[SpriteIndex]->attr0 = setSpriteAttr0(0, 0, 0, 0, A0_4BPP, A0_SQUARE);
 	SpriteArray[SpriteIndex]->attr1 = setSpriteAttr1(0, 0, 0, 0, A1_SIZE_1);
-	SpriteArray[SpriteIndex]->attr2 = 0;
+	SpriteArray[SpriteIndex]->attr2 = setSpriteAttr2(a_TileBlock, a_PaletteBank, 0);
 
 
 
@@ -45,10 +45,10 @@ void SpriteManager::DeleteSprite(s32 a_iSpriteID)
 	SpriteArray[a_iSpriteID]->attr0 = setSpriteAttr0(0, 2, 0, 0, A0_4BPP, A0_SQUARE);
 }
 
-void SpriteManager::LoadTiles(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock)
+void SpriteManager::LoadTiles(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock, s32 a_PaletteBank)
 {
-	memcpy(pal_sp_mem, a_Palette, a_PaletteSize);
-	memcpy(&tile_mem[a_TileBlock][0], a_Tiles, a_TileSize);
+	memcpy(palette_sp_block_address(a_PaletteBank), a_Palette, a_PaletteSize);
+	memcpy(sprite_tile_block_address(a_TileBlock), a_Tiles, a_TileSize);
 }
 
 void SpriteManager::InitialiseArray()
@@ -61,6 +61,17 @@ void SpriteManager::InitialiseArray()
 		SpriteArray[i]->attr1 = setSpriteAttr1(0, 0, 0, 0, 1);
 		SpriteArray[i]->attr2 = 0;
 	}
+}
+
+void SpriteManager::HideSprite(s32 a_SpriteID)
+{
+	SpriteArray[a_SpriteID]->attr0 = (SpriteArray[a_SpriteID]->attr0 & A0_MODE_MASK) | (A0_MODE_HIDE << 8);
+}
+
+//! Unhide an object.
+void SpriteManager::ShowSprite(s32 a_SpriteID)
+{
+	SpriteArray[a_SpriteID]->attr0 = (SpriteArray[a_SpriteID]->attr0 & A0_MODE_MASK) | ((0 & 0x3) << 8);
 }
 
 

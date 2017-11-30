@@ -1,4 +1,4 @@
-particles.o: c:/Users/s1600056/Downloads/ayyy/source/particles.c \
- c:/Users/s1600056/Downloads/ayyy/include/Intellisense.h
+particles.o: c:/Users/dmccl/Desktop/Mario/source/particles.c \
+ c:/Users/dmccl/Desktop/Mario/include/Intellisense.h
 
-c:/Users/s1600056/Downloads/ayyy/include/Intellisense.h:
+c:/Users/dmccl/Desktop/Mario/include/Intellisense.h:

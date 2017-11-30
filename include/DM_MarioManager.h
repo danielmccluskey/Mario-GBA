@@ -13,6 +13,7 @@ struct Fireball
 	fixed fvx, fvy;
 	u16 iSpriteID;
 	u16 iLifeTime = 255;
+	bool bActive = false;
 
 };
 
@@ -43,12 +44,13 @@ public:
 	fixed iMaxVelocityY;
 
 	ParticleManager particleee;
-	Fireball sfire;
+	Fireball sfire[5];
 
 	void CreateMario(SpriteManager& a_SpriteManager);
 	void MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
 	void UpdateMario(SpriteManager& a_SpriteManager);
 	void TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager);
+	void UpdateFireBall(SpriteManager& a_SpriteManager);
 	void ShootFireBall(SpriteManager& a_SpriteManager);
 	void InitFireBall(SpriteManager& a_SpriteManager);
 

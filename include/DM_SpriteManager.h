@@ -13,12 +13,12 @@ public:
 	volatile ObjectAttribute* SpriteArray[128];
 	bool OccupiedSprite[128];
 	s32 SpriteIndex = 0;
-	u16 CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock);
+	u16 CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock, s32 a_PaletteBank);
 	void DeleteSprite(s32 a_iSpriteID);
-	void LoadTiles(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock);
+	void LoadTiles(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s32 a_PaletteSize, s32 a_TileBlock, s32 a_PaletteBank);
 	void InitialiseArray();
-	void HideSprite();
-	void ShowSprite();
+	void HideSprite(s32 a_SpriteID);
+	void ShowSprite(s32 a_SpriteID);
 	void SetHFlip(bool a_bFlip, s32 a_SpriteID);
 	void SetVFlip(bool a_bFlip, s32 a_SpriteID);
 	void SetFrame(s32 a_iframe, s32 a_iSpriteID);

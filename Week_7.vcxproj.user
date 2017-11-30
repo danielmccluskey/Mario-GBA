@@ -2,7 +2,7 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerCommand>C:\NO$GBADebugger\NO$GBA.EXE</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>C:\Users\s1600056\Downloads\ayyy\ayyy.gba</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>C:\Users\dmccl\Desktop\Mario\Mario.gba</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

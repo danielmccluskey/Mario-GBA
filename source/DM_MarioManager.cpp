@@ -1,10 +1,10 @@
 #include "DM_MarioManager.h"
 #include "Mario_Small.h"
 #include "Mario_Tall.h"
+#include "particles.h"
 #include "gba.h"
 #include "BG_Collisions.h"
 #include "gba_math.h"
-
 
 enum MARIOTYPES
 {
@@ -27,7 +27,7 @@ enum MarioFrames
 
 void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
 {
-	iSpriteID=	a_SpriteManager.CreateSprite((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*3, 4);
+	iSpriteID=	a_SpriteManager.CreateSprite((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*3, MarioTileBlock, MarioPalb);
 	a_SpriteManager.MoveSprite(0, 120, iSpriteID);
 
 	iVelocityX = 0;
@@ -53,7 +53,7 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManag
 	{
 		iSpriteHeight = 16;
 		iFrameSize = 4;
-		a_SpriteManager.LoadTiles((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen * 3, 4);
+		a_SpriteManager.LoadTiles((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen * 3, MarioTileBlock, MarioPalb);
 		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_SQUARE);
 
 		break;
@@ -62,7 +62,7 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManag
 	{
 		iSpriteHeight = 32;
 		iFrameSize = 8;
-		a_SpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 3, 4);
+		a_SpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 3, MarioTileBlock, MarioPalb);
 		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
 		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(0, 1, 0, 0, A1_SIZE_2);
 		break;
@@ -215,22 +215,74 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 	particleee.SetEmitterPos(ix, iy+iSpriteHeight);
 	particleee.UpdateParticleArray(a_SpriteManager);
 
-
+	UpdateFireBall(a_SpriteManager);
 
 
 }
+void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
+{
+	for (int i = 0; i < 5; i++)
+	{
+		if (sfire[i].bActive)
+		{
+			s32 iTileXA = (sfire[i].fx >> 8);
+			s32 iTileYA = (sfire[i].fy >> 8);
+			u16 Bottom = tile_lookup(iTileXA + 4, iTileYA + 8, iMapOffset,
+				44 * 8, (u16*)bgCollision, 424, 64);
+			u16 Right = tile_lookup(iTileXA + 8, iTileYA + 4, iMapOffset,
+				44 * 8, (u16*)bgCollision, 424, 64);
 
+			if (Bottom > 1)
+			{
+				sfire[i].fvy = -356;
+			}
+			sfire[i].fvy = fixAdd(sfire[i].fvy, 20);
+			sfire[i].fx = fixAdd(sfire[i].fx, sfire[i].fvx);
+			sfire[i].fy = fixAdd(sfire[i].fy, sfire[i].fvy);
+
+			a_SpriteManager.MoveSprite(fix2int(sfire[i].fx), fix2int(sfire[i].fy), sfire[i].iSpriteID);
+
+			if (fix2int(sfire[i].fx) > SCREEN_W || Right > 1)
+			{
+				sfire[i].bActive = false;
+				a_SpriteManager.HideSprite(sfire[i].iSpriteID);
+			}
+
+		}
+	}
+	
+}
 
 void MarioManager::ShootFireBall(SpriteManager& a_SpriteManager)
 {
-	
+	for (int i = 0; i < 5; i++)
+	{
+		if (sfire[i].bActive == false)
+		{
+			sfire[i].fvx = int2fix(3);
+			sfire[i].fvy = int2fix(1);
+			sfire[i].fx = ix;
+			sfire[i].fy = iy;
+			sfire[i].bActive = true;
+			a_SpriteManager.ShowSprite(sfire[i].iSpriteID);
+			break;
+		}
+		
+	}
 }
 void MarioManager::InitFireBall(SpriteManager& a_SpriteManager)
 {
-	sfire.fx = ix;
-	sfire.fy = iy;
-	sfire.iSpriteID = a_SpriteManager.CreateSprite((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen * 3, 4);
-	a_SpriteManager.SpriteArray[sfire.iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(sfire.fy, 0, 0, 0, A0_4BPP, A0_SQUARE);
-	a_SpriteManager.SpriteArray[sfire.iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(sfire.fx, 0, 0, 0, A1_SIZE_0);
+
+	for (int i = 0; i < 5; i++)
+	{
+		sfire[i].fx = ix;
+		sfire[i].fy = iy;
+		sfire[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)particlesTiles, (u16*)particlesPal, particlesTilesLen, particlesPalLen * 3, ParticleTileBlock, ParticlePalb);
+		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(sfire[i].fy, 2, 0, 0, A0_4BPP, A0_SQUARE);
+		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(sfire[i].fx, 0, 0, 0, A1_SIZE_0);
+		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr2 = a_SpriteManager.setSpriteAttr2(FireballTileBlock, 0, 0);
+	}
+
+	
 }
 

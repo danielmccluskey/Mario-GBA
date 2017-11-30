@@ -70,3 +70,4 @@ s32 lu_cos(u32 theta)
 {
 	return sin_lut[((theta >> 7) + 128) & 0x1FF];
 }
+

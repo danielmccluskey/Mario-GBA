@@ -59,7 +59,7 @@ int main()
 		{
 			MarioSprite.bJump = true;
 		}
-		if (keyDown(KEYS::DOWN))
+		if (keyHit(KEYS::DOWN))
 		{			
 			/*MarioSprite.MoveMario(int2fix(0), int2fix(1), Spritemanager);	
 			MarioSprite.TransformMario(1, Spritemanager);
