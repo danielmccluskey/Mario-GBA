@@ -19,7 +19,7 @@ class ParticleManager
 {
 public:
 	fixed fx, fy;
-
+	bool bActive = false;
 
 	~ParticleManager() {};
 	Particle sParticles[12];
@@ -29,6 +29,8 @@ public:
 	void UpdateParticle(Particle& a_p);
 	void InitArray(SpriteManager& a_SpriteManager);
 	void DeleteArray(SpriteManager& a_SpriteManager);
+	void UpdateParticleArray(SpriteManager& a_SpriteManager);
+	void SetEmitterPos(s32 a_ix, s32 a_iy);
 };
 
 

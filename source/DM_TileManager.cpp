@@ -84,7 +84,7 @@ void TileManager::ScrollBackGround()
 {
 
 
-	switch (iframe)
+	/*switch (iframe)
 	{
 	case 0:
 		memcpy(&tile_mem[0][0], bgTilesA, 816 * 2);
@@ -97,9 +97,9 @@ void TileManager::ScrollBackGround()
 		iframe = 0;
 		break;
 
-	}
+	}*/
 
-	iframe++;
+	//iframe++;
 	BG_HOFFSET0 = scroll_x;
 	BG_VOFFSET0 = scroll_y;
 	// Pixel coords

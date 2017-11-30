@@ -1,1 +1,1 @@
-sinlut.o: c:/Users/dmccl/Desktop/Mario/source/sinlut.c
+sinlut.o: c:/Users/s1600056/Downloads/ayyy/source/sinlut.c

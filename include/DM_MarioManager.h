@@ -4,6 +4,17 @@
 
 #include "gba_math.h"
 #include "DM_SpriteManager.h"
+#include "DM_ParticleManager.h"
+
+
+struct Fireball
+{
+	fixed fx, fy;
+	fixed fvx, fvy;
+	u16 iSpriteID;
+	u16 iLifeTime = 255;
+
+};
 
 class MarioManager
 {
@@ -31,10 +42,15 @@ public:
 	fixed iMaxVelocityX;
 	fixed iMaxVelocityY;
 
+	ParticleManager particleee;
+	Fireball sfire;
+
 	void CreateMario(SpriteManager& a_SpriteManager);
 	void MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
 	void UpdateMario(SpriteManager& a_SpriteManager);
 	void TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager);
+	void ShootFireBall(SpriteManager& a_SpriteManager);
+	void InitFireBall(SpriteManager& a_SpriteManager);
 
 };
 

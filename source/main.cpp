@@ -31,8 +31,6 @@ int main()
 	MarioManager MarioSprite;
 	MarioSprite.CreateMario(Spritemanager);
 	
-	MarioManager MarioSpriteaa;
-	MarioSpriteaa.CreateMario(Spritemanager);
 
 
 	TileManager Tilemanager;
@@ -44,6 +42,7 @@ int main()
 	while (1)
 	{
 		vsync();
+
 		PollKeys();
 		MarioSprite.iMapOffset = Tilemanager.i_x;
 		if (fix2int(MarioSprite.ix) > 40 && keyDown(KEYS::LEFT))
@@ -62,8 +61,10 @@ int main()
 		}
 		if (keyDown(KEYS::DOWN))
 		{			
-			MarioSprite.MoveMario(int2fix(0), int2fix(1), Spritemanager);	
+			/*MarioSprite.MoveMario(int2fix(0), int2fix(1), Spritemanager);	
 			MarioSprite.TransformMario(1, Spritemanager);
+			MarioSprite.iy -= 16;*/
+			MarioSprite.ShootFireBall(Spritemanager);
 		}		
 		if (fix2int(MarioSprite.ix) <= 4 && Tilemanager.i_x >= 1 && keyDown(KEYS::LEFT))
 		{
