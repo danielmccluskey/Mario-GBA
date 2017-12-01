@@ -1,55 +1,38 @@
-﻿  DM_MarioManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/dmccl/Desktop/Mario/build/DM_MarioManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/dmccl/Desktop/Mario/include -I/c/devkitPro/libgba/include -I/c/Users/dmccl/Desktop/Mario/build -fno-rtti -fno-exceptions -c /c/Users/dmccl/Desktop/Mario/source/DM_MarioManager.cpp -o DM_MarioManager.o 
-  In file included from c:/Users/dmccl/Desktop/Mario/include/gba.h:11:0,
-                   from c:/Users/dmccl/Desktop/Mario/source/DM_MarioManager.cpp:5:
-  c:/Users/dmccl/Desktop/Mario/include/gba_mathUtil.h:12:12: warning: declaration of 's32 abs(s32)' conflicts with built-in declaration 'int abs(int)' [-Wbuiltin-declaration-mismatch]
-   extern s32 abs(s32 a_val);
-              ^~~
-  DM_ParticleManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/dmccl/Desktop/Mario/build/DM_ParticleManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/dmccl/Desktop/Mario/include -I/c/devkitPro/libgba/include -I/c/Users/dmccl/Desktop/Mario/build -fno-rtti -fno-exceptions -c /c/Users/dmccl/Desktop/Mario/source/DM_ParticleManager.cpp -o DM_ParticleManager.o 
-  In file included from c:/Users/dmccl/Desktop/Mario/include/gba.h:11:0,
-                   from c:/Users/dmccl/Desktop/Mario/source/DM_ParticleManager.cpp:1:
-  c:/Users/dmccl/Desktop/Mario/include/gba_mathUtil.h:12:12: warning: declaration of 's32 abs(s32)' conflicts with built-in declaration 'int abs(int)' [-Wbuiltin-declaration-mismatch]
-   extern s32 abs(s32 a_val);
-              ^~~
-  DM_SpriteManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/dmccl/Desktop/Mario/build/DM_SpriteManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/dmccl/Desktop/Mario/include -I/c/devkitPro/libgba/include -I/c/Users/dmccl/Desktop/Mario/build -fno-rtti -fno-exceptions -c /c/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp -o DM_SpriteManager.o 
-  c:/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp: In member function 'u16 SpriteManager::setSpriteAttr0(u16, u8, u8, u8, u8, u8)':
-  c:/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp:117:20: warning: suggest parentheses around arithmetic in operand of '|' [-Wparentheses]
-    u16 attrib0 = a_y & A0_YMASK |
-  c:/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp: In member function 'u16 SpriteManager::setSpriteAttr1(u16, u8, u8, u8, u8)':
-  c:/Users/dmccl/Desktop/Mario/source/DM_SpriteManager.cpp:127:20: warning: suggest parentheses around arithmetic in operand of '|' [-Wparentheses]
-    u16 attrib1 = a_x & A0_YMASK |
-  DM_TileManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/dmccl/Desktop/Mario/build/DM_TileManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/dmccl/Desktop/Mario/include -I/c/devkitPro/libgba/include -I/c/Users/dmccl/Desktop/Mario/build -fno-rtti -fno-exceptions -c /c/Users/dmccl/Desktop/Mario/source/DM_TileManager.cpp -o DM_TileManager.o 
-  c:/Users/dmccl/Desktop/Mario/source/DM_TileManager.cpp:19:0: warning: "REG_BG_OFS" redefined
-   #define REG_BG_OFS      ((BG_POINT*)(REG_BASE+0x0010))
-   
-  In file included from c:/Users/dmccl/Desktop/Mario/source/DM_TileManager.cpp:8:0:
-  c:/Users/dmccl/Desktop/Mario/include/gba_gfx.h:80:0: note: this is the location of the previous definition
-   #define REG_BG_OFS  ((BackgroundOffsets*)(REG_BASE+0x0010))
-   
-  c:/Users/dmccl/Desktop/Mario/source/DM_TileManager.cpp: In member function 'void TileManager::ScrollBackGround()':
-  c:/Users/dmccl/Desktop/Mario/source/DM_TileManager.cpp:111:6: warning: unused variable 'tbx' [-Wunused-variable]
-    int tbx = bx >> 3, tby = by >> 3;
-        ^~~
-  c:/Users/dmccl/Desktop/Mario/source/DM_TileManager.cpp: In member function 'void TileManager::AddRow(s32, s32)':
-  c:/Users/dmccl/Desktop/Mario/source/DM_TileManager.cpp:149:37: warning: suggest parentheses around '+' in operand of '&' [-Wparentheses]
-     dstL = &ScreenBlocks[y0 * 32 + (tx+1 & 31)];
-                                     ~~^~
-  main.cpp
+﻿  main.cpp
   arm-none-eabi-g++ -MMD -MP -MF /c/Users/dmccl/Desktop/Mario/build/main.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/dmccl/Desktop/Mario/include -I/c/devkitPro/libgba/include -I/c/Users/dmccl/Desktop/Mario/build -fno-rtti -fno-exceptions -c /c/Users/dmccl/Desktop/Mario/source/main.cpp -o main.o 
+  In file included from c:/Users/dmccl/Desktop/Mario/source/main.cpp:8:0:
+  c:/Users/dmccl/Desktop/Mario/include/gba_sound.h:389:0: warning: "REG_FIFO_A" redefined
+   #define REG_FIFO_A   *(vu32*)(REG_BASE+0x00A0) //!< DSound A FIFO
+   
+  c:/Users/dmccl/Desktop/Mario/include/gba_sound.h:125:0: note: this is the location of the previous definition
+   #define REG_FIFO_A  (*((u32 volatile *) (REG_BASE + 0x0A0)))
+   
+  c:/Users/dmccl/Desktop/Mario/include/gba_sound.h:390:0: warning: "REG_FIFO_B" redefined
+   #define REG_FIFO_B   *(vu32*)(REG_BASE+0x00A4) //!< DSound B FIFO
+   
+  c:/Users/dmccl/Desktop/Mario/include/gba_sound.h:126:0: note: this is the location of the previous definition
+   #define REG_FIFO_B  (*((u32 volatile *) (REG_BASE + 0x0A4)))
+   
   In file included from c:/Users/dmccl/Desktop/Mario/include/gba.h:11:0,
                    from c:/Users/dmccl/Desktop/Mario/source/main.cpp:2:
   c:/Users/dmccl/Desktop/Mario/include/gba_mathUtil.h:12:12: warning: declaration of 's32 abs(s32)' conflicts with built-in declaration 'int abs(int)' [-Wbuiltin-declaration-mismatch]
    extern s32 abs(s32 a_val);
               ^~~
+  c:/Users/dmccl/Desktop/Mario/source/main.cpp: In function 'void delay(unsigned int)':
+  c:/Users/dmccl/Desktop/Mario/source/main.cpp:45:20: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (int i = 0; i < amount * 10; i++);
+                    ~~^~~~~~~~~~~~~
+  c:/Users/dmccl/Desktop/Mario/source/main.cpp: In function 'void sos()':
+  c:/Users/dmccl/Desktop/Mario/source/main.cpp:49:11: warning: unused variable 'lens' [-Wunused-variable]
+    const u8 lens[6] = { 1,1,4, 1,1,4 };
+             ^~~~
   c:/Users/dmccl/Desktop/Mario/source/main.cpp: In function 'int main()':
-  c:/Users/dmccl/Desktop/Mario/source/main.cpp:41:6: warning: unused variable 'frame' [-Wunused-variable]
+  c:/Users/dmccl/Desktop/Mario/source/main.cpp:79:6: warning: unused variable 'octave' [-Wunused-variable]
+    int octave = 0;
+        ^~~~~~
+  c:/Users/dmccl/Desktop/Mario/source/main.cpp:100:6: warning: unused variable 'frame' [-Wunused-variable]
     s32 frame = 0;
         ^~~~~
-  gba_gfx.c
-  arm-none-eabi-gcc -MMD -MP -MF /c/Users/dmccl/Desktop/Mario/build/gba_gfx.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/dmccl/Desktop/Mario/include -I/c/devkitPro/libgba/include -I/c/Users/dmccl/Desktop/Mario/build -c /c/Users/dmccl/Desktop/Mario/source/gba_gfx.c -o gba_gfx.o 
   linking cartridge
   built ... Mario.gba
   ROM fixed!

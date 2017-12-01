@@ -6,7 +6,6 @@
 #include "maptest.h"
 #include "gba_reg.h"
 #include "gba_gfx.h"
-#include "rocket4bpp.h"
 #include <string.h>
 
 

@@ -156,5 +156,8 @@
     <ClInclude Include="source\DM_ParticleManager.cpp">
       <Filter>Source Files\Game Controllers</Filter>
     </ClInclude>
+    <ClInclude Include="include\gba_sound.h">
+      <Filter>Header Files\GBA Reg</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

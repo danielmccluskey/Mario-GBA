@@ -211,7 +211,7 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 	}
 
 
-	particleee.bActive = true;
+	particleee.bActive = false;
 	particleee.SetEmitterPos(ix, iy+iSpriteHeight);
 	particleee.UpdateParticleArray(a_SpriteManager);
 
