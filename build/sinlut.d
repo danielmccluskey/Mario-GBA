@@ -1,1 +1,1 @@
-sinlut.o: c:/Users/dmccl/Desktop/Mario/source/sinlut.c
+sinlut.o: c:/Users/Betat/Documents/gba-mario/source/sinlut.c

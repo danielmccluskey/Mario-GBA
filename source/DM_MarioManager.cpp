@@ -91,11 +91,11 @@ void MarioManager::MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager)
 		iVelocityY = fixAdd(a_iy, iVelocityY);
 	}
 }
-u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,
+u16 MarioManager::tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,
 	u16* tilemap, u32 tilemap_w, u32 tilemap_h) {
 
 	x += xscroll;
-	y += yscroll;
+	y += yscroll *8;
 
 	/* convert from screen coordinates to tile coordinates */
 	x >>= 3;
@@ -124,39 +124,50 @@ u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,
 	return tilemap[index];
 }
 
-void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
+void MarioManager::CheckCollisions()
 {
-	s32 iTileTest = 1;
-
 	s32 iTileX = ix >> 8;
 	s32 iTileY = iy >> 8;
 
-	u16 TopLeft = tile_lookup(iTileX, iTileY, iMapOffset,
-	44*8, (u16*)bgCollision, 424, 64);
-	u16 BottomLeft = tile_lookup(iTileX, iTileY +iSpriteHeight, iMapOffset,
-		44*8, (u16*)bgCollision, 424, 64);
-	u16 TopRight = tile_lookup(iTileX +iSpriteWidth, iTileY, iMapOffset,
-		44*8, (u16*)bgCollision, 424, 64);
-	u16 BottomRight = tile_lookup(iTileX +iSpriteWidth, iTileY +iSpriteHeight, iMapOffset,
-		44*8, (u16*)bgCollision, 424, 64);
+	TopLeft = tile_lookup(iTileX, iTileY, iMapOffsetX,
+		iMapOffsetY, (u16*)bgCollision, 424, 64);
+	BottomLeft = tile_lookup(iTileX, iTileY + iSpriteHeight, iMapOffsetX,
+		iMapOffsetY, (u16*)bgCollision, 424, 64);
+	TopRight = tile_lookup(iTileX + iSpriteWidth, iTileY, iMapOffsetX,
+		iMapOffsetY, (u16*)bgCollision, 424, 64);
+	BottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, iMapOffsetX,
+		iMapOffsetY, (u16*)bgCollision, 424, 64);
 
-	u16 AlmostBotRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight-2, iMapOffset,
-		44 * 8, (u16*)bgCollision, 424, 64);
-	u16 AlmostBotLeft = tile_lookup(iTileX, iTileY + iSpriteHeight - 2, iMapOffset,
-		44 * 8, (u16*)bgCollision, 424, 64);
+	AlmostBotRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight - 2, iMapOffsetX,
+		iMapOffsetY, (u16*)bgCollision, 424, 64);
+	AlmostBotLeft = tile_lookup(iTileX, iTileY + iSpriteHeight - 2, iMapOffsetX,
+		iMapOffsetY, (u16*)bgCollision, 424, 64);
+
+
+
+}
+void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
+{
+	CheckCollisions();
+	s32 iTileTest = 0;
+
+	
+
+	
 	
 	if (iVelocityX > 0 && ((TopRight > iTileTest || AlmostBotRight > iTileTest)))
 	{
 		iVelocityX = 0;
+		ix -= 500;
 	}
 	if (iVelocityX < 0 && ((TopLeft > iTileTest || AlmostBotLeft > iTileTest)))
 	{
 		iVelocityX = 0;
 	}
 
-	a_SpriteManager.SetFrame(0, iSpriteID);
+	//a_SpriteManager.SetFrame(0, iSpriteID);
 
-	if (iVelocityX != 0)
+	if (iVelocityX != 0 || bMoving == true)
 	{		
 		iFrame += iFrameSize;
 		if (iFrame >= 4*iFrameSize)
@@ -164,8 +175,8 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 			iFrame = 0;
 		}
 		
-		
 	}
+
 
 	ix = fixAdd(ix, iVelocityX);
 	
@@ -181,7 +192,7 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 		bOnGround = true;
 		if (bJump)
 		{
-			iFrame = 4;
+			//iFrame = 4;
 			iVelocityY = -1024;
 			iy = fixAdd(iy, iVelocityY);			
 		}		
@@ -227,12 +238,12 @@ void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
 		{
 			s32 iTileXA = (sfire[i].fx >> 8);
 			s32 iTileYA = (sfire[i].fy >> 8);
-			u16 Bottom = tile_lookup(iTileXA + 4, iTileYA + 8, iMapOffset,
-				44 * 8, (u16*)bgCollision, 424, 64);
-			u16 Right = tile_lookup(iTileXA + 8, iTileYA + 4, iMapOffset,
-				44 * 8, (u16*)bgCollision, 424, 64);
+			u16 Bottom = tile_lookup(iTileXA + 4, iTileYA + 8, iMapOffsetX,
+				iMapOffsetY, (u16*)bgCollision, 424, 64);
+			u16 Right = tile_lookup(iTileXA + 8, iTileYA + 4, iMapOffsetX,
+				iMapOffsetY, (u16*)bgCollision, 424, 64);
 
-			if (Bottom > 1)
+			if (Bottom > 0)
 			{
 				sfire[i].fvy = -356;
 			}

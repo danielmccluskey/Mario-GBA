@@ -1,38 +1,50 @@
-﻿  main.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/dmccl/Desktop/Mario/build/main.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/dmccl/Desktop/Mario/include -I/c/devkitPro/libgba/include -I/c/Users/dmccl/Desktop/Mario/build -fno-rtti -fno-exceptions -c /c/Users/dmccl/Desktop/Mario/source/main.cpp -o main.o 
-  In file included from c:/Users/dmccl/Desktop/Mario/source/main.cpp:8:0:
-  c:/Users/dmccl/Desktop/Mario/include/gba_sound.h:389:0: warning: "REG_FIFO_A" redefined
+﻿  DM_AIManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_AIManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_AIManager.cpp -o DM_AIManager.o 
+  c:/Users/Betat/Documents/gba-mario/source/DM_AIManager.cpp: In member function 'void AIManager::UpdateEnemies(SpriteManager&, AIManager*)':
+  c:/Users/Betat/Documents/gba-mario/source/DM_AIManager.cpp:104:7: warning: unused variable 'BottomRight' [-Wunused-variable]
+      u8 BottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, a_EnemyArray[i].iMapOffsetX,
+         ^~~~~~~~~~~
+  main.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/main.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/main.cpp -o main.o 
+  In file included from c:/Users/Betat/Documents/gba-mario/source/main.cpp:8:0:
+  c:/Users/Betat/Documents/gba-mario/include/gba_sound.h:389:0: warning: "REG_FIFO_A" redefined
    #define REG_FIFO_A   *(vu32*)(REG_BASE+0x00A0) //!< DSound A FIFO
    
-  c:/Users/dmccl/Desktop/Mario/include/gba_sound.h:125:0: note: this is the location of the previous definition
+  c:/Users/Betat/Documents/gba-mario/include/gba_sound.h:125:0: note: this is the location of the previous definition
    #define REG_FIFO_A  (*((u32 volatile *) (REG_BASE + 0x0A0)))
    
-  c:/Users/dmccl/Desktop/Mario/include/gba_sound.h:390:0: warning: "REG_FIFO_B" redefined
+  c:/Users/Betat/Documents/gba-mario/include/gba_sound.h:390:0: warning: "REG_FIFO_B" redefined
    #define REG_FIFO_B   *(vu32*)(REG_BASE+0x00A4) //!< DSound B FIFO
    
-  c:/Users/dmccl/Desktop/Mario/include/gba_sound.h:126:0: note: this is the location of the previous definition
+  c:/Users/Betat/Documents/gba-mario/include/gba_sound.h:126:0: note: this is the location of the previous definition
    #define REG_FIFO_B  (*((u32 volatile *) (REG_BASE + 0x0A4)))
    
-  In file included from c:/Users/dmccl/Desktop/Mario/include/gba.h:11:0,
-                   from c:/Users/dmccl/Desktop/Mario/source/main.cpp:2:
-  c:/Users/dmccl/Desktop/Mario/include/gba_mathUtil.h:12:12: warning: declaration of 's32 abs(s32)' conflicts with built-in declaration 'int abs(int)' [-Wbuiltin-declaration-mismatch]
+  In file included from c:/Users/Betat/Documents/gba-mario/include/gba.h:11:0,
+                   from c:/Users/Betat/Documents/gba-mario/source/main.cpp:2:
+  c:/Users/Betat/Documents/gba-mario/include/gba_mathUtil.h:12:12: warning: declaration of 's32 abs(s32)' conflicts with built-in declaration 'int abs(int)' [-Wbuiltin-declaration-mismatch]
    extern s32 abs(s32 a_val);
               ^~~
-  c:/Users/dmccl/Desktop/Mario/source/main.cpp: In function 'void delay(unsigned int)':
-  c:/Users/dmccl/Desktop/Mario/source/main.cpp:45:20: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  c:/Users/Betat/Documents/gba-mario/source/main.cpp: In function 'void delay(unsigned int)':
+  c:/Users/Betat/Documents/gba-mario/source/main.cpp:47:20: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
     for (int i = 0; i < amount * 10; i++);
                     ~~^~~~~~~~~~~~~
-  c:/Users/dmccl/Desktop/Mario/source/main.cpp: In function 'void sos()':
-  c:/Users/dmccl/Desktop/Mario/source/main.cpp:49:11: warning: unused variable 'lens' [-Wunused-variable]
+  c:/Users/Betat/Documents/gba-mario/source/main.cpp: In function 'void sos()':
+  c:/Users/Betat/Documents/gba-mario/source/main.cpp:51:11: warning: unused variable 'lens' [-Wunused-variable]
     const u8 lens[6] = { 1,1,4, 1,1,4 };
              ^~~~
-  c:/Users/dmccl/Desktop/Mario/source/main.cpp: In function 'int main()':
-  c:/Users/dmccl/Desktop/Mario/source/main.cpp:79:6: warning: unused variable 'octave' [-Wunused-variable]
+  c:/Users/Betat/Documents/gba-mario/source/main.cpp: In function 'int main()':
+  c:/Users/Betat/Documents/gba-mario/source/main.cpp:147:51: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+     Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight);
+                                                     ^~~~~~~~~~~~~
+  c:/Users/Betat/Documents/gba-mario/source/main.cpp:147:85: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+     Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight);
+                                                                                       ^~~~~~~~~~~~~~
+  c:/Users/Betat/Documents/gba-mario/source/main.cpp:84:6: warning: unused variable 'octave' [-Wunused-variable]
     int octave = 0;
         ^~~~~~
-  c:/Users/dmccl/Desktop/Mario/source/main.cpp:100:6: warning: unused variable 'frame' [-Wunused-variable]
+  c:/Users/Betat/Documents/gba-mario/source/main.cpp:104:6: warning: unused variable 'frame' [-Wunused-variable]
     s32 frame = 0;
         ^~~~~
   linking cartridge
-  built ... Mario.gba
+  built ... gba-mario.gba
   ROM fixed!

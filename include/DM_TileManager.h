@@ -23,7 +23,7 @@ public:
 	void LoadTileMap();
 	void LoadImage();
 	void SetPos(s32 a_ix, s32 a_iy);
-	void ScrollBackGround();
+	void ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide);
 	void AddRow(s32 tx, s32 ty);
 	void AddCol(s32 tx, s32 ty);
 };

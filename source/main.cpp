@@ -7,6 +7,8 @@
 #include "DM_TileManager.h"
 #include "gba_sound.h"
 #include "rocket4bpp.h"
+#include "DM_AIManager.h"
+
 u32 __snd_rates[12];
 
 //a small function to set up the background control register with the input parameters passed through as u8's
@@ -74,6 +76,9 @@ int main()
 
 	MarioManager MarioSprite;
 	MarioSprite.CreateMario(Spritemanager);
+
+	AIManager EnemyArray[5];
+	EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
 	
 	
 	int octave = 0;
@@ -92,8 +97,7 @@ int main()
 	REG_SND1FREQ = 0;
 	sos();
 
-	TileManager Tilemanager;
-	
+	TileManager Tilemanager;	
 	Tilemanager.SetupBG(0,0);
 	Tilemanager.SetPos(0,44);
 	
@@ -102,7 +106,12 @@ int main()
 	{
 		vsync();
 		PollKeys();
-		MarioSprite.iMapOffset = Tilemanager.i_x;
+
+		
+		EnemyArray[0].UpdateOffset(EnemyArray, Tilemanager.i_x, Tilemanager.i_y);
+		MarioSprite.iMapOffsetX = Tilemanager.i_x;
+		MarioSprite.iMapOffsetY = Tilemanager.i_y;
+		
 		if (fix2int(MarioSprite.ix) > 40 && keyDown(KEYS::LEFT))
 		{
 			MarioSprite.MoveMario(-100, 0, Spritemanager);
@@ -113,36 +122,29 @@ int main()
 			MarioSprite.MoveMario(100, 0, Spritemanager);
 			Spritemanager.SetHFlip(false, MarioSprite.iSpriteID);
 		}
-		if (keyDown(KEYS::UP))
+		if (keyHit(KEYS::UP))
 		{
 			MarioSprite.bJump = true;
+			
 			note_play(0x12, 0);
 		}
 		if (keyHit(KEYS::DOWN))
 		{			
-			/*MarioSprite.MoveMario(int2fix(0), int2fix(1), Spritemanager);	
-			MarioSprite.TransformMario(1, Spritemanager);
-			MarioSprite.iy -= 16;*/
 			MarioSprite.ShootFireBall(Spritemanager);
+			EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
 		}		
 		if (fix2int(MarioSprite.ix) <= 4 && Tilemanager.i_x >= 1 && keyDown(KEYS::LEFT))
 		{
-			//Tilemanager.i_x -= 2;
 			MarioSprite.iVelocityX = int2fix(0);
-			//Tilemanager.scroll_x-=2;
-			//Tilemanager.left = true;
-
 		}
 		if (fix2int(MarioSprite.ix) >= 160 && keyDown(KEYS::RIGHT) && Tilemanager.scroll_x <= 3392-248)// Tilemanager.i_x <= 424 - 31 &&
 		{
 			MarioSprite.iVelocityX = int2fix(0);
-			Tilemanager.i_x += 2;
-			Tilemanager.scroll_x+=2;
 			Tilemanager.right = true;
 		}
 		MarioSprite.UpdateMario(Spritemanager);
-
-		Tilemanager.ScrollBackGround();
+		EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
+		Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight);
 	}//loop forever
 
 	return 0;

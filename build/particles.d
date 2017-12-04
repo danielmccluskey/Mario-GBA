@@ -1,4 +1,4 @@
-particles.o: c:/Users/dmccl/Desktop/Mario/source/particles.c \
- c:/Users/dmccl/Desktop/Mario/include/Intellisense.h
+particles.o: c:/Users/Betat/Documents/gba-mario/source/particles.c \
+ c:/Users/Betat/Documents/gba-mario/include/Intellisense.h
 
-c:/Users/dmccl/Desktop/Mario/include/Intellisense.h:
+c:/Users/Betat/Documents/gba-mario/include/Intellisense.h:

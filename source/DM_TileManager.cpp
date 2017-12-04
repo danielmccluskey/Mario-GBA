@@ -79,7 +79,7 @@ void TileManager::SetPos(s32 a_ix, s32 a_iy)
 	
 }
 
-void TileManager::ScrollBackGround()
+void TileManager::ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide)
 {
 
 
@@ -99,29 +99,43 @@ void TileManager::ScrollBackGround()
 	}*/
 
 	//iframe++;
-	BG_HOFFSET0 = scroll_x;
-	BG_VOFFSET0 = scroll_y;
-	// Pixel coords
-	int vx = scroll_x-8, vy = scroll_y +4;
-	int bx = i_x, by = i_y;
 
-	// Tile coords
-	int tvx = vx >> 3, tvy = vy >> 3;
-	int tbx = bx >> 3, tby = by >> 3;
+	if (right && !a_bRightCollide)
+	{
+		i_x += 2;
+		scroll_x += 2;
+	}
+	if (left && !a_bLeftCollide)
+	{
+		i_x -= 2;
+		scroll_x -= 2;
+	}
 
-	if (right)		// add on left
-		AddRow(tvx, tvy);
-	else if (left)	// add on right
-		AddRow(tvx + 31, tvy);
+	if ((right && !a_bRightCollide) || (left && !a_bLeftCollide))
+	{
+		BG_HOFFSET0 = scroll_x;
+		BG_VOFFSET0 = scroll_y;
+		// Pixel coords
+		int vx = scroll_x - 8, vy = scroll_y + 4;
+		int bx = i_x, by = i_y;
 
-	if (tvy < tby)		// add on top
-		AddCol(tvx, tvy);
-	else if (tvy > tby)	// add on bottom
-		AddCol(tvx, tvy + 31);
+		// Tile coords
+		int tvx = vx >> 3, tvy = vy >> 3;
+		int tbx = bx >> 3, tby = by >> 3;
 
-	left = false;
-	right = false;
+		if (right)		// add on left
+			AddRow(tvx, tvy);
+		else if (left)	// add on right
+			AddRow(tvx + 31, tvy);
 
+		if (tvy < tby)		// add on top
+			AddCol(tvx, tvy);
+		else if (tvy > tby)	// add on bottom
+			AddCol(tvx, tvy + 31);
+
+		left = false;
+		right = false;
+	}
 	
 	
 }

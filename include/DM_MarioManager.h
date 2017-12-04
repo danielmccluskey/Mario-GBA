@@ -21,7 +21,6 @@ class MarioManager
 {
 public:
 	s32 ix; s32 iy;
-	s32 last_ix; s32 last_iy;
 
 	s32 iSpriteID;
 
@@ -29,13 +28,15 @@ public:
 	s32 iFrameSize = 4;
 	s32 iAnimationDelay = 20;
 
-	s32 iSpriteHeight = 16;
-	s32 iSpriteWidth = 16;
+	u8 iSpriteHeight = 16;
+	u8 iSpriteWidth = 16;
 
-	s32 iMapOffset = 0;
+	s32 iMapOffsetX = 0;
+	s32 iMapOffsetY = 0;
 
 	bool bJump = false;
 	bool bOnGround = false;
+	bool bMoving = false;
 
 	fixed iVelocityX;
 	fixed iVelocityY;
@@ -43,16 +44,27 @@ public:
 	fixed iMaxVelocityX;
 	fixed iMaxVelocityY;
 
+
+
+	u8 TopLeft;
+	u8 BottomLeft;
+	u8 TopRight;
+	u8 BottomRight;
+	u8 AlmostBotRight;
+	u8 AlmostBotLeft;
+
 	ParticleManager particleee;
 	Fireball sfire[5];
 
 	void CreateMario(SpriteManager& a_SpriteManager);
 	void MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
 	void UpdateMario(SpriteManager& a_SpriteManager);
+	void CheckCollisions();
 	void TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager);
 	void UpdateFireBall(SpriteManager& a_SpriteManager);
 	void ShootFireBall(SpriteManager& a_SpriteManager);
 	void InitFireBall(SpriteManager& a_SpriteManager);
+	u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,u16* tilemap, u32 tilemap_w, u32 tilemap_h);
 
 };
 

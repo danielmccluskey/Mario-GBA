@@ -15,10 +15,12 @@
 #define MarioTileBlock 0
 #define ParticleTileBlock 128
 #define FireballTileBlock 140
+#define EnemyTileBlock 200
 
 #define MarioPalb 0
 #define ParticlePalb 12
 #define FireballPalb 12
+#define EnemyPalb 5
 
 
 
