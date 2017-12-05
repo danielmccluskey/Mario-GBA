@@ -8,6 +8,19 @@
 #include "gba_sound.h"
 #include "rocket4bpp.h"
 #include "DM_AIManager.h"
+#include "World1Map_Externs.h"
+#include "maptest.h"
+
+
+enum GAMESTATES
+{
+	MENUINIT,
+	MENU,
+	WORLDMAPINIT,
+	WORLDMAP,
+	GAMEINIT,
+	GAME
+};
 
 u32 __snd_rates[12];
 
@@ -64,7 +77,7 @@ void sos()
 
 int main()
 {
-
+	s32 iGameState = WORLDMAPINIT;
 	REG_BGCNT[0] = setBG_Control_Register(0, 0, 0, 0, 15, 0, BG_REG_SIZE_32x32);
 	REG_DISPLAYCONTROL = VIDEOMODE_0 | ENABLE_OBJECTS | BGMODE_0 | MAPPINGMODE_1D;
 
@@ -76,6 +89,7 @@ int main()
 
 	MarioManager MarioSprite;
 	MarioSprite.CreateMario(Spritemanager);
+	
 
 	AIManager EnemyArray[MAX_ENEMIES];
 	EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
@@ -98,55 +112,87 @@ int main()
 	sos();
 
 	TileManager Tilemanager;	
-	Tilemanager.SetupBG(0,0);
-	Tilemanager.SetPos(0,44);
+	
+	//
 	
 	s32 frame = 0;
 	while (1)
 	{
 		vsync();
 		PollKeys();
+		
+		
+		if (iGameState == WORLDMAPINIT)
+		{
+			Tilemanager.SetupBG(0, 0, World1MapTiles, 1040 * 2, World1MapPalette, 512, World1MapMap, 32);
+			iGameState = WORLDMAP;
+		}
+		if (iGameState == WORLDMAP)
+		{
+			Tilemanager.ScrollBackGround(false, false);
 
-		
-		EnemyArray[0].UpdateOffset(EnemyArray, Tilemanager.i_x, Tilemanager.i_y);
-		MarioSprite.iMapOffsetX = Tilemanager.i_x;
-		MarioSprite.iMapOffsetY = Tilemanager.i_y;
-		
-		if (fix2int(MarioSprite.ix) > 40 && keyDown(KEYS::LEFT))
-		{
-			MarioSprite.MoveMario(-100, 0, Spritemanager);
-			Spritemanager.SetHFlip(true, MarioSprite.iSpriteID);
+			if (keyHit(KEYS::DOWN))
+			{
+				iGameState = GAMEINIT;
+			}
 		}
-		if (fix2int(MarioSprite.ix) < 160 && keyDown(KEYS::RIGHT))
+		if (iGameState == GAMEINIT)
 		{
-			MarioSprite.MoveMario(100, 0, Spritemanager);
-			Spritemanager.SetHFlip(false, MarioSprite.iSpriteID);
-		}
-		if (keyHit(KEYS::UP))
-		{
-			MarioSprite.bJump = true;
+			Tilemanager.SetupBG(0, 44, bgTiles, 816 * 2, bgPalette, 512, bgMap, 424);
 			
-			note_play(0x12, 0);
-		}
-		if (keyHit(KEYS::DOWN))
-		{			
-			MarioSprite.ShootFireBall(Spritemanager);
-			EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
-		}		
-		if (fix2int(MarioSprite.ix) <= 4 && Tilemanager.i_x >= 1 && keyDown(KEYS::LEFT))
-		{
-			MarioSprite.iVelocityX = int2fix(0);
-		}
-		if (fix2int(MarioSprite.ix) >= 160 && keyDown(KEYS::RIGHT) && Tilemanager.scroll_x <= 3392-248)// Tilemanager.i_x <= 424 - 31 &&
-		{
-			MarioSprite.iVelocityX = int2fix(0);
-			Tilemanager.right = true;
-		}
-		MarioSprite.UpdateMario(Spritemanager);
-		EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
-		Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight);
+			iGameState = GAME;
 
-		delay(200);
+		}
+
+
+
+
+
+
+
+		if (iGameState == GAME)
+		{
+			EnemyArray[0].UpdateOffset(EnemyArray, Tilemanager.i_x, Tilemanager.i_y);
+			MarioSprite.iMapOffsetX = Tilemanager.i_x;
+			MarioSprite.iMapOffsetY = Tilemanager.i_y;
+
+			if (fix2int(MarioSprite.ix) > 40 && keyDown(KEYS::LEFT))
+			{
+				MarioSprite.MoveMario(-100, 0, Spritemanager);
+				Spritemanager.SetHFlip(true, MarioSprite.iSpriteID);
+			}
+			if (fix2int(MarioSprite.ix) < 160 && keyDown(KEYS::RIGHT))
+			{
+				MarioSprite.MoveMario(100, 0, Spritemanager);
+				Spritemanager.SetHFlip(false, MarioSprite.iSpriteID);
+			}
+			if (keyHit(KEYS::UP))
+			{
+				MarioSprite.bJump = true;
+
+				note_play(0x12, 0);
+			}
+			if (keyHit(KEYS::DOWN))
+			{
+				MarioSprite.ShootFireBall(Spritemanager);
+				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
+			}
+			if (fix2int(MarioSprite.ix) <= 4 && Tilemanager.i_x >= 1 && keyDown(KEYS::LEFT))
+			{
+				MarioSprite.iVelocityX = int2fix(0);
+			}
+			if (fix2int(MarioSprite.ix) >= 160 && keyDown(KEYS::RIGHT) && Tilemanager.scroll_x <= 3392 - 248)// Tilemanager.i_x <= 424 - 31 &&
+			{
+				MarioSprite.iVelocityX = int2fix(0);
+				Tilemanager.right = true;
+			}
+			MarioSprite.UpdateMario(Spritemanager);
+			EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
+			Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight);
+
+			//delay(200);
+		}
+		
 	}//loop forever
 
 	return 0;

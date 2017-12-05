@@ -78,6 +78,9 @@
     <ClCompile Include="source\rocket4bpp.c" />
     <ClCompile Include="source\sinlut.c" />
     <ClCompile Include="source\TileLookUp.c" />
+    <ClCompile Include="source\World1Map_Maps.cpp" />
+    <ClCompile Include="source\World1Map_Palette.cpp" />
+    <ClCompile Include="source\World1Map_Tiles.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\DM_AIManager.h" />
@@ -104,6 +107,7 @@
     <ClInclude Include="include\rocket4bpp.h" />
     <ClInclude Include="include\sinlut.h" />
     <ClInclude Include="include\TileLookUp.h" />
+    <ClInclude Include="include\World1Map_Externs.h" />
     <ClInclude Include="source\DM_ParticleManager.cpp" />
   </ItemGroup>
   <ItemGroup>

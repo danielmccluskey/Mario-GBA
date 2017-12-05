@@ -18,11 +18,11 @@ public:
 	bool left = false;
 	bool right = false;
 
-	void SetupBG(s32 a_ix, s32 a_iy);
+	void SetupBG(s32 a_ix, s32 a_iy, const unsigned short* a_bgTiles, u32 a_bgTilesLen, const unsigned short* a_bgPalette, u32 a_bgPalLen, const unsigned short* a_bgMap, u32 a_bgMapWidth);
 	void LoadBGPalette();
 	void LoadTileMap();
 	void LoadImage();
-	void SetPos(s32 a_ix, s32 a_iy);
+	void SetPos(s32 a_ix, s32 a_iy, const unsigned short* a_bgMap, u32 a_bgMapWidth);
 	void ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide);
 	void AddRow(s32 tx, s32 ty);
 	void AddCol(s32 tx, s32 ty);

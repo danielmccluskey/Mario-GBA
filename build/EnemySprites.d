@@ -1,2 +1,1 @@
-EnemySprites.o: \
- c:/Users/s1600056/Downloads/gba-mario/source/EnemySprites.c
+EnemySprites.o: c:/Users/Betat/Documents/gba-mario/source/EnemySprites.c

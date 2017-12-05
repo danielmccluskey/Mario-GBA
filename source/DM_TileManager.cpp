@@ -4,6 +4,7 @@
 #include "DM_TileManager.h"
 #include "gba_types.h"
 #include "maptest.h"
+
 #include "gba_reg.h"
 #include "gba_gfx.h"
 #include <string.h>
@@ -40,19 +41,20 @@ s16 xscroll = 0;
 
 #define PALSIZE 256
 
-void TileManager::SetupBG(s32 a_ix, s32 a_iy)
+void TileManager::SetupBG(s32 a_ix, s32 a_iy, const unsigned short* a_bgTiles, u32 a_bgTilesLen, const unsigned short* a_bgPalette, u32 a_bgPalLen, const unsigned short* a_bgMap, u32 a_bgMapWidth)
 {
-	memcpy(pal_bg_mem, bgPalette, PALSIZE * 2);
-	memcpy(&tile_mem[0][0], bgTiles, 816 * 2);
+	memcpy(pal_bg_mem, a_bgPalette, a_bgPalLen);
+	memcpy(&tile_mem[0][0], a_bgTiles, a_bgTilesLen);
 	i_x = a_ix;
 	i_y = a_iy;
-	SCR_ENTRY *ScreenBlock = se_mem[15], *map = (SCR_ENTRY*)bgMap;
+	MAPWIDTH = a_bgMapWidth;
+	SCR_ENTRY *ScreenBlock = se_mem[15], *map = (SCR_ENTRY*)a_bgMap;
 	s32 actY = 0;
 	for (s32 iy = i_y; iy < i_y + 32; iy++)
 	{
 		for (s32 ix = i_x; ix < i_x + 32; ix++)
 		{
-			ScreenBlock[(actY * 32) + ix - i_x] = map[(iy * 424) + ix];
+			ScreenBlock[(actY * 32) + ix - i_x] = map[(iy * MAPWIDTH) + ix];
 		}
 		actY++;
 
@@ -61,17 +63,17 @@ void TileManager::SetupBG(s32 a_ix, s32 a_iy)
 
 
 }
-void TileManager::SetPos(s32 a_ix, s32 a_iy)
+void TileManager::SetPos(s32 a_ix, s32 a_iy, const unsigned short* a_bgMap, u32 a_bgMapWidth)
 {
 	i_x = a_ix;
 	i_y = a_iy;
-	SCR_ENTRY *ScreenBlock = se_mem[15], *map = (SCR_ENTRY*)bgMap;
+	SCR_ENTRY *ScreenBlock = se_mem[15], *map = (SCR_ENTRY*)a_bgMap;
 	s32 actY = 0;
 	for (s32 iy = i_y; iy < i_y + 32; iy++)
 	{
 		for (s32 ix = i_x; ix < i_x + 32; ix++)
 		{
-			ScreenBlock[(actY * 32) + ix - i_x] = map[(iy * 424) + ix];
+			ScreenBlock[(actY * 32) + ix - i_x] = map[(iy * a_bgMapWidth) + ix];
 		}
 		actY++;
 
@@ -85,20 +87,20 @@ void TileManager::ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide)
 
 	/*switch (iframe)
 	{
-	case 0:
-		memcpy(&tile_mem[0][0], bgTilesA, 816 * 2);
+	case 25:
+		memcpy(&tile_mem[0][0], World1MapTiles, 1040 * 2);
+		memcpy(pal_bg_mem, World1MapPalette, 512);
 		break;
-	case 1:
-		memcpy(&tile_mem[0][0], bgTilesB, 816 * 2);
-		break;
-	case 2:
-		memcpy(&tile_mem[0][0], bgTilesC, 816 * 2);
+	case 50:
+		memcpy(&tile_mem[0][0], World1MapTilesB, 1040 * 2);
+		memcpy(pal_bg_mem, World1MapPaletteB, 512);
 		iframe = 0;
 		break;
+	
 
-	}*/
+	}
 
-	//iframe++;
+	iframe++;*/
 
 	if (right && !a_bRightCollide)
 	{
@@ -147,7 +149,7 @@ void TileManager::AddRow(s32 tx, s32 ty)
 {	
 	int iy, y0 = ty & 31;
 
-	int srcP = 424;
+	int srcP = MAPWIDTH;
 	SCR_ENTRY *ScreenBlocks = se_mem[15], *maps = (SCR_ENTRY*)bgMap;
 	SCR_ENTRY *srcL;
 	SCR_ENTRY *dstL;
@@ -180,7 +182,7 @@ void TileManager::AddCol(s32 tx, s32 ty)
 {
 	int ix, x0 = tx & 31;
 
-	int srcP = 424;
+	int srcP = MAPWIDTH;
 	SCR_ENTRY *ScreenBlocks = se_mem[15], *maps = (SCR_ENTRY*)bgMap;
 	SCR_ENTRY *srcL = &maps[ty*srcP + tx];
 	SCR_ENTRY *dstL = &ScreenBlocks[(ty & 31) * 32 + x0];

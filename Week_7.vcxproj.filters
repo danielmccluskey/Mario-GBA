@@ -82,6 +82,15 @@
     <ClCompile Include="source\DM_AIManager.cpp">
       <Filter>Source Files\Game Controllers</Filter>
     </ClCompile>
+    <ClCompile Include="source\World1Map_Maps.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\World1Map_Palette.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\World1Map_Tiles.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\rocket4bpp.h">
@@ -158,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="include\gba_sound.h">
       <Filter>Header Files\GBA Reg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World1Map_Externs.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
