@@ -54,7 +54,7 @@ public:
 	u8 AlmostBotLeft;
 
 	ParticleManager particleee;
-	Fireball sfire[5];
+	Fireball sfire[10];
 
 	void CreateMario(SpriteManager& a_SpriteManager);
 	void MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);

@@ -1,4 +1,4 @@
-particles.o: c:/Users/Betat/Documents/gba-mario/source/particles.c \
- c:/Users/Betat/Documents/gba-mario/include/Intellisense.h
+particles.o: c:/Users/s1600056/Downloads/gba-mario/source/particles.c \
+ c:/Users/s1600056/Downloads/gba-mario/include/Intellisense.h
 
-c:/Users/Betat/Documents/gba-mario/include/Intellisense.h:
+c:/Users/s1600056/Downloads/gba-mario/include/Intellisense.h:

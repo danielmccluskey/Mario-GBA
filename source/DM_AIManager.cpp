@@ -11,7 +11,7 @@ enum EnemyTypes
 
 void AIManager::CreateEnemy(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray, s8 a_iEnemyType)
 {
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < MAX_ENEMIES; i++)
 	{
 		if (a_EnemyArray[i].bActive == false)
 		{
@@ -36,7 +36,7 @@ void AIManager::CreateEnemy(SpriteManager& a_SpriteManager, AIManager* a_EnemyAr
 
 void AIManager::UpdateOffset(AIManager* a_EnemyArray, s32 a_iOffsetX, s32 a_iOffsetY)
 {
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < MAX_ENEMIES; i++)
 	{
 		if (a_EnemyArray[i].bActive == true)
 		{
@@ -85,7 +85,7 @@ void AIManager::UpdateEnemies(SpriteManager& a_SpriteManager, AIManager* a_Enemy
 {
 	s32 iTileTest = 0;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < MAX_ENEMIES; i++)
 	{
 		if (a_EnemyArray[i].bActive == true)
 		{

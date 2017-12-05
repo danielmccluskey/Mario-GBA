@@ -7,7 +7,9 @@
 #include "gba_math.h"
 
 
-
+#define MAX_ENEMIES 40
+#define MAX_PARTICLES 10
+#define MAX_FIREBALLS 10
 
 
 //temp defines for sprite palette banks and tile blocks

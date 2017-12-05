@@ -77,7 +77,7 @@ int main()
 	MarioManager MarioSprite;
 	MarioSprite.CreateMario(Spritemanager);
 
-	AIManager EnemyArray[5];
+	AIManager EnemyArray[MAX_ENEMIES];
 	EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
 	
 	
@@ -145,6 +145,8 @@ int main()
 		MarioSprite.UpdateMario(Spritemanager);
 		EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
 		Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight);
+
+		delay(200);
 	}//loop forever
 
 	return 0;

@@ -22,7 +22,7 @@ public:
 	bool bActive = false;
 
 	~ParticleManager() {};
-	Particle sParticles[12];
+	Particle sParticles[10];
 
 	void InitParticle(Particle& a_p);
 	void EmitParticle(Particle& a_p);

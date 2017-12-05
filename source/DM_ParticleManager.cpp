@@ -9,7 +9,7 @@ fixed g_pixels2Meter = int2fix(5);
 
 void ParticleManager::InitArray(SpriteManager& a_SpriteManager)
 {
-	for (int i = 0; i < 12; ++i)
+	for (int i = 0; i < MAX_PARTICLES; ++i)
 	{
 		sParticles[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)particlesTiles, (u16*)particlesPal, particlesTilesLen, particlesPalLen * 3, ParticleTileBlock, ParticlePalb);
 		a_SpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(fy, 0, 0, 0, A0_4BPP, A0_SQUARE);
@@ -20,7 +20,7 @@ void ParticleManager::InitArray(SpriteManager& a_SpriteManager)
 }
 void ParticleManager::DeleteArray(SpriteManager& a_SpriteManager)
 {
-	for (int i = 0; i < 12; ++i)
+	for (int i = 0; i < MAX_PARTICLES; ++i)
 	{
 		a_SpriteManager.DeleteSprite(sParticles[i].iSpriteID);
 	
@@ -57,7 +57,7 @@ void ParticleManager::UpdateParticleArray(SpriteManager& a_SpriteManager)
 {
 	if (bActive)
 	{
-		for (int i = 0; i < 12; ++i)
+		for (int i = 0; i < MAX_PARTICLES; ++i)
 		{
 			UpdateParticle(sParticles[i]);
 			a_SpriteManager.MoveSprite(fix2int(sParticles[i].fx), fix2int(sParticles[i].fy), sParticles[i].iSpriteID);

@@ -232,7 +232,7 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 }
 void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
 {
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < MAX_FIREBALLS; i++)
 	{
 		if (sfire[i].bActive)
 		{
@@ -266,7 +266,7 @@ void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
 
 void MarioManager::ShootFireBall(SpriteManager& a_SpriteManager)
 {
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < MAX_FIREBALLS; i++)
 	{
 		if (sfire[i].bActive == false)
 		{
@@ -284,7 +284,7 @@ void MarioManager::ShootFireBall(SpriteManager& a_SpriteManager)
 void MarioManager::InitFireBall(SpriteManager& a_SpriteManager)
 {
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < MAX_FIREBALLS; i++)
 	{
 		sfire[i].fx = ix;
 		sfire[i].fy = iy;
