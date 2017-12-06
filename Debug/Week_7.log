@@ -1,1 +1,5 @@
-﻿  make[1]: `/c/Users/Betat/Documents/gba-mario/gba-mario.gba' is up to date.
+﻿  World1Map_Palette.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Map_Palette.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Map_Palette.cpp -o World1Map_Palette.o 
+  linking cartridge
+  built ... gba-mario.gba
+  ROM fixed!

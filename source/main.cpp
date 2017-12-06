@@ -130,10 +130,10 @@ int main()
 		if (iGameState == WORLDMAP)
 		{
 			Tilemanager.ScrollBackGround(false, false);
-
-			if (keyHit(KEYS::DOWN))
+			if (keyDown(KEYS::DOWN))
 			{
-				iGameState = GAMEINIT;
+				Tilemanager.AnimateBackground(World1MapTiles, World1MapTilesB, World1MapTilesC, World1MapTilesD, World1MapPalette, World1MapPaletteB, World1MapPaletteC, World1MapPaletteD);
+				//iGameState = GAMEINIT;
 			}
 		}
 		if (iGameState == GAMEINIT)

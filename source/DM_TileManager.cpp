@@ -81,26 +81,42 @@ void TileManager::SetPos(s32 a_ix, s32 a_iy, const unsigned short* a_bgMap, u32 
 	
 }
 
+
+void TileManager::AnimateBackground(const unsigned short* a_bgTilesA, const unsigned short* a_bgTilesB, const unsigned short* a_bgTilesC, const unsigned short* a_bgTilesD,
+									const unsigned short* a_palA, const unsigned short* a_palB, const unsigned short* a_palC, const unsigned short* a_palD)
+{
+	switch (iframe)
+	{
+	case 25:
+		memcpy(&tile_mem[0][0], a_bgTilesA, 1040 * 2);
+		memcpy(pal_bg_mem, a_palA, 512);
+		break;
+	case 50:
+		memcpy(&tile_mem[0][0], a_bgTilesB, 1040 * 2);
+		memcpy(pal_bg_mem, a_palB, 512);
+		break;
+	case 75:
+		memcpy(&tile_mem[0][0], a_bgTilesC, 1040 * 2);
+		memcpy(pal_bg_mem, a_palC, 512);
+		break;
+	case 100:
+		memcpy(&tile_mem[0][0], a_bgTilesD, 1040 * 2);
+		memcpy(pal_bg_mem, a_palD, 512);
+		iframe = 0;
+		break;
+
+
+	}
+
+	iframe++;
+
+}
+
 void TileManager::ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide)
 {
 
 
-	/*switch (iframe)
-	{
-	case 25:
-		memcpy(&tile_mem[0][0], World1MapTiles, 1040 * 2);
-		memcpy(pal_bg_mem, World1MapPalette, 512);
-		break;
-	case 50:
-		memcpy(&tile_mem[0][0], World1MapTilesB, 1040 * 2);
-		memcpy(pal_bg_mem, World1MapPaletteB, 512);
-		iframe = 0;
-		break;
 	
-
-	}
-
-	iframe++;*/
 
 	if (right && !a_bRightCollide)
 	{
