@@ -1,5 +1,78 @@
-﻿  World1Map_Palette.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Map_Palette.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Map_Palette.cpp -o World1Map_Palette.o 
+﻿  DM_AIManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/s1600056/Downloads/gba-mario/build/DM_AIManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/s1600056/Downloads/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/s1600056/Downloads/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/s1600056/Downloads/gba-mario/source/DM_AIManager.cpp -o DM_AIManager.o 
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_AIManager.cpp: In member function 'void AIManager::UpdateEnemies(SpriteManager&, AIManager*)':
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_AIManager.cpp:104:7: warning: unused variable 'BottomRight' [-Wunused-variable]
+      u8 BottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, a_EnemyArray[i].iMapOffsetX,
+         ^~~~~~~~~~~
+  DM_MarioManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/s1600056/Downloads/gba-mario/build/DM_MarioManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/s1600056/Downloads/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/s1600056/Downloads/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/s1600056/Downloads/gba-mario/source/DM_MarioManager.cpp -o DM_MarioManager.o 
+  DM_ParticleManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/s1600056/Downloads/gba-mario/build/DM_ParticleManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/s1600056/Downloads/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/s1600056/Downloads/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/s1600056/Downloads/gba-mario/source/DM_ParticleManager.cpp -o DM_ParticleManager.o 
+  DM_SpriteManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/s1600056/Downloads/gba-mario/build/DM_SpriteManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/s1600056/Downloads/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/s1600056/Downloads/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/s1600056/Downloads/gba-mario/source/DM_SpriteManager.cpp -o DM_SpriteManager.o 
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_SpriteManager.cpp: In member function 'u16 SpriteManager::setSpriteAttr0(u16, u8, u8, u8, u8, u8)':
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_SpriteManager.cpp:117:20: warning: suggest parentheses around arithmetic in operand of '|' [-Wparentheses]
+    u16 attrib0 = a_y & A0_YMASK |
+                       
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_SpriteManager.cpp: In member function 'u16 SpriteManager::setSpriteAttr1(u16, u8, u8, u8, u8)':
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_SpriteManager.cpp:127:20: warning: suggest parentheses around arithmetic in operand of '|' [-Wparentheses]
+    u16 attrib1 = a_x & A0_YMASK |
+                       
+  DM_TileManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/s1600056/Downloads/gba-mario/build/DM_TileManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/s1600056/Downloads/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/s1600056/Downloads/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp -o DM_TileManager.o 
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp:19:0: warning: "REG_BG_OFS" redefined
+   #define REG_BG_OFS      ((BG_POINT*)(REG_BASE+0x0010))
+   
+  In file included from c:/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp:9:0:
+  c:/Users/s1600056/Downloads/gba-mario/include/gba_gfx.h:84:0: note: this is the location of the previous definition
+   #define REG_BG_OFS  ((BackgroundOffsets*)(REG_BASE+0x0010))
+   
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp: In member function 'void TileManager::ScrollBackGround(bool, bool)':
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp:142:7: warning: unused variable 'tbx' [-Wunused-variable]
+     int tbx = bx >> 3, tby = by >> 3;
+         ^~~
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp: In member function 'void TileManager::AddRow(s32, s32)':
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp:180:37: warning: suggest parentheses around '+' in operand of '&' [-Wparentheses]
+     dstL = &ScreenBlocks[y0 * 32 + (tx+1 & 31)];
+                                     ~~^~
+  main.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/s1600056/Downloads/gba-mario/build/main.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/s1600056/Downloads/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/s1600056/Downloads/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/s1600056/Downloads/gba-mario/source/main.cpp -o main.o 
+  In file included from c:/Users/s1600056/Downloads/gba-mario/source/main.cpp:8:0:
+  c:/Users/s1600056/Downloads/gba-mario/include/gba_sound.h:389:0: warning: "REG_FIFO_A" redefined
+   #define REG_FIFO_A   *(vu32*)(REG_BASE+0x00A0) //!< DSound A FIFO
+   
+  c:/Users/s1600056/Downloads/gba-mario/include/gba_sound.h:125:0: note: this is the location of the previous definition
+   #define REG_FIFO_A  (*((u32 volatile *) (REG_BASE + 0x0A0)))
+   
+  c:/Users/s1600056/Downloads/gba-mario/include/gba_sound.h:390:0: warning: "REG_FIFO_B" redefined
+   #define REG_FIFO_B   *(vu32*)(REG_BASE+0x00A4) //!< DSound B FIFO
+   
+  c:/Users/s1600056/Downloads/gba-mario/include/gba_sound.h:126:0: note: this is the location of the previous definition
+   #define REG_FIFO_B  (*((u32 volatile *) (REG_BASE + 0x0A4)))
+   
+  c:/Users/s1600056/Downloads/gba-mario/source/main.cpp: In function 'void delay(unsigned int)':
+  c:/Users/s1600056/Downloads/gba-mario/source/main.cpp:60:20: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (int i = 0; i < amount * 10; i++);
+                    ~~^~~~~~~~~~~~~
+  c:/Users/s1600056/Downloads/gba-mario/source/main.cpp: In function 'void sos()':
+  c:/Users/s1600056/Downloads/gba-mario/source/main.cpp:64:11: warning: unused variable 'lens' [-Wunused-variable]
+    const u8 lens[6] = { 1,1,4, 1,1,4 };
+             ^~~~
+  c:/Users/s1600056/Downloads/gba-mario/source/main.cpp: In function 'int main()':
+  c:/Users/s1600056/Downloads/gba-mario/source/main.cpp:192:52: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+      Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight);
+                                                      ^~~~~~~~~~~~~
+  c:/Users/s1600056/Downloads/gba-mario/source/main.cpp:192:86: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+      Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight);
+                                                                                        ^~~~~~~~~~~~~~
+  c:/Users/s1600056/Downloads/gba-mario/source/main.cpp:98:6: warning: unused variable 'octave' [-Wunused-variable]
+    int octave = 0;
+        ^~~~~~
+  c:/Users/s1600056/Downloads/gba-mario/source/main.cpp:118:6: warning: unused variable 'frame' [-Wunused-variable]
+    s32 frame = 0;
+        ^~~~~
+  gba_gfx.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/s1600056/Downloads/gba-mario/build/gba_gfx.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/s1600056/Downloads/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/s1600056/Downloads/gba-mario/build -c /c/Users/s1600056/Downloads/gba-mario/source/gba_gfx.c -o gba_gfx.o 
   linking cartridge
   built ... gba-mario.gba
   ROM fixed!

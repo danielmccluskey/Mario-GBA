@@ -22,7 +22,7 @@
 #define MarioPalb 0
 #define ParticlePalb 12
 #define FireballPalb 12
-#define EnemyPalb 5
+#define EnemyPalb 4
 
 
 

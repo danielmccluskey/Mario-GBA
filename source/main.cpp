@@ -124,16 +124,17 @@ int main()
 		
 		if (iGameState == WORLDMAPINIT)
 		{
-			Tilemanager.SetupBG(0, 0, World1MapTiles, 1040 * 2, World1MapPalette, 512, World1MapMap, 32);
+			Tilemanager.SetupBG(0, 0, World1MapTilesA, 1040 * 2, World1MapPalette, 512, World1MapMap, 32);
 			iGameState = WORLDMAP;
 		}
 		if (iGameState == WORLDMAP)
 		{
 			Tilemanager.ScrollBackGround(false, false);
+			Tilemanager.AnimateBackground(World1MapTilesA, World1MapTilesB, World1MapTilesC, World1MapTilesD, World1MapPalette, World1MapPalette, World1MapPalette, World1MapPalette);
+
 			if (keyDown(KEYS::DOWN))
 			{
-				Tilemanager.AnimateBackground(World1MapTiles, World1MapTilesB, World1MapTilesC, World1MapTilesD, World1MapPalette, World1MapPaletteB, World1MapPaletteC, World1MapPaletteD);
-				//iGameState = GAMEINIT;
+				iGameState = GAMEINIT;
 			}
 		}
 		if (iGameState == GAMEINIT)
