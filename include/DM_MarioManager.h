@@ -34,6 +34,7 @@ public:
 	s32 iMapOffsetX = 0;
 	s32 iMapOffsetY = 0;
 
+	bool bMapMode = false;
 	bool bJump = false;
 	bool bOnGround = false;
 	bool bMoving = false;
@@ -41,9 +42,11 @@ public:
 	fixed iVelocityX;
 	fixed iVelocityY;
 
-	fixed iMaxVelocityX;
-	fixed iMaxVelocityY;
 
+	bool bRight = false;
+	bool bTop = false;
+	bool bBottom = false;
+	bool bLeft = false;
 
 
 	u8 TopLeft;
@@ -58,7 +61,9 @@ public:
 
 	void CreateMario(SpriteManager& a_SpriteManager);
 	void MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
+	void SetPos(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
 	void UpdateMario(SpriteManager& a_SpriteManager);
+	u16 MapManager(const unsigned short* a_bgCollisionMap, SpriteManager a_SpriteManager);
 	void CheckCollisions();
 	void TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager);
 	void UpdateFireBall(SpriteManager& a_SpriteManager);

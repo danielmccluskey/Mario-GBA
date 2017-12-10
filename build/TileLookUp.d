@@ -1,1 +1,1 @@
-TileLookUp.o: c:/Users/s1600056/Downloads/gba-mario/source/TileLookUp.c
+TileLookUp.o: c:/Users/Betat/Documents/gba-mario/source/TileLookUp.c

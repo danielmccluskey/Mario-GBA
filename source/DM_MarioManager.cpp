@@ -13,6 +13,32 @@ enum MARIOTYPES
 	FIRE
 };
 
+enum MARIOPHYSICS
+{
+	WALKSPEED = 32,
+	JUMPHEIGHT = -1024,
+	GRAVITY = 32,
+	PUSHBACK = 8,
+	ALIGNMASK = ~0x7ff,
+	STOPPED = 0,
+	COLLISIONTILE = 0,
+	MAXXVELOCITY = 550,
+	MAXYVELOCITY = 550,
+};
+
+enum WorldSelection
+{
+	BLANK,
+	WALL,
+	PIN,
+	LEVEL1,
+	LEVEL2,
+	LEVEL3,
+	LEVEL4,
+	LEVEL5,
+	LEVEL6
+};
+
 enum MarioFrames
 {
 	STAND,
@@ -28,15 +54,11 @@ enum MarioFrames
 void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
 {
 	iSpriteID=	a_SpriteManager.CreateSprite((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*3, MarioTileBlock, MarioPalb);
-	a_SpriteManager.MoveSprite(0, 120, iSpriteID);
+	a_SpriteManager.MoveSprite(32, 120, iSpriteID);
 
 	iVelocityX = 0;
 	iVelocityY = 0;
-
-	iMaxVelocityX = 550;
-	iMaxVelocityY = 500;
-
-	ix = 0;
+	ix = 32;
 	iy = 120;
 
 	
@@ -81,15 +103,172 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManag
 
 void MarioManager::MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager)
 {
-	if ((iVelocityX < iMaxVelocityX) && (iVelocityX > -iMaxVelocityX))
+	if ((iVelocityX < MAXXVELOCITY) && (iVelocityX > -MAXXVELOCITY))
 	{
 		iVelocityX = fixAdd(a_ix, iVelocityX);
 	}
-	if (iVelocityY < iMaxVelocityY)
+	if (iVelocityY < MAXYVELOCITY)
 	{
 		iVelocityY = fixAdd(iVelocityY, 10);
 		iVelocityY = fixAdd(a_iy, iVelocityY);
 	}
+}
+
+void MarioManager::SetPos(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager)
+{
+	ix = a_ix;
+	iy = a_iy;
+	a_SpriteManager.MoveSprite(ix, iy, iSpriteID);
+}
+
+u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManager a_SpriteManager)
+{
+	
+	s32 i = 0;
+
+
+	s32 iTilesX = (ix >> 3);// >> 3);
+	s32 iTilesY = (iy >> 3);// >> 3);
+
+	s32 Current = a_bgCollisionMap[iTilesY * 32 + iTilesX];
+	s32 Right = a_bgCollisionMap[iTilesY * 32 + (iTilesX + 1)];
+	s32 Left = a_bgCollisionMap[iTilesY * 32 + (iTilesX-1)];
+	s32 Top = a_bgCollisionMap[(iTilesY - 1) * 32 + iTilesX];
+	s32 Bottom = a_bgCollisionMap[(iTilesY + 1) * 32 + iTilesX];
+
+
+	if (keyHit(KEYS::RIGHT) && bMoving == false)
+	{
+		if (Right != WALL && bRight == false)
+		{
+			bRight = true;
+			bMoving = true;
+
+			for (i = 0; i < 16; i++)
+			{
+				SetPos(ix + 1, iy, a_SpriteManager);
+			}
+		}
+	}
+	if (keyHit(KEYS::LEFT) && bMoving == false)
+	{
+		if (Left != WALL && bLeft == false)
+		{
+			bLeft = true;
+			bMoving = true;
+
+			for (i = 0; i < 16; i++)
+			{
+				SetPos(ix - 1, iy, a_SpriteManager);
+			}
+		}
+	}
+	if (keyHit(KEYS::UP) && bMoving == false)
+	{
+		if (Top != WALL && bTop == false)
+		{
+			bTop = true;
+			bMoving = true;
+
+			for (i = 0; i < 16; i++)
+			{
+				SetPos(ix, iy - 1, a_SpriteManager);
+			}
+		}
+	}
+	if (keyHit(KEYS::DOWN) && bMoving == false)
+	{
+		if (Bottom != WALL && bBottom == false)
+		{
+			bBottom = true;
+			bMoving = true;
+			for (i = 0; i < 16; i++)
+			{
+				SetPos(ix, iy + 1, a_SpriteManager);
+			}
+		}
+	}
+
+
+	if (bRight)
+	{
+		if (Right >= PIN)
+		{
+			bRight = false;
+			bMoving = false;
+
+			for (i = 0; i < 8; i++)
+			{
+				SetPos(ix + 1, iy, a_SpriteManager);
+			}
+			return 0;
+		}
+		for (i = 0; i < 4; i++)
+		{
+			SetPos(ix + 1, iy, a_SpriteManager);
+		}
+	}
+	if (bLeft)
+	{
+		if (Left >= PIN)
+		{
+			bMoving = false;
+			bLeft = false;
+			for (i = 0; i < 8; i++)
+			{
+				SetPos(ix - 1, iy, a_SpriteManager);
+			}
+			return 0;
+		}
+		for (i = 0; i < 4; i++)
+		{
+			SetPos(ix - 1, iy, a_SpriteManager);
+		}
+	}
+	else if (bTop)
+	{
+		if (Top >= PIN)
+		{
+			bMoving = false;
+			bTop = false;
+			for (i = 0; i < 8; i++)
+			{
+				SetPos(ix , iy - 1, a_SpriteManager);
+			}
+			return 0;
+		}
+		for (i = 0; i < 4; i++)
+		{
+			SetPos(ix, iy - 1, a_SpriteManager);
+		}
+	}
+	else if (bBottom)
+	{
+		if (Bottom >= PIN)
+		{
+			bMoving = false;
+			bBottom = false;
+			for (i = 0; i < 8; i++)
+			{
+				SetPos(ix, iy + 1, a_SpriteManager);
+			}
+			return 0;
+		}
+		for ( i = 0; i < 4; i++)
+		{
+			SetPos(ix, iy + 1, a_SpriteManager);
+		}
+	}
+
+
+	if (keyHit(KEYS::A) && Current == LEVEL1)
+	{
+		return 1;
+
+	}
+
+	return 0;
+
 }
 u16 MarioManager::tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,
 	u16* tilemap, u32 tilemap_w, u32 tilemap_h) {
@@ -138,9 +317,9 @@ void MarioManager::CheckCollisions()
 	BottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, iMapOffsetX,
 		iMapOffsetY, (u16*)bgCollision, 424, 64);
 
-	AlmostBotRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight - 2, iMapOffsetX,
+	AlmostBotRight = tile_lookup(iTileX + iSpriteWidth+2, iTileY + iSpriteHeight - 2, iMapOffsetX,
 		iMapOffsetY, (u16*)bgCollision, 424, 64);
-	AlmostBotLeft = tile_lookup(iTileX, iTileY + iSpriteHeight - 2, iMapOffsetX,
+	AlmostBotLeft = tile_lookup(iTileX-2, iTileY + iSpriteHeight - 2, iMapOffsetX,
 		iMapOffsetY, (u16*)bgCollision, 424, 64);
 
 
@@ -149,71 +328,67 @@ void MarioManager::CheckCollisions()
 void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 {
 	CheckCollisions();
-	s32 iTileTest = 0;
 
 	
 
 	
-	
-	if (iVelocityX > 0 && ((TopRight > iTileTest || AlmostBotRight > iTileTest)))
+	if (iVelocityX != STOPPED || bMoving == true)
 	{
-		iVelocityX = 0;
-		ix -= 500;
-	}
-	if (iVelocityX < 0 && ((TopLeft > iTileTest || AlmostBotLeft > iTileTest)))
-	{
-		iVelocityX = 0;
-	}
+		if (iVelocityX > STOPPED && ((TopRight > COLLISIONTILE || AlmostBotRight > COLLISIONTILE)))
+		{
+			iVelocityX = STOPPED;
+			ix -= 500;
+		}
+		if (iVelocityX < STOPPED && ((TopLeft > COLLISIONTILE || AlmostBotLeft > COLLISIONTILE)))
+		{
+			iVelocityX = STOPPED;
+		}
 
-	//a_SpriteManager.SetFrame(0, iSpriteID);
-
-	if (iVelocityX != 0 || bMoving == true)
-	{		
 		iFrame += iFrameSize;
-		if (iFrame >= 4*iFrameSize)
+		if (iFrame >= 4 * iFrameSize)
 		{
 			iFrame = 0;
 		}
-		
+		ix = fixAdd(ix, iVelocityX);
 	}
 
 
-	ix = fixAdd(ix, iVelocityX);
 	
-	if (iVelocityY < 0 && ((TopLeft > iTileTest || TopRight > iTileTest)))
+	
+	if (iVelocityY < STOPPED && ((TopLeft > COLLISIONTILE || TopRight > COLLISIONTILE)))
 	{
-		iVelocityY = 8;
+		iVelocityY = PUSHBACK;
 	}
 
-	if (BottomLeft > iTileTest || BottomRight > iTileTest)
+	if (BottomLeft > COLLISIONTILE || BottomRight > COLLISIONTILE)
 	{
-		//iVelocityY = -31;
-		iy &= ~0x7ff;
+		iy &= ALIGNMASK;
 		bOnGround = true;
 		if (bJump)
 		{
-			//iFrame = 4;
-			iVelocityY = -1024;
+			iVelocityY = JUMPHEIGHT;
 			iy = fixAdd(iy, iVelocityY);			
 		}		
 	}
 	else
 	{
 		bOnGround = false;
-		iVelocityY = fixAdd(iVelocityY, 32);
+		iVelocityY = fixAdd(iVelocityY, GRAVITY);
 		iy = fixAdd(iy, iVelocityY);		
 	}
 	bJump = false;
 	
 	a_SpriteManager.SetFrame(iFrame, iSpriteID);
 	a_SpriteManager.MoveSprite(fix2int(ix), fix2int(iy), iSpriteID);
-	if (iVelocityX >= 32)
+	
+	
+	if (iVelocityX >= WALKSPEED)
 	{
-		iVelocityX = fixSub(iVelocityX, 32);
+		iVelocityX = fixSub(iVelocityX, WALKSPEED);
 	}
-	else if (iVelocityX <= -32)
+	else if (iVelocityX <= -WALKSPEED)
 	{
-		iVelocityX = fixAdd(iVelocityX, 32);
+		iVelocityX = fixAdd(iVelocityX, WALKSPEED);
 	}
 	else
 	{
@@ -223,10 +398,10 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 
 
 	particleee.bActive = false;
-	particleee.SetEmitterPos(ix, iy+iSpriteHeight);
-	particleee.UpdateParticleArray(a_SpriteManager);
+	//particleee.SetEmitterPos(ix, iy+iSpriteHeight);
+	//particleee.UpdateParticleArray(a_SpriteManager);
 
-	UpdateFireBall(a_SpriteManager);
+//	UpdateFireBall(a_SpriteManager);
 
 
 }

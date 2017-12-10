@@ -91,6 +91,9 @@
     <ClCompile Include="source\World1Map_Tiles.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\World1MapCollisions.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\rocket4bpp.h">

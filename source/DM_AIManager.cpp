@@ -52,7 +52,7 @@ u16 AIManager::tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,
 	u16* tilemap, u32 tilemap_w, u32 tilemap_h) {
 
 	x += xscroll;
-	y += yscroll * 8;
+	y += yscroll*8;
 
 	/* convert from screen coordinates to tile coordinates */
 	x >>= 3;
@@ -60,19 +60,6 @@ u16 AIManager::tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,
 
 	//y = 44 + y;
 
-	/* account for wraparound */
-	while (x >= tilemap_w) {
-		x -= tilemap_w;
-	}
-	while (y >= tilemap_h) {
-		y -= tilemap_h;
-	}
-	while (x < 0) {
-		x += tilemap_w;
-	}
-	while (y < 0) {
-		y += tilemap_h;
-	}
 
 	/* lookup this tile from the map */
 	s32 index = y * tilemap_w + x;
@@ -94,25 +81,25 @@ void AIManager::UpdateEnemies(SpriteManager& a_SpriteManager, AIManager* a_Enemy
 			s32 iTileY = a_EnemyArray[i].iy >> 8;
 
 
-			u8 Bottom = tile_lookup(iTileX, iTileY + iSpriteHeight, a_EnemyArray[i].iMapOffsetX,
-				44, (u16*)bgCollision, 424, 64);
-			u8 Left = tile_lookup(iTileX, iTileY + 8, a_EnemyArray[i].iMapOffsetX,
-				44, (u16*)bgCollision, 424, 64);
-			u8 Right = tile_lookup(iTileX+ iSpriteWidth, iTileY + 8, a_EnemyArray[i].iMapOffsetX,
-				44, (u16*)bgCollision, 424, 64);
+			u8 Bottom = tile_lookup(iTileX, iTileY + 16, iMapOffsetX,
+				iMapOffsetY, (u16*)bgCollision, 424, 64);
+			u8 Left = tile_lookup(iTileX, iTileY + 8, iMapOffsetX,
+				iMapOffsetY, (u16*)bgCollision, 424, 64);
+			u8 Right = tile_lookup(iTileX+ 16, iTileY + 8, iMapOffsetX,
+				iMapOffsetY, (u16*)bgCollision, 424, 64);
 
-			u8 BottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, a_EnemyArray[i].iMapOffsetX,
-				a_EnemyArray[i].iMapOffsetY, (u16*)bgCollision, 424, 64);
+			u8 BottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, iMapOffsetX,
+				iMapOffsetY, (u16*)bgCollision, 424, 64);
 
 			s32 bDirection = -1;
 			if (Left > iTileTest)
 			{
-				bDirection = -1;
+				bDirection = 1;
 
 			}
 			if (Right > iTileTest)
 			{
-				bDirection = 1;
+				bDirection = -1;
 
 			}
 			if (Bottom > iTileTest)

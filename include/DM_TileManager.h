@@ -21,8 +21,7 @@ public:
 	void SetupBG(s32 a_ix, s32 a_iy, const unsigned short* a_bgTiles, u32 a_bgTilesLen, const unsigned short* a_bgPalette, u32 a_bgPalLen, const unsigned short* a_bgMap, u32 a_bgMapWidth);
 	void LoadBGPalette();
 	void LoadTileMap();
-	void AnimateBackground(const unsigned short* a_bgTilesA, const unsigned short* a_bgTilesB, const unsigned short* a_bgTilesC, const unsigned short* a_bgTilesD,
-							const unsigned short* a_palA, const unsigned short* a_palB, const unsigned short* a_palC, const unsigned short* a_palD);
+	void AnimateBackground(const unsigned short* a_bgTilesA, const unsigned short* a_bgTilesB, const unsigned short* a_bgTilesC, const unsigned short* a_bgTilesD);
 	void SetPos(s32 a_ix, s32 a_iy, const unsigned short* a_bgMap, u32 a_bgMapWidth);
 	void ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide);
 	void AddRow(s32 tx, s32 ty);

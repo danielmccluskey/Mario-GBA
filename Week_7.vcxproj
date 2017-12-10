@@ -78,6 +78,7 @@
     <ClCompile Include="source\rocket4bpp.c" />
     <ClCompile Include="source\sinlut.c" />
     <ClCompile Include="source\TileLookUp.c" />
+    <ClCompile Include="source\World1MapCollisions.cpp" />
     <ClCompile Include="source\World1Map_Maps.cpp" />
     <ClCompile Include="source\World1Map_Palette.cpp" />
     <ClCompile Include="source\World1Map_Tiles.cpp" />

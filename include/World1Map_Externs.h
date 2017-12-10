@@ -4,18 +4,12 @@
 #ifndef __WORLD1MAP_H__
 #define __WORLD1MAP_H__
 extern const unsigned short World1MapPalette[256];
-extern const unsigned short World1MapTilesA[1040];
 extern const unsigned short World1MapMap[1024];
+extern const unsigned short World1MapCollision[1024];
 
-extern const unsigned short World1MapPaletteB[256];
-extern const unsigned short World1MapTilesB[1040];
-extern const unsigned short World1MapMapB[1024];
+extern const unsigned short World1MapTilesA[1024];
+extern const unsigned short World1MapTilesB[1024];
+extern const unsigned short World1MapTilesC[1024];
+extern const unsigned short World1MapTilesD[1024];
 
-extern const unsigned short World1MapPaletteC[256];
-extern const unsigned short World1MapTilesC[1040];
-extern const unsigned short World1MapMapC[1024];
-
-extern const unsigned short World1MapPaletteD[256];
-extern const unsigned short World1MapTilesD[1040];
-extern const unsigned short World1MapMapD[1024];
 #endif // __WORLD1MAP_H__
