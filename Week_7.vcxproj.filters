@@ -70,9 +70,6 @@
     <ClCompile Include="source\DM_AIManager.cpp">
       <Filter>Source Files\Game Controllers</Filter>
     </ClCompile>
-    <ClCompile Include="include\BG_Collisions.h">
-      <Filter>Resource Files\Map</Filter>
-    </ClCompile>
     <ClCompile Include="source\EnemySprites.c">
       <Filter>Resource Files\Sprites</Filter>
     </ClCompile>
@@ -108,6 +105,12 @@
     </ClCompile>
     <ClCompile Include="source\World1Level1_Tiles.cpp">
       <Filter>Resource Files\Map\Level1</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DM_PrizeBlockManager.cpp">
+      <Filter>Source Files\Game Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PrizeBlockEmpty.c">
+      <Filter>Resource Files\Sprites</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,9 +159,6 @@
     <ClInclude Include="source\DM_ParticleManager.cpp">
       <Filter>Source Files\Game Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="include\maptest.h">
-      <Filter>Resource Files\Map</Filter>
-    </ClInclude>
     <ClInclude Include="include\EnemySprites.h">
       <Filter>Resource Files\Sprites</Filter>
     </ClInclude>
@@ -176,6 +176,12 @@
     </ClInclude>
     <ClInclude Include="include\World1Level1_Externs.h">
       <Filter>Resource Files\Map\Level1</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DM_PrizeBlockManager.h">
+      <Filter>Header Files\Game Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PrizeBlockEmpty.h">
+      <Filter>Resource Files\Sprites</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@ DM_AIManager.o: \
  c:/Users/Betat/Documents/gba-mario/include/Intellisense.h \
  c:/Users/Betat/Documents/gba-mario/include/gba_reg.h \
  c:/Users/Betat/Documents/gba-mario/include/EnemySprites.h \
- c:/Users/Betat/Documents/gba-mario/include/BG_Collisions.h
+ c:/Users/Betat/Documents/gba-mario/include/World1Level1_Externs.h
 
 c:/Users/Betat/Documents/gba-mario/include/DM_AIManager.h:
 
@@ -26,4 +26,4 @@ c:/Users/Betat/Documents/gba-mario/include/gba_reg.h:
 
 c:/Users/Betat/Documents/gba-mario/include/EnemySprites.h:
 
-c:/Users/Betat/Documents/gba-mario/include/BG_Collisions.h:
+c:/Users/Betat/Documents/gba-mario/include/World1Level1_Externs.h:

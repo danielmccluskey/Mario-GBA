@@ -1,6 +1,6 @@
 #include "DM_AIManager.h"
 #include "EnemySprites.h"
-#include "BG_Collisions.h"
+#include "World1Level1_Externs.h"
 
 enum EnemyTypes
 {
@@ -22,7 +22,7 @@ void AIManager::CreateEnemy(SpriteManager& a_SpriteManager, AIManager* a_EnemyAr
 			a_EnemyArray[i].ix = 240;
 			a_EnemyArray[i].iy = 0;
 			a_EnemyArray[i].bActive = true;
-			a_SpriteManager.MoveSprite(a_EnemyArray[i].ix, a_EnemyArray[i].iy, iSpriteID);
+			a_SpriteManager.MoveSprite(a_EnemyArray[i].ix, a_EnemyArray[i].iy, a_EnemyArray[i].iSpriteID);
 			break;
 		}
 		
@@ -87,14 +87,14 @@ void AIManager::UpdateEnemies(SpriteManager& a_SpriteManager, AIManager* a_Enemy
 
 
 			u8 Bottom = tile_lookup(iTileX, iTileY + 16, iMapOffsetX,
-				iMapOffsetY, (u16*)bgCollision, 424, 64);
+				iMapOffsetY, (u16*)World1Level1Map, 424, 32);
 			u8 Left = tile_lookup(iTileX, iTileY + 8, iMapOffsetX,
-				iMapOffsetY, (u16*)bgCollision, 424, 64);
+				iMapOffsetY, (u16*)World1Level1Map, 424, 32);
 			u8 Right = tile_lookup(iTileX+ 16, iTileY + 8, iMapOffsetX,
-				iMapOffsetY, (u16*)bgCollision, 424, 64);
+				iMapOffsetY, (u16*)World1Level1Map, 424, 32);
 
 			u8 BottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, iMapOffsetX,
-				iMapOffsetY, (u16*)bgCollision, 424, 64);
+				iMapOffsetY, (u16*)World1Level1Map, 424, 32);
 
 			s32 bDirection = -1;
 			if (Left > iTileTest)
@@ -145,6 +145,24 @@ void AIManager::UpdateEnemies(SpriteManager& a_SpriteManager, AIManager* a_Enemy
 	
 	
 
+
+}
+
+void AIManager::ScrollEnemies(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray, s32 a_ix)
+{
+	for (int i = 0; i < MAX_ENEMIES; i++)
+	{
+		if (a_EnemyArray[i].bActive == true)
+		{
+			a_EnemyArray[i].ix -= a_ix;
+			a_SpriteManager.MoveSprite(a_EnemyArray[i].ix, a_EnemyArray[i].iy, a_EnemyArray[i].iSpriteID);
+			if (a_EnemyArray[i].ix <= (-iSpriteWidth))
+			{
+				a_EnemyArray[i].bActive = false;
+				a_SpriteManager.DeleteSprite(a_EnemyArray[i].iSpriteID);
+			}
+		}
+	}
 
 }
 

@@ -7,7 +7,6 @@
 #include "DM_AIManager.h"
 #include "World1Map_Externs.h"
 #include "World1Level1_Externs.h"
-#include "maptest.h"
 
 
 enum GAMESTATES
@@ -56,7 +55,8 @@ int main()
 	//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
 	
 	
-	TileManager Tilemanager;	
+	TileManager Tilemanager;
+	PrizeBlockManager PrizeManager[MAX_PRIZEBLOCKS];
 	
 	s32 frame = 0;
 	while (1)
@@ -129,6 +129,7 @@ int main()
 			{
 				MarioSprite.ShootFireBall(Spritemanager);
 				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
+
 			}
 			if (fix2int(MarioSprite.ix) <= 4 && Tilemanager.i_x >= 1 && keyDown(KEYS::LEFT))
 			{
@@ -138,10 +139,17 @@ int main()
 			{
 				MarioSprite.iVelocityX = 0;
 				Tilemanager.right = true;
+				if (!((bool*)MarioSprite.AlmostBotRight))
+				{
+					PrizeManager[0].MoveBlocks(Spritemanager, PrizeManager, 2);
+					EnemyArray[0].ScrollEnemies(Spritemanager, EnemyArray, 2);
+				}
+				
+
 			}
 			
-			MarioSprite.UpdateMario(Spritemanager);
-			//EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
+			MarioSprite.UpdateMario(Spritemanager, PrizeManager, Tilemanager.iScrollOffset);
+			EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
 			Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight, World1Level1Map);
 
 			

@@ -61,9 +61,9 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\BG_Collisions.h" />
     <ClCompile Include="source\DM_AIManager.cpp" />
     <ClCompile Include="source\DM_MarioManager.cpp" />
+    <ClCompile Include="source\DM_PrizeBlockManager.cpp" />
     <ClCompile Include="source\DM_SpriteManager.cpp" />
     <ClCompile Include="source\DM_TileManager.cpp" />
     <ClCompile Include="source\EnemySprites.c" />
@@ -75,6 +75,7 @@
     <ClCompile Include="source\Mario_Small.c" />
     <ClCompile Include="source\Mario_Tall.c" />
     <ClCompile Include="source\particles.c" />
+    <ClCompile Include="source\PrizeBlockEmpty.c" />
     <ClCompile Include="source\World1Level1_Collisions.cpp" />
     <ClCompile Include="source\World1Level1_Maps.cpp" />
     <ClCompile Include="source\World1Level1_Palette.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="include\DM_AIManager.h" />
     <ClInclude Include="include\DM_MarioManager.h" />
     <ClInclude Include="include\DM_ParticleManager.h" />
+    <ClInclude Include="include\DM_PrizeBlockManager.h" />
     <ClInclude Include="include\DM_SpriteManager.h" />
     <ClInclude Include="include\DM_SpritesStruct.h" />
     <ClInclude Include="include\DM_TileManager.h" />
@@ -100,10 +102,10 @@
     <ClInclude Include="include\gba_reg.h" />
     <ClInclude Include="include\gba_types.h" />
     <ClInclude Include="include\Intellisense.h" />
-    <ClInclude Include="include\maptest.h" />
     <ClInclude Include="include\Mario_Small.h" />
     <ClInclude Include="include\Mario_Tall.h" />
     <ClInclude Include="include\particles.h" />
+    <ClInclude Include="include\PrizeBlockEmpty.h" />
     <ClInclude Include="include\World1Level1_Externs.h" />
     <ClInclude Include="include\World1Map_Externs.h" />
     <ClInclude Include="source\DM_ParticleManager.cpp" />

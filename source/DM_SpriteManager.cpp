@@ -8,7 +8,7 @@ u16 SpriteManager::CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s3
 {
 	
 	
-	SpriteIndex = 256;
+	//SpriteIndex = 256;
 	for (int i = 0; i < 128; i++)
 	{
 		if (OccupiedSprite[i] == false)
@@ -18,10 +18,10 @@ u16 SpriteManager::CreateSprite(u16* a_Tiles, u16* a_Palette, s32 a_TileSize, s3
 			break;
 		}
 	}
-	if (SpriteIndex == 256)
+	/*if (SpriteIndex == 256)
 	{
 		return 255;
-	}
+	}*/
 
 	LoadTiles((u16*)a_Tiles, (u16*)a_Palette, a_TileSize, a_PaletteSize *2, a_TileBlock, a_PaletteBank);
 	//SpriteInformation[SpriteIndex]->i_x = 50;

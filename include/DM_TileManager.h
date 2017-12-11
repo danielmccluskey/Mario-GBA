@@ -4,7 +4,6 @@
 
 #include "gba_types.h"
 
-
 class TileManager
 {
 public:
@@ -13,6 +12,7 @@ public:
 	s32 scroll_y = 0;
 
 	s32 iframe = 0;
+	u16 iScrollOffset = 0;
 
 	s32 i_x = 0, i_y = 0;
 

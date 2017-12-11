@@ -5,6 +5,7 @@
 #include "gba_math.h"
 #include "DM_SpriteManager.h"
 #include "DM_ParticleManager.h"
+#include "DM_PrizeBlockManager.h"
 
 
 struct Fireball
@@ -58,11 +59,12 @@ public:
 
 	ParticleManager particleee;
 	Fireball sfire[10];
+	
 
 	void CreateMario(SpriteManager& a_SpriteManager);
 	void MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
 	void SetPos(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
-	void UpdateMario(SpriteManager& a_SpriteManager);
+	void UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager* a_PrizeBlockManagerArray, u16 a_iScrollOffset);
 	void AnimateMario(SpriteManager& a_SpriteManager);
 	void PhysicsHandler();
 	u16 MapManager(const unsigned short* a_bgCollisionMap, SpriteManager a_SpriteManager);

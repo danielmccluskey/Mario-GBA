@@ -10,6 +10,7 @@
 #define MAX_ENEMIES 5
 #define MAX_PARTICLES 10
 #define MAX_FIREBALLS 10
+#define MAX_PRIZEBLOCKS 10
 
 
 //temp defines for sprite palette banks and tile blocks
@@ -18,11 +19,13 @@
 #define ParticleTileBlock 128
 #define FireballTileBlock 140
 #define EnemyTileBlock 200
+#define PrizeBlockTileBlock 240
 
 #define MarioPalb 0
 #define ParticlePalb 12
 #define FireballPalb 12
 #define EnemyPalb 5
+#define PrizeBlockPalb 3
 
 
 

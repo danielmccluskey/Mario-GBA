@@ -28,7 +28,7 @@ vu16* BG3SC_Y = (vu16*)0x400001e;
 #define BG_VOFFSET0			*(vu16*)(REG_BASE+0x0012)
 
 s16 xscroll = 0;
-
+u16 ScrollAmount = 2;
 
 #define PALSIZE 256
 
@@ -111,13 +111,19 @@ void TileManager::ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide, co
 
 	if (right && !a_bRightCollide)
 	{
-		i_x += 2;
-		scroll_x += 2;
+		i_x += ScrollAmount;
+		scroll_x += ScrollAmount;
+
+		iScrollOffset += 2;
+		if (iScrollOffset >= 8)
+		{
+			iScrollOffset = 0;
+		}
 	}
 	if (left && !a_bLeftCollide)
 	{
-		i_x -= 2;
-		scroll_x -= 2;
+		i_x -= ScrollAmount;
+		scroll_x -= ScrollAmount;
 	}
 
 	if ((right && !a_bRightCollide) || (left && !a_bLeftCollide))

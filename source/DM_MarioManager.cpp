@@ -24,6 +24,8 @@ enum MARIOPHYSICS
 	COLLISIONTILE = 0,
 	MAXXVELOCITY = 550,
 	MAXYVELOCITY = 550,
+	QUESTIONRANGEA = 2,
+	QUESTIONRANGEB = 5
 };
 
 enum WorldSelection
@@ -397,9 +399,17 @@ void MarioManager::PhysicsHandler()
 		iFrame = 0;
 	}
 }
-void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
+void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager* a_PrizeBlockManagerArray, u16 a_iScrollOffset)
 {
 	CheckCollisions();
+
+	if (TopLeft >= QUESTIONRANGEA && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
+	{
+		s32 iTileX = ix >> 3;
+		s32 iTileY = iy >> 3;
+
+		a_PrizeBlockManagerArray[0].CreateBlock(iTileX, iTileY, a_PrizeBlockManagerArray, a_SpriteManager, 0);
+	}
 	PhysicsHandler();
 	AnimateMario(a_SpriteManager);
 	UpdateFireBall(a_SpriteManager);	

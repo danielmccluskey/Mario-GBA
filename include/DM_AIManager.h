@@ -35,6 +35,7 @@ public:
 	void TransformEnemy(s32 a_iMarioType, SpriteManager& a_SpriteManager);
 	u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,	u16* tilemap, u32 tilemap_w, u32 tilemap_h);
 	void DeleteEnemy(AIManager& a_Enemy);
+	void ScrollEnemies(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray, s32 a_ix);
 
 };
 #endif // !_AIMANAGER_H_

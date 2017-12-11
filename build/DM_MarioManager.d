@@ -8,6 +8,8 @@ DM_MarioManager.o: \
  c:/Users/Betat/Documents/gba-mario/include/Intellisense.h \
  c:/Users/Betat/Documents/gba-mario/include/gba_reg.h \
  c:/Users/Betat/Documents/gba-mario/include/DM_ParticleManager.h \
+ c:/Users/Betat/Documents/gba-mario/include/DM_PrizeBlockManager.h \
+ c:/Users/Betat/Documents/gba-mario/include/DM_AIManager.h \
  c:/Users/Betat/Documents/gba-mario/include/Mario_Small.h \
  c:/Users/Betat/Documents/gba-mario/include/Mario_Tall.h \
  c:/Users/Betat/Documents/gba-mario/include/particles.h \
@@ -32,6 +34,10 @@ c:/Users/Betat/Documents/gba-mario/include/Intellisense.h:
 c:/Users/Betat/Documents/gba-mario/include/gba_reg.h:
 
 c:/Users/Betat/Documents/gba-mario/include/DM_ParticleManager.h:
+
+c:/Users/Betat/Documents/gba-mario/include/DM_PrizeBlockManager.h:
+
+c:/Users/Betat/Documents/gba-mario/include/DM_AIManager.h:
 
 c:/Users/Betat/Documents/gba-mario/include/Mario_Small.h:
 
