@@ -7,7 +7,7 @@
 #include "gba_math.h"
 
 
-#define MAX_ENEMIES 40
+#define MAX_ENEMIES 5
 #define MAX_PARTICLES 10
 #define MAX_FIREBALLS 10
 
@@ -22,7 +22,7 @@
 #define MarioPalb 0
 #define ParticlePalb 12
 #define FireballPalb 12
-#define EnemyPalb 4
+#define EnemyPalb 5
 
 
 
@@ -45,6 +45,15 @@
 
 //vcount is used for testing for vertical blank
 #define REG_VCOUNT (*(vu16*)(REG_BASE + 0x06))
+
+
+typedef u16 SCR_ENTRY;
+typedef SCR_ENTRY   SCREENBLOCK[1024];
+#define se_mem          ((SCREENBLOCK*)VRAM)
+#define REG_BGCNT      ((vu16*)(REG_BASE+0x0008))
+#define REG_BG_OFS      ((BG_POINT*)(REG_BASE+0x0010))
+#define REG_BG_AFFINE   ((BG_AFFINE*)(REG_BASE+0x0000))
+#define BG_AFF_128x128		0xC000
 
 extern void vsync();
 //=======================================================================

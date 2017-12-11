@@ -11,7 +11,9 @@ extern "C" {
 #include "gba_mathUtil.h"
 #include "gba_math.h"
 #include "gba_gfx.h"
-#include "gba_drawing.h"
+
+#define SCREEN_W 240
+#define SCREEN_H 160
 
 #ifdef __cplusplus
 };

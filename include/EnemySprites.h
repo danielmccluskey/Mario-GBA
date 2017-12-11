@@ -21,7 +21,7 @@
 extern const unsigned short EnemySpritesTiles[512];
 
 #define EnemySpritesPalLen 16
-extern const unsigned short EnemySpritesPal[8];
+extern const unsigned short EnemySpritesPal[10];
 
 #endif // GRIT_ENEMYSPRITES_H
 

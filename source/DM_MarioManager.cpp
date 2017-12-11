@@ -3,7 +3,7 @@
 #include "Mario_Tall.h"
 #include "particles.h"
 #include "gba.h"
-#include "BG_Collisions.h"
+#include "World1Level1_Externs.h"
 #include "gba_math.h"
 
 enum MARIOTYPES
@@ -51,6 +51,9 @@ enum MarioFrames
 	SWIM1
 };
 
+
+s32 iMapWidth = 424;
+s32 iMapHeight = 32;
 void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
 {
 	iSpriteID=	a_SpriteManager.CreateSprite((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*3, MarioTileBlock, MarioPalb);
@@ -309,29 +312,38 @@ void MarioManager::CheckCollisions()
 	s32 iTileY = iy >> 8;
 
 	TopLeft = tile_lookup(iTileX, iTileY, iMapOffsetX,
-		iMapOffsetY, (u16*)bgCollision, 424, 64);
+		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 	BottomLeft = tile_lookup(iTileX, iTileY + iSpriteHeight, iMapOffsetX,
-		iMapOffsetY, (u16*)bgCollision, 424, 64);
+		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 	TopRight = tile_lookup(iTileX + iSpriteWidth, iTileY, iMapOffsetX,
-		iMapOffsetY, (u16*)bgCollision, 424, 64);
+		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 	BottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, iMapOffsetX,
-		iMapOffsetY, (u16*)bgCollision, 424, 64);
+		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 
 	AlmostBotRight = tile_lookup(iTileX + iSpriteWidth+2, iTileY + iSpriteHeight - 2, iMapOffsetX,
-		iMapOffsetY, (u16*)bgCollision, 424, 64);
+		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 	AlmostBotLeft = tile_lookup(iTileX-2, iTileY + iSpriteHeight - 2, iMapOffsetX,
-		iMapOffsetY, (u16*)bgCollision, 424, 64);
+		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 
 
 
 }
-void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
+
+void MarioManager::AnimateMario(SpriteManager& a_SpriteManager)
 {
-	CheckCollisions();
+	if (iVelocityX != STOPPED || bMoving == true)
+	{
+		iFrame += iFrameSize;
+		if (iFrame >= 4 * iFrameSize)
+		{
+			iFrame = 0;
+		}
+	}
 
-	
-
-	
+	a_SpriteManager.SetFrame(iFrame, iSpriteID);
+}
+void MarioManager::PhysicsHandler()
+{
 	if (iVelocityX != STOPPED || bMoving == true)
 	{
 		if (iVelocityX > STOPPED && ((TopRight > COLLISIONTILE || AlmostBotRight > COLLISIONTILE)))
@@ -344,17 +356,9 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 			iVelocityX = STOPPED;
 		}
 
-		iFrame += iFrameSize;
-		if (iFrame >= 4 * iFrameSize)
-		{
-			iFrame = 0;
-		}
 		ix = fixAdd(ix, iVelocityX);
 	}
 
-
-	
-	
 	if (iVelocityY < STOPPED && ((TopLeft > COLLISIONTILE || TopRight > COLLISIONTILE)))
 	{
 		iVelocityY = PUSHBACK;
@@ -367,21 +371,18 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 		if (bJump)
 		{
 			iVelocityY = JUMPHEIGHT;
-			iy = fixAdd(iy, iVelocityY);			
-		}		
+			iy = fixAdd(iy, iVelocityY);
+		}
 	}
 	else
 	{
 		bOnGround = false;
 		iVelocityY = fixAdd(iVelocityY, GRAVITY);
-		iy = fixAdd(iy, iVelocityY);		
+		iy = fixAdd(iy, iVelocityY);
 	}
 	bJump = false;
-	
-	a_SpriteManager.SetFrame(iFrame, iSpriteID);
-	a_SpriteManager.MoveSprite(fix2int(ix), fix2int(iy), iSpriteID);
-	
-	
+
+
 	if (iVelocityX >= WALKSPEED)
 	{
 		iVelocityX = fixSub(iVelocityX, WALKSPEED);
@@ -395,13 +396,24 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
 		iVelocityX = 0;
 		iFrame = 0;
 	}
+}
+void MarioManager::UpdateMario(SpriteManager& a_SpriteManager)
+{
+	CheckCollisions();
+	PhysicsHandler();
+	AnimateMario(a_SpriteManager);
+	UpdateFireBall(a_SpriteManager);	
+	a_SpriteManager.MoveSprite(fix2int(ix), fix2int(iy), iSpriteID);
+	
+	
+	
 
 
 	particleee.bActive = false;
 	//particleee.SetEmitterPos(ix, iy+iSpriteHeight);
 	//particleee.UpdateParticleArray(a_SpriteManager);
 
-//	UpdateFireBall(a_SpriteManager);
+	
 
 
 }
@@ -414,9 +426,9 @@ void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
 			s32 iTileXA = (sfire[i].fx >> 8);
 			s32 iTileYA = (sfire[i].fy >> 8);
 			u16 Bottom = tile_lookup(iTileXA + 4, iTileYA + 8, iMapOffsetX,
-				iMapOffsetY, (u16*)bgCollision, 424, 64);
+				iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 			u16 Right = tile_lookup(iTileXA + 8, iTileYA + 4, iMapOffsetX,
-				iMapOffsetY, (u16*)bgCollision, 424, 64);
+				iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 
 			if (Bottom > 0)
 			{
@@ -467,6 +479,7 @@ void MarioManager::InitFireBall(SpriteManager& a_SpriteManager)
 		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(sfire[i].fy, 2, 0, 0, A0_4BPP, A0_SQUARE);
 		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(sfire[i].fx, 0, 0, 0, A1_SIZE_0);
 		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr2 = a_SpriteManager.setSpriteAttr2(FireballTileBlock, 0, 0);
+		a_SpriteManager.HideSprite(sfire[i].iSpriteID);
 	}
 
 	

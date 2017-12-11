@@ -1,14 +1,12 @@
 #include "Intellisense.h"
 #include "gba.h"
 
-#include <string.h>
 #include "DM_SpriteManager.h"
 #include "DM_MarioManager.h"
 #include "DM_TileManager.h"
-#include "gba_sound.h"
-#include "rocket4bpp.h"
 #include "DM_AIManager.h"
 #include "World1Map_Externs.h"
+#include "World1Level1_Externs.h"
 #include "maptest.h"
 
 
@@ -87,8 +85,8 @@ int main()
 		}
 		if (iGameState == LOAD_LEVEL1)
 		{
-			Tilemanager.SetupBG(2, 44, bgTiles, 816 * 2, bgPalette, 512, bgMap, 424);
-			Tilemanager.SetPos(2, 44, bgMap, 424);
+			Tilemanager.SetupBG(2, 12, World1Level1Tiles, 816 * 2, World1Level1Palette, 32, World1Level1Map, 424);
+			Tilemanager.SetPos(2, 12, World1Level1Map, 424);
 			iGameState = GAMEINIT;
 		}
 		if (iGameState == GAMEINIT)
@@ -143,13 +141,12 @@ int main()
 			}
 			
 			MarioSprite.UpdateMario(Spritemanager);
-			EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
-			Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight);
+			//EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
+			Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight, World1Level1Map);
 
 			
 		}
 		
 	}
-
 	return 0;
 }

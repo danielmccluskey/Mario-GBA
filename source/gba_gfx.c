@@ -1,6 +1,5 @@
 #include "Intellisense.h"
 #include "gba_gfx.h"
-#include "sinlut.h"
 
 
 
@@ -147,12 +146,3 @@ void obj_aff_identity(ObjectAffine* a_obj)
 	a_obj->pc = 0;			a_obj->pd = 0x0100;
 }
 
-//set the rotation and scale of the object 
-//uses the sine look up table to retrieve a value for sine & cosine
-void obj_aff_rotscale(ObjectAffine* oaff, fixed sx, fixed sy, u16 alpha)
-{
-	int ss = lu_sin(alpha), cc = lu_cos(alpha);
-	//shifts values down 12 to account for fixed point multiply to keep values as .8 fixed
-	oaff->pa = cc*sx >> 12;	oaff->pb = -ss*sx >> 12;
-	oaff->pc = ss*sy >> 12;	oaff->pd = cc*sy >> 12;
-}

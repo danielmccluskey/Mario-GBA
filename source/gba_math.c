@@ -59,15 +59,5 @@ fixed	fixDiv(fixed a_fa, fixed a_fb)
 	return ((a_fa)* FIX_SCALE) / a_fb;
 }
 
-#include "sinlut.h"
 
-s32 lu_sin(u32 theta)
-{
-	return sin_lut[(theta >> 7) & 0x1FF];
-}
-
-s32 lu_cos(u32 theta)
-{
-	return sin_lut[((theta >> 7) + 128) & 0x1FF];
-}
 

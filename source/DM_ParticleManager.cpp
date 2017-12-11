@@ -15,6 +15,7 @@ void ParticleManager::InitArray(SpriteManager& a_SpriteManager)
 		a_SpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(fy, 0, 0, 0, A0_4BPP, A0_SQUARE);
 		a_SpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fx, 0, 0, 0, A1_SIZE_0);
 		a_SpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr2 = a_SpriteManager.setSpriteAttr2(129, 0, 0);
+		a_SpriteManager.HideSprite(sParticles[i].iSpriteID);
 		EmitParticle(sParticles[i]);
 	}
 }

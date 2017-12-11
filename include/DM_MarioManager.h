@@ -63,6 +63,8 @@ public:
 	void MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
 	void SetPos(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
 	void UpdateMario(SpriteManager& a_SpriteManager);
+	void AnimateMario(SpriteManager& a_SpriteManager);
+	void PhysicsHandler();
 	u16 MapManager(const unsigned short* a_bgCollisionMap, SpriteManager a_SpriteManager);
 	void CheckCollisions();
 	void TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager);

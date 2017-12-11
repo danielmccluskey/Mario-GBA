@@ -25,38 +25,35 @@
     <Filter Include="Source Files\Game Controllers">
       <UniqueIdentifier>{e0f9e74e-8661-46df-aaeb-2aa1a6deb2c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Sprites">
+      <UniqueIdentifier>{c17c0904-658a-4c98-86af-64d1f41f7c86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Map">
+      <UniqueIdentifier>{5955befc-d67f-4772-8f42-8d82ab04f8d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Map\WorldMap">
+      <UniqueIdentifier>{af66eddc-4c39-4467-9c3d-171fa74d377e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Map\Level1">
+      <UniqueIdentifier>{35e847b0-d23a-44d8-9ffa-e4ab36d2991a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
     <Text Include="Makefile" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\rocket4bpp.c">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\particles.c">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\gba_math.c">
       <Filter>Source Files\GBA Reg</Filter>
     </ClCompile>
     <ClCompile Include="source\gab_mathUtil.c">
       <Filter>Source Files\GBA Reg</Filter>
     </ClCompile>
-    <ClCompile Include="source\gba_drawing.c">
-      <Filter>Source Files\GBA Reg</Filter>
-    </ClCompile>
     <ClCompile Include="source\gba_input.c">
-      <Filter>Source Files\GBA Reg</Filter>
-    </ClCompile>
-    <ClCompile Include="source\sinlut.c">
       <Filter>Source Files\GBA Reg</Filter>
     </ClCompile>
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files\Game Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="source\TileLookUp.c">
-      <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="source\DM_MarioManager.cpp">
       <Filter>Source Files\Game Controllers</Filter>
@@ -67,41 +64,53 @@
     <ClCompile Include="source\DM_TileManager.cpp">
       <Filter>Source Files\Game Controllers</Filter>
     </ClCompile>
-    <ClCompile Include="include\BG_Collisions.h">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\gba_gfx.c">
       <Filter>Source Files\GBA Reg</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Mario_Small.c">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Mario_Tall.c">
-      <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="source\DM_AIManager.cpp">
       <Filter>Source Files\Game Controllers</Filter>
     </ClCompile>
+    <ClCompile Include="include\BG_Collisions.h">
+      <Filter>Resource Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EnemySprites.c">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mario_Small.c">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mario_Tall.c">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="source\particles.c">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClCompile>
     <ClCompile Include="source\World1Map_Maps.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Map\WorldMap</Filter>
     </ClCompile>
     <ClCompile Include="source\World1Map_Palette.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Map\WorldMap</Filter>
     </ClCompile>
     <ClCompile Include="source\World1Map_Tiles.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Map\WorldMap</Filter>
     </ClCompile>
     <ClCompile Include="source\World1MapCollisions.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Map\WorldMap</Filter>
+    </ClCompile>
+    <ClCompile Include="source\World1Level1_Collisions.cpp">
+      <Filter>Resource Files\Map\Level1</Filter>
+    </ClCompile>
+    <ClCompile Include="source\World1Level1_Maps.cpp">
+      <Filter>Resource Files\Map\Level1</Filter>
+    </ClCompile>
+    <ClCompile Include="source\World1Level1_Palette.cpp">
+      <Filter>Resource Files\Map\Level1</Filter>
+    </ClCompile>
+    <ClCompile Include="source\World1Level1_Tiles.cpp">
+      <Filter>Resource Files\Map\Level1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\rocket4bpp.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\particles.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\DM_MarioManager.h">
       <Filter>Header Files\Game Controllers</Filter>
     </ClInclude>
@@ -114,13 +123,7 @@
     <ClInclude Include="include\DM_TileManager.h">
       <Filter>Header Files\Game Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="include\sinlut.h">
-      <Filter>Header Files\GBA Reg</Filter>
-    </ClInclude>
     <ClInclude Include="include\gba.h">
-      <Filter>Header Files\GBA Reg</Filter>
-    </ClInclude>
-    <ClInclude Include="include\gba_drawing.h">
       <Filter>Header Files\GBA Reg</Filter>
     </ClInclude>
     <ClInclude Include="include\gba_gfx.h">
@@ -144,21 +147,6 @@
     <ClInclude Include="include\Intellisense.h">
       <Filter>Header Files\GBA Reg</Filter>
     </ClInclude>
-    <ClInclude Include="include\maptest.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Mario.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TileLookUp.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Mario_Small.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Mario_Tall.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\DM_AIManager.h">
       <Filter>Header Files\Game Controllers</Filter>
     </ClInclude>
@@ -168,11 +156,26 @@
     <ClInclude Include="source\DM_ParticleManager.cpp">
       <Filter>Source Files\Game Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="include\gba_sound.h">
-      <Filter>Header Files\GBA Reg</Filter>
+    <ClInclude Include="include\maptest.h">
+      <Filter>Resource Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EnemySprites.h">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mario_Small.h">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mario_Tall.h">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="include\particles.h">
+      <Filter>Resource Files\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="include\World1Map_Externs.h">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Map\WorldMap</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World1Level1_Externs.h">
+      <Filter>Resource Files\Map\Level1</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

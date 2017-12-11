@@ -39,11 +39,6 @@ extern "C" {
 	extern fixed	fixDiv(fixed a_fa, fixed a_fb);
 
 
-	//\=====================================================================================
-	//Look Up tables
-	extern s32 lu_sin(u32 theta);
-	extern s32 lu_cos(u32 theta);
-
 #ifdef __cplusplus
 }
 #endif

@@ -2,23 +2,14 @@
 
 
 #include "DM_TileManager.h"
-#include "gba_types.h"
-#include "maptest.h"
 
-#include "gba_reg.h"
-#include "gba_gfx.h"
+#include "gba.h"
 #include <string.h>
 
 
 
 
-typedef u16 SCR_ENTRY;
-typedef SCR_ENTRY   SCREENBLOCK[1024];
-#define se_mem          ((SCREENBLOCK*)VRAM)
-#define REG_BGCNT      ((vu16*)(REG_BASE+0x0008))
-#define REG_BG_OFS      ((BG_POINT*)(REG_BASE+0x0010))
-#define REG_BG_AFFINE   ((BG_AFFINE*)(REG_BASE+0x0000))
-#define BG_AFF_128x128		0xC000
+
 s32 MAPWIDTH = 32;
 s32 MAPHEIGHT = 32;
 
@@ -47,6 +38,7 @@ void TileManager::SetupBG(s32 a_ix, s32 a_iy, const unsigned short* a_bgTiles, u
 	memcpy(&tile_mem[0][0], a_bgTiles, a_bgTilesLen);
 	i_x = a_ix;
 	i_y = a_iy;
+
 
 	scroll_x = a_ix;
 	//scroll_y = a_iy;
@@ -111,7 +103,7 @@ void TileManager::AnimateBackground(const unsigned short* a_bgTilesA, const unsi
 
 }
 
-void TileManager::ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide)
+void TileManager::ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide, const unsigned short* a_bgMap)
 {
 
 
@@ -141,14 +133,14 @@ void TileManager::ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide)
 		int tbx = bx >> 3, tby = by >> 3;
 
 		if (right)		// add on left
-			AddRow(tvx, tvy);
+			AddRow(tvx, tvy, a_bgMap);
 		else if (left)	// add on right
-			AddRow(tvx + 31, tvy);
+			AddRow(tvx + 31, tvy, a_bgMap);
 
 		if (tvy < tby)		// add on top
-			AddCol(tvx, tvy);
+			AddCol(tvx, tvy, a_bgMap);
 		else if (tvy > tby)	// add on bottom
-			AddCol(tvx, tvy + 31);
+			AddCol(tvx, tvy + 31, a_bgMap);
 
 		left = false;
 		right = false;
@@ -160,12 +152,12 @@ void TileManager::ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide)
 
 
 
-void TileManager::AddRow(s32 tx, s32 ty)
+void TileManager::AddRow(s32 tx, s32 ty, const unsigned short* a_bgMap)
 {	
 	int iy, y0 = ty & 31;
 
 	int srcP = MAPWIDTH;
-	SCR_ENTRY *ScreenBlocks = se_mem[15], *maps = (SCR_ENTRY*)bgMap;
+	SCR_ENTRY *ScreenBlocks = se_mem[15], *maps = (SCR_ENTRY*)a_bgMap;
 	SCR_ENTRY *srcL;
 	SCR_ENTRY *dstL;
 	if (right)
@@ -193,12 +185,12 @@ void TileManager::AddRow(s32 tx, s32 ty)
 		*dstL = *srcL;	dstL += 32;	srcL += srcP;
 	}	
 }
-void TileManager::AddCol(s32 tx, s32 ty)
+void TileManager::AddCol(s32 tx, s32 ty, const unsigned short* a_bgMap)
 {
 	int ix, x0 = tx & 31;
 
 	int srcP = MAPWIDTH;
-	SCR_ENTRY *ScreenBlocks = se_mem[15], *maps = (SCR_ENTRY*)bgMap;
+	SCR_ENTRY *ScreenBlocks = se_mem[15], *maps = (SCR_ENTRY*)a_bgMap;
 	SCR_ENTRY *srcL = &maps[ty*srcP + tx];
 	SCR_ENTRY *dstL = &ScreenBlocks[(ty & 31) * 32 + x0];
 

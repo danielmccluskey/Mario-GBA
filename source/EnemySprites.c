@@ -1,20 +1,20 @@
 
-//{{BLOCK(EnemySprites)
+//{{BLOCK(Enemiestestt)
 
 //======================================================================
 //
-//	EnemySprites, 8x256@4, 
-//	+ palette 8 entries, not compressed
+//	Enemiestestt, 8x256@4, 
+//	+ palette 9 entries, not compressed
 //	+ 32 tiles not compressed
-//	Total size: 16 + 1024 = 1040
+//	Total size: 18 + 1024 = 1042
 //
-//	Time-stamp: 2017-12-04, 15:42:12
+//	Time-stamp: 2017-12-10, 22:36:06
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.3
 //	( http://www.coranac.com/projects/#grit )
 //
 //======================================================================
 
-const unsigned short EnemySpritesTiles[512] __attribute__((aligned(4)))=
+const unsigned short EnemySpritesTiles[512] __attribute__((aligned(4))) =
 {
 	0x0000,0x7700,0x0000,0x7770,0x0000,0x7777,0x7000,0x7777,
 	0x1700,0x7771,0x7770,0x7712,0x7770,0x1112,0x7777,0x7212,
@@ -89,9 +89,10 @@ const unsigned short EnemySpritesTiles[512] __attribute__((aligned(4)))=
 	0x3433,0x6663,0x4333,0x6666,0x6333,0x0006,0x6633,0x0000,
 };
 
-const unsigned short EnemySpritesPal[8] __attribute__((aligned(4)))=
+const unsigned short EnemySpritesPal[10] __attribute__((aligned(4))) =
 {
 	0x7C1F,0x0000,0x5F3F,0x1093,0x123A,0x0203,0x7FFF,0x0533,
+	0x0000,
 };
 
-//}}BLOCK(EnemySprites)
+//}}BLOCK(Enemiestestt)

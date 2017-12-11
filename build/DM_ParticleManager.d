@@ -8,7 +8,6 @@ DM_ParticleManager.o: \
  c:/Users/Betat/Documents/gba-mario/include/gba_math.h \
  c:/Users/Betat/Documents/gba-mario/include/gba_gfx.h \
  c:/Users/Betat/Documents/gba-mario/include/Intellisense.h \
- c:/Users/Betat/Documents/gba-mario/include/gba_drawing.h \
  c:/Users/Betat/Documents/gba-mario/include/DM_ParticleManager.h \
  c:/Users/Betat/Documents/gba-mario/include/DM_SpriteManager.h \
  c:/Users/Betat/Documents/gba-mario/include/Mario_Small.h \
@@ -29,8 +28,6 @@ c:/Users/Betat/Documents/gba-mario/include/gba_math.h:
 c:/Users/Betat/Documents/gba-mario/include/gba_gfx.h:
 
 c:/Users/Betat/Documents/gba-mario/include/Intellisense.h:
-
-c:/Users/Betat/Documents/gba-mario/include/gba_drawing.h:
 
 c:/Users/Betat/Documents/gba-mario/include/DM_ParticleManager.h:
 

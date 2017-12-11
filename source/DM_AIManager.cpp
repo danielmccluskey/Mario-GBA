@@ -71,7 +71,12 @@ u16 AIManager::tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,
 void AIManager::UpdateEnemies(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray)
 {
 	s32 iTileTest = 0;
-
+	iFrame++;
+	if (iFrame == 2)
+	{
+		iFrame = 0;
+	}
+	
 	for (int i = 0; i < MAX_ENEMIES; i++)
 	{
 		if (a_EnemyArray[i].bActive == true)
@@ -126,12 +131,18 @@ void AIManager::UpdateEnemies(SpriteManager& a_SpriteManager, AIManager* a_Enemy
 				a_SpriteManager.DeleteSprite(a_EnemyArray[i].iSpriteID);
 			}
 
+			
+			a_SpriteManager.SetFrame(EnemyTileBlock+(iFrame*iFrameSize), a_EnemyArray[i].iSpriteID);
+			
+			
+			
 
 		}
 
 
 	}
 
+	
 	
 
 

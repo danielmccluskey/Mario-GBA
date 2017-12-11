@@ -15,6 +15,8 @@ public:
 	s32 iframe = 0;
 
 	s32 i_x = 0, i_y = 0;
+
+
 	bool left = false;
 	bool right = false;
 
@@ -23,9 +25,9 @@ public:
 	void LoadTileMap();
 	void AnimateBackground(const unsigned short* a_bgTilesA, const unsigned short* a_bgTilesB, const unsigned short* a_bgTilesC, const unsigned short* a_bgTilesD);
 	void SetPos(s32 a_ix, s32 a_iy, const unsigned short* a_bgMap, u32 a_bgMapWidth);
-	void ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide);
-	void AddRow(s32 tx, s32 ty);
-	void AddCol(s32 tx, s32 ty);
+	void ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide, const unsigned short* a_bgMap);
+	void AddRow(s32 tx, s32 ty, const unsigned short* a_bgMap);
+	void AddCol(s32 tx, s32 ty, const unsigned short* a_bgMap);
 };
 
 
