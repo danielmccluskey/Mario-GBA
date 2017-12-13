@@ -53,7 +53,9 @@ enum MarioFrames
 	SWIM1
 };
 
-
+s32 testxpos = 0;
+s32 testypos = 0;
+s32 testcontroller = 0;
 s32 iMapWidth = 424;
 s32 iMapHeight = 32;
 void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
@@ -304,6 +306,8 @@ u16 MarioManager::tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,
 	/* lookup this tile from the map */
 	s32 index = y * tilemap_w + x;
 
+	
+
 	/* return the tile */
 	return tilemap[index];
 }
@@ -315,6 +319,7 @@ void MarioManager::CheckCollisions()
 
 	TopLeft = tile_lookup(iTileX, iTileY, iMapOffsetX,
 		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+
 	BottomLeft = tile_lookup(iTileX, iTileY + iSpriteHeight, iMapOffsetX,
 		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 	TopRight = tile_lookup(iTileX + iSpriteWidth, iTileY, iMapOffsetX,
@@ -403,19 +408,22 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 {
 	CheckCollisions();
 
-	if (TopLeft >= QUESTIONRANGEA && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
-	{
-		s32 iTileX = ix >> 3;
-		s32 iTileY = iy >> 3;
-
-		a_PrizeBlockManagerArray[0].CreateBlock(iTileX, iTileY, a_PrizeBlockManagerArray, a_SpriteManager, 0);
-	}
+	
 	PhysicsHandler();
 	AnimateMario(a_SpriteManager);
 	UpdateFireBall(a_SpriteManager);	
+
+	if (TopLeft >= QUESTIONRANGEA && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
+	{
+
+
+		
+
+		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset);
+	}
 	a_SpriteManager.MoveSprite(fix2int(ix), fix2int(iy), iSpriteID);
 	
-	
+
 	
 
 

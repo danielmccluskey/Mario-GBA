@@ -10,7 +10,7 @@
 #define MAX_ENEMIES 5
 #define MAX_PARTICLES 10
 #define MAX_FIREBALLS 10
-#define MAX_PRIZEBLOCKS 10
+#define MAX_PRIZEBLOCKS 100
 
 
 //temp defines for sprite palette banks and tile blocks

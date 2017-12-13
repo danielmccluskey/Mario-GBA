@@ -51,7 +51,7 @@ int main()
 	MarioSprite.CreateMario(Spritemanager);
 	
 
-	AIManager EnemyArray[MAX_ENEMIES];
+	//AIManager EnemyArray[MAX_ENEMIES];
 	//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
 	
 	
@@ -105,8 +105,8 @@ int main()
 
 		if (iGameState == GAME)
 		{
-			EnemyArray[0].iMapOffsetX = Tilemanager.i_x;
-			EnemyArray[0].iMapOffsetY = Tilemanager.i_y;
+			//EnemyArray[0].iMapOffsetX = Tilemanager.i_x;
+			//EnemyArray[0].iMapOffsetY = Tilemanager.i_y;
 			MarioSprite.iMapOffsetX = Tilemanager.i_x;
 			MarioSprite.iMapOffsetY = Tilemanager.i_y;
 
@@ -125,12 +125,7 @@ int main()
 				MarioSprite.bJump = true;
 
 			}
-			if (keyHit(KEYS::DOWN))
-			{
-				MarioSprite.ShootFireBall(Spritemanager);
-				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
-
-			}
+			
 			if (fix2int(MarioSprite.ix) <= 4 && Tilemanager.i_x >= 1 && keyDown(KEYS::LEFT))
 			{
 				MarioSprite.iVelocityX = 0;
@@ -142,16 +137,22 @@ int main()
 				if (!((bool*)MarioSprite.AlmostBotRight))
 				{
 					PrizeManager[0].MoveBlocks(Spritemanager, PrizeManager, 2);
-					EnemyArray[0].ScrollEnemies(Spritemanager, EnemyArray, 2);
+					//EnemyArray[0].ScrollEnemies(Spritemanager, EnemyArray, 2);
 				}
 				
 
 			}
 			
 			MarioSprite.UpdateMario(Spritemanager, PrizeManager, Tilemanager.iScrollOffset);
-			EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
+			//EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
 			Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight, World1Level1Map);
+			if (keyDown(KEYS::B))
+			{
+				//MarioSprite.ShootFireBall(Spritemanager);
+				//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
+				PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset);
 
+			}
 			
 		}
 		

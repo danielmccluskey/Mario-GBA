@@ -115,7 +115,7 @@ void TileManager::ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide, co
 		scroll_x += ScrollAmount;
 
 		iScrollOffset += 2;
-		if (iScrollOffset >= 8)
+		if (iScrollOffset >= 16)
 		{
 			iScrollOffset = 0;
 		}
