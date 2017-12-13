@@ -150,7 +150,7 @@ int main()
 			{
 				//MarioSprite.ShootFireBall(Spritemanager);
 				//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
-				//PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset);
+				PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset, false);
 
 			}
 			

@@ -10,7 +10,7 @@
    #define REG_BG_OFS      ((BG_POINT*)(REG_BASE+0x0010))
    
   c:/Users/Betat/Documents/gba-mario/source/DM_PrizeBlockManager.cpp: In member function 's16 PrizeBlockManager::CreateBlock(s32, s32, PrizeBlockManager*, SpriteManager&, u16, bool)':
-  c:/Users/Betat/Documents/gba-mario/source/DM_PrizeBlockManager.cpp:63:1: warning: control reaches end of non-void function [-Wreturn-type]
+  c:/Users/Betat/Documents/gba-mario/source/DM_PrizeBlockManager.cpp:55:1: warning: control reaches end of non-void function [-Wreturn-type]
    }
    ^
   linking cartridge

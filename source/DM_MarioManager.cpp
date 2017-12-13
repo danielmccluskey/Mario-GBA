@@ -298,9 +298,8 @@ s32 MarioManager::GrabIndex(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap
 
 void MarioManager::CheckCollisions()
 {
-	s32 iTileX = ix >> 8;
-	s32 iTileY = iy >> 8;
-
+	s32 iTileX = fix2int(ix);
+	s32 iTileY = fix2int(iy);
 	TopLeft = tile_lookup(iTileX, iTileY, iMapOffsetX,
 		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 
@@ -398,22 +397,23 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 
 	if (TopMiddle == 5)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
 	{
-		s32 iTileX = ix >> 8;
-		s32 iTileY = iy >> 8;
+		s32 iTileX = fix2int(ix);// >> 8;
+		s32 iTileY = fix2int(iy);// >> 8;
 		s32 newindex = GrabIndex(iTileX+8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
-		World1Level1Collision[newindex] = 0x0001;
-		World1Level1Collision[newindex + 1] = 0x0001;
+		//World1Level1Collision[newindex] = 0x0019;
+		//World1Level1Collision[newindex + 1] = 0x0019;
 		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset, false);
 	}
-	else if (TopMiddle == 4)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
+	if (TopMiddle == 4)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
 	{
-		s32 iTileX = ix >> 8;
-		s32 iTileY = iy >> 8;
-		s32 newindex = GrabIndex(iTileX+8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
-		World1Level1Collision[newindex] = 0x0001;
-		World1Level1Collision[newindex - 1] = 0x0001;
+		s32 iTileX = fix2int(ix);// >> 8;
+		s32 iTileY = fix2int(iy);// >> 8;
+		s32 newindex = GrabIndex(iTileX + 8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+		//World1Level1Collision[newindex] = 0x0019;
+		//World1Level1Collision[newindex + 1] = 0x0019;
 		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset, true);
 	}
+
 	PhysicsHandler();
 	AnimateMario(a_SpriteManager);
 	UpdateFireBall(a_SpriteManager);	
