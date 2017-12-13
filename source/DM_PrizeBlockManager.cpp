@@ -42,7 +42,7 @@ s16 PrizeBlockManager::CreateBlock(s32 a_ix, s32 a_iy, PrizeBlockManager* a_Priz
 		{
 			a_PrizeBlockArray[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)PrizeBlockEmptyTiles, (u16*)PrizeBlockEmptyPal, PrizeBlockEmptyTilesLen, PrizeBlockEmptyPalLen * 2, PrizeBlockTileBlock, PrizeBlockPalb);
 			a_PrizeBlockArray[i].ix = a_ix;
-			
+			a_PrizeBlockArray[i].bNeedsSpawn = true;
 			a_PrizeBlockArray[i].iy = a_iy;
 			a_PrizeBlockArray[i].bActive = true;
 			a_SpriteManager.MoveSprite(a_PrizeBlockArray[i].ix, a_PrizeBlockArray[i].iy, a_PrizeBlockArray[i].iSpriteID);
@@ -62,11 +62,18 @@ void PrizeBlockManager::ChoosePowerUp(s32 a_iTileX, s32 a_iTileY, s32 a_iMapWidt
 {
 
 }
-void PrizeBlockManager::HitBlock(s32 a_ix, s32 a_iy, PrizeBlockManager* a_PrizeBlockArray, SpriteManager& a_SpriteManager, AIManager& a_AIManager, s32 a_iMapWidth, const unsigned short* a_bgCollisions)
+void PrizeBlockManager::SpawnPowerUp(PrizeBlockManager* a_PrizeBlockArray, SpriteManager& a_SpriteManager, AIManager* a_AIManager)
 {
 
-
-	//s16 CurrentSpriteID = CreateBlock(a_ix, a_iy, a_PrizeBlockArray, a_SpriteManager, 0);
+	for (int i = 0; i < MAX_PRIZEBLOCKS; i++)
+	{
+		if (a_PrizeBlockArray[i].bActive == true && a_PrizeBlockArray[i].bNeedsSpawn == true)
+		{
+			a_PrizeBlockArray[i].bNeedsSpawn = false;
+			a_AIManager[0].CreateEnemy(a_SpriteManager, a_AIManager, 3, a_PrizeBlockArray[i].ix, a_PrizeBlockArray[i].iy);
+		}
+	}
+	
 	
 }
 

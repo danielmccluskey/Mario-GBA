@@ -80,20 +80,35 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManag
 	{
 	case NORMAL:
 	{
+		iCurrentType = NORMAL;
 		iSpriteHeight = 16;
 		iFrameSize = 4;
 		a_SpriteManager.LoadTiles((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen * 3, MarioTileBlock, MarioPalb);
-		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_SQUARE);
+		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(fix2int(iy), 0, 0, 0, A0_4BPP, A0_SQUARE);
+		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
+
 
 		break;
 	}
 	case TALL:
 	{
-		iSpriteHeight = 32;
-		iFrameSize = 8;
-		a_SpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 3, MarioTileBlock, MarioPalb);
-		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
-		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(0, 1, 0, 0, A1_SIZE_2);
+		if (iCurrentType == TALL)
+		{
+			break;
+		}
+		else
+		{
+			iCurrentType = TALL;
+			iSpriteHeight = 32;
+			iFrameSize = 8;
+			iy = fix2int(iy);
+			iy -= 16;
+			a_SpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 3, MarioTileBlock, MarioPalb);
+			a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
+			a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
+			iy = int2fix(iy);
+		}
+		
 		break;
 	}
 	case FIRE:
@@ -400,8 +415,8 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 		s32 iTileX = fix2int(ix);// >> 8;
 		s32 iTileY = fix2int(iy);// >> 8;
 		s32 newindex = GrabIndex(iTileX+8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
-		//World1Level1Collision[newindex] = 0x0019;
-		//World1Level1Collision[newindex + 1] = 0x0019;
+		World1Level1Collision[newindex] = 0x0019;
+		World1Level1Collision[newindex + 1] = 0x0019;
 		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset, false);
 	}
 	if (TopMiddle == 4)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
@@ -409,8 +424,8 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 		s32 iTileX = fix2int(ix);// >> 8;
 		s32 iTileY = fix2int(iy);// >> 8;
 		s32 newindex = GrabIndex(iTileX + 8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
-		//World1Level1Collision[newindex] = 0x0019;
-		//World1Level1Collision[newindex + 1] = 0x0019;
+		World1Level1Collision[newindex] = 0x0019;
+		World1Level1Collision[newindex + 1] = 0x0019;
 		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset, true);
 	}
 
@@ -437,6 +452,47 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 
 
 }
+
+
+bool MarioManager::CheckSpriteCollision(SpriteManager& a_SpriteManager, s32 a_ix, s32 a_iy, s32 a_iSpriteWidth, s32 a_iSpriteHeight, u8 a_iSpriteType)
+{
+	int x1Min = fix2int(ix);
+	int x1Max = fix2int(ix) + iSpriteWidth;
+	int y1Max = fix2int(iy) + iSpriteHeight;
+	int y1Min = fix2int(iy);
+
+	// AABB 2
+	int x2Min = a_ix;
+	int x2Max = a_ix + a_iSpriteWidth;
+	int y2Max = fix2int(a_iy) + a_iSpriteHeight;
+	int y2Min = fix2int(a_iy);
+
+
+	if (x1Max < x2Min || x1Min > x2Max)
+	{
+		return false;
+	}
+	else if (y1Max < y2Min || y1Min > y2Max)
+	{
+		return false;
+	}
+	else
+	{
+		TransformMario(TALL, a_SpriteManager);
+		return true;
+	}
+
+
+	
+
+
+
+}
+
+
+
+
+
 void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
 {
 	for (int i = 0; i < MAX_FIREBALLS; i++)

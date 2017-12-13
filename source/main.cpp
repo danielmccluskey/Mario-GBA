@@ -144,26 +144,46 @@ int main()
 			}
 			
 			MarioSprite.UpdateMario(Spritemanager, PrizeManager, Tilemanager.iScrollOffset);
+
+
+
 			EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
 			Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight, World1Level1Map);
+			
+
+			if (EnemyArray[0].bActive)
+			{
+				bool bKill = MarioSprite.CheckSpriteCollision(Spritemanager, EnemyArray[0].ix, EnemyArray[0].iy, 16, 16, 0);
+				if (bKill)
+				{
+					EnemyArray[0].DeleteEnemy(EnemyArray[0]);
+					Spritemanager.DeleteSprite(EnemyArray[0].iSpriteID);
+				}
+
+			}
+
+
+			PrizeManager[0].SpawnPowerUp(PrizeManager, Spritemanager, EnemyArray);
+
+
 			if (keyHit(KEYS::B))
 			{
 				//MarioSprite.ShootFireBall(Spritemanager);
-				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 3, 240, 00);
+				//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 3, 240, 00);
 				//PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset, false);
 
 			}
 			if (keyHit(KEYS::A))
 			{
 				//MarioSprite.ShootFireBall(Spritemanager);
-				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0, 240, 00);
+				//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0, 240, 00);
 				//PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset, false);
 
 			}
 			if (keyHit(KEYS::DOWN))
 			{
 				//MarioSprite.ShootFireBall(Spritemanager);
-				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 1, 240, 00);
+				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 3, 240, 00);
 				//PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset, false);
 
 			}

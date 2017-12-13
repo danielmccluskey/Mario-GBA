@@ -41,6 +41,7 @@ public:
 	bool bJump = false;
 	bool bOnGround = false;
 	bool bMoving = false;
+	bool bHitPrizeBlock = false;
 
 	fixed iVelocityX;
 	fixed iVelocityY;
@@ -60,6 +61,8 @@ public:
 	u8 AlmostBotRight;
 	u8 AlmostBotLeft;
 
+	u8 iCurrentType = 0;
+
 	ParticleManager particleee;
 	Fireball sfire[10];
 	
@@ -77,6 +80,8 @@ public:
 	void UpdateFireBall(SpriteManager& a_SpriteManager);
 	void ShootFireBall(SpriteManager& a_SpriteManager);
 	void InitFireBall(SpriteManager& a_SpriteManager);
+
+	bool CheckSpriteCollision(SpriteManager& a_SpriteManager, s32 a_ix, s32 a_iy, s32 a_iSpriteWidth, s32 a_iSpriteHeight, u8 a_iSpriteType);
 	u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,u16* tilemap, u32 tilemap_w, u32 tilemap_h);
 
 };
