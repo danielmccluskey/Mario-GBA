@@ -20,12 +20,14 @@
 #define FireballTileBlock 140
 #define EnemyTileBlock 200
 #define PrizeBlockTileBlock 240
+#define PowerupsTileBlock 250
 
 #define MarioPalb 0
 #define ParticlePalb 12
 #define FireballPalb 12
-#define EnemyPalb 5
+#define EnemyPalb 6
 #define PrizeBlockPalb 3
+#define PowerupsPalb 4
 
 
 

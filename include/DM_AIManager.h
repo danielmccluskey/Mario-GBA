@@ -9,6 +9,7 @@ public:
 
 	s32 iSpriteID = -1;
 
+	s32 iStartingFrame = 0;
 	s32 iFrame = 0;
 	s32 iFrameSize = 4;
 	s32 iAnimationDelay = 20;
@@ -19,16 +20,17 @@ public:
 
 	bool bOnGround = false;
 	bool bActive = false;
+	bool bAnimate = false;
 
 	s32 iMapOffsetX = 0;
 	s32 iMapOffsetY = 0;
 
-	fixed iVelocityX;
+	s8 bDirection = -1;
 	fixed iVelocityY;
 
 	fixed iMaxVelocityY;
 
-	void CreateEnemy(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray, s8 a_iEnemyType);
+	void CreateEnemy(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray, s8 a_iEnemyType, s32 a_ix, s32 a_iy);
 	void MoveEnemy();
 	void UpdateEnemies(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray);
 	void UpdateOffset(AIManager* a_EnemyArray, s32 a_iOffsetX, s32 a_iOffsetY);

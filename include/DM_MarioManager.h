@@ -29,6 +29,8 @@ public:
 	s32 iFrameSize = 4;
 	s32 iAnimationDelay = 20;
 
+
+
 	u8 iSpriteHeight = 16;
 	u8 iSpriteWidth = 16;
 

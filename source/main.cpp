@@ -51,8 +51,8 @@ int main()
 	MarioSprite.CreateMario(Spritemanager);
 	
 
-	//AIManager EnemyArray[MAX_ENEMIES];
-	//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
+	AIManager EnemyArray[MAX_ENEMIES];
+	EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 3, 240, 160);
 	
 	
 	TileManager Tilemanager;
@@ -105,8 +105,8 @@ int main()
 
 		if (iGameState == GAME)
 		{
-			//EnemyArray[0].iMapOffsetX = Tilemanager.i_x;
-			//EnemyArray[0].iMapOffsetY = Tilemanager.i_y;
+			EnemyArray[0].iMapOffsetX = Tilemanager.i_x;
+			EnemyArray[0].iMapOffsetY = Tilemanager.i_y;
 			MarioSprite.iMapOffsetX = Tilemanager.i_x;
 			MarioSprite.iMapOffsetY = Tilemanager.i_y;
 
@@ -144,13 +144,27 @@ int main()
 			}
 			
 			MarioSprite.UpdateMario(Spritemanager, PrizeManager, Tilemanager.iScrollOffset);
-			//EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
+			EnemyArray[0].UpdateEnemies(Spritemanager, EnemyArray);
 			Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight, World1Level1Map);
-			if (keyDown(KEYS::B))
+			if (keyHit(KEYS::B))
 			{
 				//MarioSprite.ShootFireBall(Spritemanager);
-				//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0);
-				PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset, false);
+				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 3, 240, 00);
+				//PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset, false);
+
+			}
+			if (keyHit(KEYS::A))
+			{
+				//MarioSprite.ShootFireBall(Spritemanager);
+				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0, 240, 00);
+				//PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset, false);
+
+			}
+			if (keyHit(KEYS::DOWN))
+			{
+				//MarioSprite.ShootFireBall(Spritemanager);
+				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 1, 240, 00);
+				//PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset, false);
 
 			}
 			

@@ -112,6 +112,9 @@
     <ClCompile Include="source\PrizeBlockEmpty.c">
       <Filter>Resource Files\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="source\Powerups.c">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\DM_MarioManager.h">
@@ -181,6 +184,9 @@
       <Filter>Header Files\Game Controllers</Filter>
     </ClInclude>
     <ClInclude Include="include\PrizeBlockEmpty.h">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Powerups.h">
       <Filter>Resource Files\Sprites</Filter>
     </ClInclude>
   </ItemGroup>
