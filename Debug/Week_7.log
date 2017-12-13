@@ -1,23 +1,18 @@
-﻿  DM_MarioManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_MarioManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_MarioManager.cpp -o DM_MarioManager.o 
+﻿  DM_PrizeBlockManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_PrizeBlockManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_PrizeBlockManager.cpp -o DM_PrizeBlockManager.o 
   In file included from c:/Users/Betat/Documents/gba-mario/include/DM_SpriteManager.h:6:0,
-                   from c:/Users/Betat/Documents/gba-mario/include/DM_MarioManager.h:6,
-                   from c:/Users/Betat/Documents/gba-mario/source/DM_MarioManager.cpp:1:
+                   from c:/Users/Betat/Documents/gba-mario/include/DM_PrizeBlockManager.h:7,
+                   from c:/Users/Betat/Documents/gba-mario/source/DM_PrizeBlockManager.cpp:1:
   c:/Users/Betat/Documents/gba-mario/include/gba_gfx.h:96:0: warning: "REG_BG_OFS" redefined
    #define REG_BG_OFS  ((BackgroundOffsets*)(REG_BASE+0x0010))
    
   c:/Users/Betat/Documents/gba-mario/include/gba_gfx.h:57:0: note: this is the location of the previous definition
    #define REG_BG_OFS      ((BG_POINT*)(REG_BASE+0x0010))
    
-  In file included from c:/Users/Betat/Documents/gba-mario/include/gba.h:11:0,
-                   from c:/Users/Betat/Documents/gba-mario/source/DM_MarioManager.cpp:5:
-  c:/Users/Betat/Documents/gba-mario/include/gba_mathUtil.h:12:12: warning: declaration of 's32 abs(s32)' conflicts with built-in declaration 'int abs(int)' [-Wbuiltin-declaration-mismatch]
-   extern s32 abs(s32 a_val);
-              ^~~
-  c:/Users/Betat/Documents/gba-mario/source/DM_MarioManager.cpp: In member function 'void MarioManager::UpdateMario(SpriteManager&, PrizeBlockManager*, u16)':
-  c:/Users/Betat/Documents/gba-mario/source/DM_MarioManager.cpp:416:32: warning: suggest parentheses around '&&' within '||' [-Wparentheses]
-    if (TopLeft >= QUESTIONRANGEA && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  c:/Users/Betat/Documents/gba-mario/source/DM_PrizeBlockManager.cpp: In member function 's16 PrizeBlockManager::CreateBlock(s32, s32, PrizeBlockManager*, SpriteManager&, u16, bool)':
+  c:/Users/Betat/Documents/gba-mario/source/DM_PrizeBlockManager.cpp:63:1: warning: control reaches end of non-void function [-Wreturn-type]
+   }
+   ^
   linking cartridge
   built ... gba-mario.gba
   ROM fixed!

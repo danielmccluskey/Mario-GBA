@@ -51,6 +51,7 @@ public:
 
 
 	u8 TopLeft;
+	u8 TopMiddle;
 	u8 BottomLeft;
 	u8 TopRight;
 	u8 BottomRight;
@@ -68,6 +69,7 @@ public:
 	void AnimateMario(SpriteManager& a_SpriteManager);
 	void PhysicsHandler();
 	u16 MapManager(const unsigned short* a_bgCollisionMap, SpriteManager a_SpriteManager);
+	s32 GrabIndex(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap, u32 tilemap_w, u32 tilemap_h);
 	void CheckCollisions();
 	void TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager);
 	void UpdateFireBall(SpriteManager& a_SpriteManager);

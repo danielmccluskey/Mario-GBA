@@ -277,39 +277,23 @@ u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManag
 	return 0;
 
 }
-u16 MarioManager::tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,
-	u16* tilemap, u32 tilemap_w, u32 tilemap_h) {
-
+u16 MarioManager::tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap, u32 tilemap_w, u32 tilemap_h)
+{
 	x += xscroll;
-	y += yscroll *8;
-
-	/* convert from screen coordinates to tile coordinates */
+	y += yscroll * 8;
 	x >>= 3;
 	y >>= 3;
-
-	//y = 44 + y;
-
-	/* account for wraparound */
-	while (x >= tilemap_w) {
-		x -= tilemap_w;
-	}
-	while (y >= tilemap_h) {
-		y -= tilemap_h;
-	}
-	while (x < 0) {
-		x += tilemap_w;
-	}
-	while (y < 0) {
-		y += tilemap_h;
-	}
-
-	/* lookup this tile from the map */
 	s32 index = y * tilemap_w + x;
-
-	
-
-	/* return the tile */
 	return tilemap[index];
+}
+s32 MarioManager::GrabIndex(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap, u32 tilemap_w, u32 tilemap_h)
+{
+	x += xscroll;
+	y += yscroll * 8;
+	x >>= 3;
+	y >>= 3;
+	s32 index = y * tilemap_w + x;
+	return index;
 }
 
 void MarioManager::CheckCollisions()
@@ -318,6 +302,9 @@ void MarioManager::CheckCollisions()
 	s32 iTileY = iy >> 8;
 
 	TopLeft = tile_lookup(iTileX, iTileY, iMapOffsetX,
+		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+
+	TopMiddle = tile_lookup(iTileX+8, iTileY, iMapOffsetX,
 		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 
 	BottomLeft = tile_lookup(iTileX, iTileY + iSpriteHeight, iMapOffsetX,
@@ -404,23 +391,38 @@ void MarioManager::PhysicsHandler()
 		iFrame = 0;
 	}
 }
+
 void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager* a_PrizeBlockManagerArray, u16 a_iScrollOffset)
 {
 	CheckCollisions();
 
-	
+	if (TopMiddle == 5)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
+	{
+		s32 iTileX = ix >> 8;
+		s32 iTileY = iy >> 8;
+		s32 newindex = GrabIndex(iTileX+8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+		World1Level1Collision[newindex] = 0x0001;
+		World1Level1Collision[newindex + 1] = 0x0001;
+		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset, false);
+	}
+	else if (TopMiddle == 4)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
+	{
+		s32 iTileX = ix >> 8;
+		s32 iTileY = iy >> 8;
+		s32 newindex = GrabIndex(iTileX+8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+		World1Level1Collision[newindex] = 0x0001;
+		World1Level1Collision[newindex - 1] = 0x0001;
+		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset, true);
+	}
 	PhysicsHandler();
 	AnimateMario(a_SpriteManager);
 	UpdateFireBall(a_SpriteManager);	
 
-	if (TopLeft >= QUESTIONRANGEA && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
-	{
+	
 
 
-		
 
-		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset);
-	}
+
 	a_SpriteManager.MoveSprite(fix2int(ix), fix2int(iy), iSpriteID);
 	
 

@@ -19,7 +19,7 @@ public:
 
 	~PrizeBlockManager() {};
 
-	s16 CreateBlock(s32 a_ix, s32 a_iy, PrizeBlockManager* a_PrizeBlockArray, SpriteManager& a_SpriteManager, u16 a_iScrollOffset);
+	s16 CreateBlock(s32 a_ix, s32 a_iy, PrizeBlockManager* a_PrizeBlockArray, SpriteManager& a_SpriteManager, u16 a_iScrollOffset, bool a_bRightSide);
 	void PlaceEmptyBlock(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
 	void ChoosePowerUp(s32 a_iTileX, s32 a_iTileY, s32 a_iMapWidth, const unsigned short* a_bgCollisions);
 	void HitBlock(s32 a_ix, s32 a_iy, PrizeBlockManager* a_PrizeBlockArray, SpriteManager& a_SpriteManager, AIManager& a_AIManager, s32 a_iMapWidth, const unsigned short* a_bgCollisions);
