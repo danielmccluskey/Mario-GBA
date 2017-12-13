@@ -52,7 +52,7 @@ int main()
 	
 
 	AIManager EnemyArray[MAX_ENEMIES];
-	EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 3, 240, 160);
+	//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 3, 240, 160);
 	
 	
 	TileManager Tilemanager;

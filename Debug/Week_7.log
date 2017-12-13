@@ -10,7 +10,7 @@
    #define REG_BG_OFS      ((BG_POINT*)(REG_BASE+0x0010))
    
   c:/Users/Betat/Documents/gba-mario/source/DM_AIManager.cpp: In member function 'void AIManager::UpdateEnemies(SpriteManager&, AIManager*)':
-  c:/Users/Betat/Documents/gba-mario/source/DM_AIManager.cpp:101:6: warning: unused variable 'iTileTest' [-Wunused-variable]
+  c:/Users/Betat/Documents/gba-mario/source/DM_AIManager.cpp:103:6: warning: unused variable 'iTileTest' [-Wunused-variable]
     s32 iTileTest = 0;
         ^~~~~~~~~
   linking cartridge

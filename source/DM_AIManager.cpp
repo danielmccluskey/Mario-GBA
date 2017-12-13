@@ -40,11 +40,11 @@ void AIManager::CreateEnemy(SpriteManager& a_SpriteManager, AIManager* a_EnemyAr
 				a_EnemyArray[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)EnemySpritesTiles, (u16*)EnemySpritesPal, EnemySpritesTilesLen, EnemySpritesPalLen, EnemyTileBlock, EnemyPalb);
 				break;
 			case GREENTURTLE:
-				a_EnemyArray[i].iStartingFrame = EnemyTileBlock;
+				a_EnemyArray[i].iStartingFrame = EnemyTileBlock + 8;
 				a_EnemyArray[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)EnemySpritesTiles, (u16*)EnemySpritesPal, EnemySpritesTilesLen, EnemySpritesPalLen, EnemyTileBlock, EnemyPalb);
 				break;
 			case REDTURTLE:
-				a_EnemyArray[i].iStartingFrame = EnemyTileBlock;
+				a_EnemyArray[i].iStartingFrame = EnemyTileBlock + 8;
 				a_EnemyArray[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)EnemySpritesTiles, (u16*)EnemySpritesPal, EnemySpritesTilesLen, EnemySpritesPalLen, EnemyTileBlock, EnemyPalb);
 				break;
 			case MUSHROOM:
@@ -53,6 +53,8 @@ void AIManager::CreateEnemy(SpriteManager& a_SpriteManager, AIManager* a_EnemyAr
 				break;
 
 			}
+
+			a_SpriteManager.SetFrame(a_EnemyArray[i].iStartingFrame, a_EnemyArray[i].iSpriteID);
 			
 			a_EnemyArray[i].bDirection = -1;
 			a_EnemyArray[i].iVelocityY = 0;
