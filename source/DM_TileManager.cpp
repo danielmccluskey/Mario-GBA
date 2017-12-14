@@ -40,8 +40,11 @@ void TileManager::SetupBG(s32 a_ix, s32 a_iy, const unsigned short* a_bgTiles, u
 	i_y = a_iy;
 
 
+
 	scroll_x = a_ix;
 	//scroll_y = a_iy;
+	BG_HOFFSET0 = scroll_x;
+	BG_VOFFSET0 = 0;
 	MAPWIDTH = a_bgMapWidth;
 	SCR_ENTRY *ScreenBlock = se_mem[15], *map = (SCR_ENTRY*)a_bgMap;
 	s32 actY = 0;

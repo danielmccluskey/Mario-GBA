@@ -14,6 +14,8 @@ struct Fireball
 	fixed fx, fy;
 	fixed fvx, fvy;
 	u16 iSpriteID;
+	u16 iFrame = 0;
+	u16 iFrameSize = 1;
 	u16 iLifeTime = 255;
 	bool bActive = false;
 
@@ -44,7 +46,8 @@ public:
 	bool bMoving = false;
 	bool bHitPrizeBlock = false;
 	bool bInvulnerable = false;
-	bool bDead = true;
+	bool bDead = false;
+	bool bFinished = false;
 	u16 iInvulnerableTime = 0;
 
 	fixed iVelocityX;
@@ -65,7 +68,7 @@ public:
 	u8 AlmostBotRight;
 	u8 AlmostBotLeft;
 
-	u8 iCurrentType = 0;
+	s8 iCurrentType = 0;
 
 	ParticleManager particleee;
 	Fireball sfire[MAX_FIREBALLS];
@@ -73,6 +76,7 @@ public:
 
 	void CreateMario(SpriteManager& a_SpriteManager);
 	void MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
+	void ResetMario();
 	void SetPos(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
 	void UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager* a_PrizeBlockManagerArray, u16 a_iScrollOffset);
 	void AnimateMario(SpriteManager& a_SpriteManager);

@@ -11,7 +11,9 @@ enum EnemyTypes
 	REDTURTLE,
 	MUSHROOM,
 	FLOWER,
-	STAR
+	STAR,
+	GREENSHELL,
+	REDSHELL
 };
 enum ENEMYPHYSICS
 {
@@ -227,7 +229,7 @@ void AIManager::UpdateEnemies(SpriteManager& a_SpriteManager, AIManager* a_Enemy
 
 			if (a_EnemyArray[i].ix <= 1 || fix2int(a_EnemyArray[i].iy) >= 160)
 			{
-				DeleteEnemy(a_EnemyArray[i]);
+				a_EnemyArray[i].bActive = false;
 				a_SpriteManager.DeleteSprite(a_EnemyArray[i].iSpriteID);
 				a_EnemyArray[i].bDead = false;
 			}
@@ -270,7 +272,15 @@ void AIManager::ScrollEnemies(SpriteManager& a_SpriteManager, AIManager* a_Enemy
 
 }
 
-void AIManager::DeleteEnemy(AIManager& a_Enemy)
+void AIManager::DeleteEnemies(SpriteManager a_SpriteManager, AIManager* a_EnemyArray)
 {
-	a_Enemy.bActive = false;
+	for (int i = 0; i < MAX_ENEMIES; i++)
+	{
+		if (a_EnemyArray[i].bActive == true)
+		{
+			a_EnemyArray[i].bActive = false;
+			a_SpriteManager.DeleteSprite(a_EnemyArray[i].iSpriteID);
+			a_EnemyArray[i].bDead = false;
+		}
+	}
 }

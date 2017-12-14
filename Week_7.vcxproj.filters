@@ -121,6 +121,9 @@
     <ClCompile Include="source\Mario_Fire.c">
       <Filter>Resource Files\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="source\Fireball.c">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\DM_MarioManager.h">
@@ -199,6 +202,9 @@
       <Filter>Header Files\Defs</Filter>
     </ClInclude>
     <ClInclude Include="include\Mario_Fire.h">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Fireball.h">
       <Filter>Resource Files\Sprites</Filter>
     </ClInclude>
   </ItemGroup>

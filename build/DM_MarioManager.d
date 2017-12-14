@@ -14,6 +14,7 @@ DM_MarioManager.o: \
  c:/Users/s1600056/Downloads/gba-mario/include/Mario_Tall.h \
  c:/Users/s1600056/Downloads/gba-mario/include/Mario_Fire.h \
  c:/Users/s1600056/Downloads/gba-mario/include/particles.h \
+ c:/Users/s1600056/Downloads/gba-mario/include/Fireball.h \
  c:/Users/s1600056/Downloads/gba-mario/include/gba.h \
  c:/Users/s1600056/Downloads/gba-mario/include/gba_input.h \
  c:/Users/s1600056/Downloads/gba-mario/include/gba_mathUtil.h \
@@ -48,6 +49,8 @@ c:/Users/s1600056/Downloads/gba-mario/include/Mario_Tall.h:
 c:/Users/s1600056/Downloads/gba-mario/include/Mario_Fire.h:
 
 c:/Users/s1600056/Downloads/gba-mario/include/particles.h:
+
+c:/Users/s1600056/Downloads/gba-mario/include/Fireball.h:
 
 c:/Users/s1600056/Downloads/gba-mario/include/gba.h:
 

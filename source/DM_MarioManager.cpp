@@ -3,6 +3,7 @@
 #include "Mario_Tall.h"
 #include "Mario_Fire.h"
 #include "particles.h"
+#include "Fireball.h"
 #include "gba.h"
 #include "World1Level1_Externs.h"
 #include "gba_math.h"
@@ -24,6 +25,7 @@ enum MARIOPHYSICS
 	ALIGNMASK = ~0x7ff,
 	STOPPED = 0,
 	COLLISIONTILE = 0,
+	ENDMAPTILE = 3,
 	MAXXVELOCITY = 550,
 	MAXYVELOCITY = 550,
 	QUESTIONRANGEA = 2,
@@ -69,11 +71,33 @@ void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
 	iVelocityY = 0;
 	ix = 32;
 	iy = 120;
+	bDead = false;
+	bFinished = false;
 
 	
 	particleee.InitArray(a_SpriteManager);
 	InitFireBall(a_SpriteManager);
 	//particleee.DeleteArray(a_SpriteManager);
+}
+
+void MarioManager::ResetMario()
+{
+	iInvulnerableTime = 0;
+	bInvulnerable = false;
+	iTimer = -128;
+	bFinished = false;
+	bDead = false;
+	iVelocityX = 0;
+	iVelocityY = 0;
+	iCurrentType = NORMAL;
+
+	for (int i = 0; i < MAX_FIREBALLS; i++)
+	{
+		if (sfire[i].bActive)
+		{
+			sfire[i].bActive = false;
+		}
+	}
 }
 
 void MarioManager::FlashMario(SpriteManager& a_SpriteManager)
@@ -138,7 +162,7 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManag
 	{
 		iSpriteHeight = 16;
 		iFrameSize = 4;
-		a_SpriteManager.LoadTiles((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*3, MarioTileBlock, MarioPalb);
+		a_SpriteManager.LoadTiles((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*2, MarioTileBlock, MarioPalb);
 		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(fix2int(iy), 0, 0, 0, A0_4BPP, A0_SQUARE);
 		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_1);
 
@@ -152,7 +176,7 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManag
 		iFrameSize = 8;
 		iy = fix2int(iy);
 		iy -= 16;
-		a_SpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 3, MarioTileBlock, MarioPalb);
+		a_SpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 2, MarioTileBlock, MarioPalb);
 		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
 		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
 		iy = int2fix(iy);
@@ -167,7 +191,7 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManag
 		iFrameSize = 8;
 		iy = fix2int(iy);
 		iy -= 16;
-		a_SpriteManager.LoadTiles((u16*)Mario_FireTiles, (u16*)Mario_FirePal, Mario_FireTilesLen, Mario_FirePalLen * 3, MarioTileBlock, MarioPalb);
+		a_SpriteManager.LoadTiles((u16*)Mario_FireTiles, (u16*)Mario_FirePal, Mario_FireTilesLen, Mario_FirePalLen * 2, MarioTileBlock, MarioPalb);
 		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
 		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
 		iy = int2fix(iy);
@@ -392,7 +416,10 @@ void MarioManager::CheckCollisions()
 		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 
 
-
+	if (AlmostBotRight == ENDMAPTILE)
+	{
+		bFinished = true;
+	}
 }
 
 void MarioManager::AnimateMario(SpriteManager& a_SpriteManager)
@@ -489,7 +516,13 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 	FlashMario(a_SpriteManager);
 	PhysicsHandler();
 	AnimateMario(a_SpriteManager);
-	UpdateFireBall(a_SpriteManager);	
+	UpdateFireBall(a_SpriteManager);
+
+
+	if (fix2int(iy) >= SCREEN_H)
+	{
+		bDead = true;
+	}
 
 	
 
@@ -541,6 +574,13 @@ void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
 
 			a_SpriteManager.MoveSprite(fix2int(sfire[i].fx), fix2int(sfire[i].fy), sfire[i].iSpriteID);
 
+			sfire[i].iFrame++;
+			if (sfire[i].iFrame >= 4)
+			{
+				sfire[i].iFrame = 0;
+			}
+			a_SpriteManager.SetFrame(FireballTileBlock+(sfire[i].iFrame*sfire[i].iFrameSize), sfire[i].iSpriteID);
+
 			if (fix2int(sfire[i].fx) > SCREEN_W || Right > COLLISIONTILE)
 			{
 				sfire[i].bActive = false;
@@ -576,10 +616,10 @@ void MarioManager::InitFireBall(SpriteManager& a_SpriteManager)
 	{
 		sfire[i].fx = ix;
 		sfire[i].fy = iy;
-		sfire[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)particlesTiles, (u16*)particlesPal, particlesTilesLen, particlesPalLen * 3, ParticleTileBlock, ParticlePalb);
+		sfire[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)FireballTiles, (u16*)FireballPal, FireballTilesLen, FireballPalLen, FireballTileBlock, FireballPalb);
 		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(sfire[i].fy, 2, 0, 0, A0_4BPP, A0_SQUARE);
 		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(sfire[i].fx, 0, 0, 0, A1_SIZE_0);
-		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr2 = a_SpriteManager.setSpriteAttr2(FireballTileBlock, 0, 0);
+		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr2 = a_SpriteManager.setSpriteAttr2(FireballTileBlock, FireballPalb, 0);
 		a_SpriteManager.HideSprite(sfire[i].iSpriteID);
 	}
 

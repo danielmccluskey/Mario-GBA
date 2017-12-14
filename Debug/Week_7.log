@@ -1,14 +1,21 @@
-﻿  DM_MarioManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/s1600056/Downloads/gba-mario/build/DM_MarioManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/s1600056/Downloads/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/s1600056/Downloads/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/s1600056/Downloads/gba-mario/source/DM_MarioManager.cpp -o DM_MarioManager.o 
-  In file included from c:/Users/s1600056/Downloads/gba-mario/include/DM_SpriteManager.h:6:0,
-                   from c:/Users/s1600056/Downloads/gba-mario/include/DM_MarioManager.h:6,
-                   from c:/Users/s1600056/Downloads/gba-mario/source/DM_MarioManager.cpp:1:
+﻿  DM_TileManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/s1600056/Downloads/gba-mario/build/DM_TileManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/s1600056/Downloads/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/s1600056/Downloads/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp -o DM_TileManager.o 
+  In file included from c:/Users/s1600056/Downloads/gba-mario/include/gba.h:13:0,
+                   from c:/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp:6:
   c:/Users/s1600056/Downloads/gba-mario/include/gba_gfx.h:98:0: warning: "REG_BG_OFS" redefined
    #define REG_BG_OFS  ((BackgroundOffsets*)(REG_BASE+0x0010))
    
   c:/Users/s1600056/Downloads/gba-mario/include/gba_gfx.h:59:0: note: this is the location of the previous definition
    #define REG_BG_OFS      ((BG_POINT*)(REG_BASE+0x0010))
    
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp: In member function 'void TileManager::ScrollBackGround(bool, bool, const short unsigned int*)':
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp:142:7: warning: unused variable 'tbx' [-Wunused-variable]
+     int tbx = bx >> 3, tby = by >> 3;
+         ^~~
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp: In member function 'void TileManager::AddRow(s32, s32, const short unsigned int*)':
+  c:/Users/s1600056/Downloads/gba-mario/source/DM_TileManager.cpp:180:37: warning: suggest parentheses around '+' in operand of '&' [-Wparentheses]
+     dstL = &ScreenBlocks[y0 * 32 + (tx+1 & 31)];
+                                     ~~^~
   linking cartridge
   built ... gba-mario.gba
   ROM fixed!

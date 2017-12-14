@@ -80,6 +80,7 @@ int main()
 			iGameState = WORLDMAP;
 			MarioSprite.bMapMode = true;
 			MarioSprite.SetPos(24, 40, Spritemanager);
+			Tilemanager.ScrollBackGround(false, false, 0);
 		}
 		if (iGameState == WORLDMAP)
 		{
@@ -183,13 +184,14 @@ int main()
 			}
 
 			MarioSprite.CheckFireballCollisions(Spritemanager, EnemyArray);
-				
-			
-
-			
-
-
 			PrizeManager[0].SpawnPowerUp(PrizeManager, Spritemanager, EnemyArray);
+
+			if (MarioSprite.bFinished == true || MarioSprite.bDead == true)
+			{
+				MarioSprite.ResetMario();
+				EnemyArray[0].DeleteEnemies(Spritemanager, EnemyArray);
+				iGameState = WORLDMAPINIT;
+			}
 
 
 			if (keyHit(KEYS::B))
@@ -202,7 +204,7 @@ int main()
 			if (keyHit(KEYS::A))
 			{
 				//MarioSprite.ShootFireBall(Spritemanager);
-				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0, 240, 00);
+				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 1, 240, 00);
 				//PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset, false);
 
 			}

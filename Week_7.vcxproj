@@ -67,6 +67,7 @@
     <ClCompile Include="source\DM_SpriteManager.cpp" />
     <ClCompile Include="source\DM_TileManager.cpp" />
     <ClCompile Include="source\EnemySprites.c" />
+    <ClCompile Include="source\Fireball.c" />
     <ClCompile Include="source\gab_mathUtil.c" />
     <ClCompile Include="source\gba_gfx.c" />
     <ClCompile Include="source\gba_input.c" />
@@ -97,6 +98,7 @@
     <ClInclude Include="include\DM_SpritesStruct.h" />
     <ClInclude Include="include\DM_TileManager.h" />
     <ClInclude Include="include\EnemySprites.h" />
+    <ClInclude Include="include\Fireball.h" />
     <ClInclude Include="include\gba.h" />
     <ClInclude Include="include\gba_gfx.h" />
     <ClInclude Include="include\gba_input.h" />
