@@ -531,17 +531,17 @@ void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
 			u16 Right = tile_lookup(iTileXA + 8, iTileYA + 4, iMapOffsetX,
 				iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
 
-			if (Bottom > 0)
+			if (Bottom > COLLISIONTILE)
 			{
-				sfire[i].fvy = -356;
+				sfire[i].fvy = -256;
 			}
-			sfire[i].fvy = fixAdd(sfire[i].fvy, 20);
+			sfire[i].fvy = fixAdd(sfire[i].fvy, GRAVITY);
 			sfire[i].fx = fixAdd(sfire[i].fx, sfire[i].fvx);
 			sfire[i].fy = fixAdd(sfire[i].fy, sfire[i].fvy);
 
 			a_SpriteManager.MoveSprite(fix2int(sfire[i].fx), fix2int(sfire[i].fy), sfire[i].iSpriteID);
 
-			if (fix2int(sfire[i].fx) > SCREEN_W || Right > 1)
+			if (fix2int(sfire[i].fx) > SCREEN_W || Right > COLLISIONTILE)
 			{
 				sfire[i].bActive = false;
 				a_SpriteManager.HideSprite(sfire[i].iSpriteID);
@@ -558,7 +558,7 @@ void MarioManager::ShootFireBall(SpriteManager& a_SpriteManager)
 	{
 		if (sfire[i].bActive == false)
 		{
-			sfire[i].fvx = int2fix(3);
+			sfire[i].fvx = int2fix(2);
 			sfire[i].fvy = int2fix(1);
 			sfire[i].fx = ix;
 			sfire[i].fy = iy;
@@ -584,5 +584,53 @@ void MarioManager::InitFireBall(SpriteManager& a_SpriteManager)
 	}
 
 	
+}
+
+void MarioManager::CheckFireballCollisions(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray)
+{
+	
+
+			for (int y = 0; y < MAX_ENEMIES; y++)
+			{
+				if (a_EnemyArray[y].bActive == true && a_EnemyArray[y].bDead == false)
+				{
+					int x2Min = a_EnemyArray[y].ix;
+					int x2Max = a_EnemyArray[y].ix + 16;
+					int y2Max = fix2int(a_EnemyArray[y].iy) + 16;
+					int y2Min = fix2int(a_EnemyArray[y].iy);
+
+					for (int i = 0; i < MAX_FIREBALLS; i++)
+					{
+						if (sfire[i].bActive == true)
+						{
+							int x1Min = fix2int(sfire[i].fx);
+							int x1Max = fix2int(sfire[i].fx) + 8;
+							int y1Max = fix2int(sfire[i].fy) + 8;
+							int y1Min = fix2int(sfire[i].fy);
+							
+							if (x1Max < x2Min || x1Min > x2Max)
+							{
+								
+							}
+							else if (y1Max < y2Min || y1Min > y2Max)
+							{
+								
+							}
+							else
+							{
+								//a_SpriteManager.DeleteSprite(a_EnemyArray[y].iSpriteID);
+								a_EnemyArray[y].bDead = true;
+								sfire[i].bActive = false;
+								a_SpriteManager.HideSprite(sfire[i].iSpriteID);
+								sfire[i].fx = 0;
+								sfire[i].fy = 0;
+
+							}
+						}
+					}
+				}
+
+	}
+
 }
 

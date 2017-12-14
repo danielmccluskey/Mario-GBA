@@ -6,6 +6,7 @@
 #include "DM_SpriteManager.h"
 #include "DM_ParticleManager.h"
 #include "DM_PrizeBlockManager.h"
+#include "DM_AIManager.h"
 
 
 struct Fireball
@@ -67,7 +68,7 @@ public:
 	u8 iCurrentType = 0;
 
 	ParticleManager particleee;
-	Fireball sfire[10];
+	Fireball sfire[MAX_FIREBALLS];
 	
 
 	void CreateMario(SpriteManager& a_SpriteManager);
@@ -84,6 +85,7 @@ public:
 	void UpdateFireBall(SpriteManager& a_SpriteManager);
 	void ShootFireBall(SpriteManager& a_SpriteManager);
 	void InitFireBall(SpriteManager& a_SpriteManager);
+	void CheckFireballCollisions(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray);
 
 	u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,u16* tilemap, u32 tilemap_w, u32 tilemap_h);
 

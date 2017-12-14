@@ -181,6 +181,8 @@ int main()
 					MarioSprite.TransformMario(2, Spritemanager, false);
 				}
 			}
+
+			MarioSprite.CheckFireballCollisions(Spritemanager, EnemyArray);
 				
 			
 
@@ -206,8 +208,8 @@ int main()
 			}
 			if (keyHit(KEYS::DOWN))
 			{
-				//MarioSprite.ShootFireBall(Spritemanager);
-				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 3, 240, 00);
+				MarioSprite.ShootFireBall(Spritemanager);
+				//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 3, 240, 00);
 				//PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset, false);
 
 			}

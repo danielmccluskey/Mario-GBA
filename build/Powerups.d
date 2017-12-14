@@ -1,1 +1,1 @@
-Powerups.o: c:/Users/Betat/Documents/gba-mario/source/Powerups.c
+Powerups.o: c:/Users/s1600056/Downloads/gba-mario/source/Powerups.c

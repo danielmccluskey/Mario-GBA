@@ -74,6 +74,7 @@ void AIManager::CreateEnemy(SpriteManager& a_SpriteManager, AIManager* a_EnemyAr
 			a_EnemyArray[i].ix = a_ix;
 			a_EnemyArray[i].iy = a_iy;
 			a_EnemyArray[i].bActive = true;
+			a_EnemyArray[i].bDead = false;
 			a_SpriteManager.MoveSprite(a_EnemyArray[i].ix, a_EnemyArray[i].iy, a_EnemyArray[i].iSpriteID);
 			break;
 		}
