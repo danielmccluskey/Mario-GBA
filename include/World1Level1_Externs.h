@@ -9,5 +9,6 @@
 extern const unsigned short World1Level1Palette[16];
 extern const unsigned short World1Level1Tiles[816];
 extern const unsigned short World1Level1Map[13568];
-extern unsigned short World1Level1Collision[13568];
+extern const unsigned short World1Level1Collision[13568];
+extern unsigned short iCurrentCollisionMap[13568];
 #endif // __WORLD1LEVEL1_H__

@@ -45,8 +45,9 @@ void TileManager::SetupBG(s32 a_ix, s32 a_iy, const unsigned short* a_bgTiles, u
 	//scroll_y = a_iy;
 	BG_HOFFSET0 = scroll_x;
 	BG_VOFFSET0 = 0;
+	iScrollOffset = 0;
 	MAPWIDTH = a_bgMapWidth;
-	SCR_ENTRY *ScreenBlock = se_mem[15], *map = (SCR_ENTRY*)a_bgMap;
+	SCR_ENTRY *ScreenBlock = se_mem[15], *map = (SCR_ENTRY*)iCurrentMapArray;
 	s32 actY = 0;
 	for (s32 iy = i_y; iy < i_y + 32; iy++)
 	{
@@ -65,7 +66,7 @@ void TileManager::SetPos(s32 a_ix, s32 a_iy, const unsigned short* a_bgMap, u32 
 {
 	i_x = a_ix;
 	i_y = a_iy;
-	SCR_ENTRY *ScreenBlock = se_mem[15], *map = (SCR_ENTRY*)a_bgMap;
+	SCR_ENTRY *ScreenBlock = se_mem[15], *map = (SCR_ENTRY*)iCurrentMapArray;
 	s32 actY = 0;
 	for (s32 iy = i_y; iy < i_y + 32; iy++)
 	{
@@ -142,14 +143,14 @@ void TileManager::ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide, co
 		int tbx = bx >> 3, tby = by >> 3;
 
 		if (right)		// add on left
-			AddRow(tvx, tvy, a_bgMap);
+			AddRow(tvx, tvy, iCurrentMapArray);
 		else if (left)	// add on right
-			AddRow(tvx + 31, tvy, a_bgMap);
+			AddRow(tvx + 31, tvy, iCurrentMapArray);
 
 		if (tvy < tby)		// add on top
-			AddCol(tvx, tvy, a_bgMap);
+			AddCol(tvx, tvy, iCurrentMapArray);
 		else if (tvy > tby)	// add on bottom
-			AddCol(tvx, tvy + 31, a_bgMap);
+			AddCol(tvx, tvy + 31, iCurrentMapArray);
 
 		left = false;
 		right = false;

@@ -2,10 +2,8 @@
 #include "Mario_Small.h"
 #include "Mario_Tall.h"
 #include "Mario_Fire.h"
-#include "particles.h"
 #include "Fireball.h"
 #include "gba.h"
-#include "World1Level1_Externs.h"
 #include "gba_math.h"
 #include "DM_Enums.h"
 
@@ -398,22 +396,22 @@ void MarioManager::CheckCollisions()
 	s32 iTileX = fix2int(ix);
 	s32 iTileY = fix2int(iy);
 	TopLeft = tile_lookup(iTileX, iTileY, iMapOffsetX,
-		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
 
 	TopMiddle = tile_lookup(iTileX+8, iTileY, iMapOffsetX,
-		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
 
 	BottomLeft = tile_lookup(iTileX, iTileY + iSpriteHeight, iMapOffsetX,
-		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
 	TopRight = tile_lookup(iTileX + iSpriteWidth, iTileY, iMapOffsetX,
-		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
 	BottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, iMapOffsetX,
-		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
 
 	AlmostBotRight = tile_lookup(iTileX + iSpriteWidth+2, iTileY + iSpriteHeight - 2, iMapOffsetX,
-		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
 	AlmostBotLeft = tile_lookup(iTileX-2, iTileY + iSpriteHeight - 2, iMapOffsetX,
-		iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
 
 
 	if (AlmostBotRight == ENDMAPTILE)
@@ -499,18 +497,18 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 	{
 		s32 iTileX = fix2int(ix);// >> 8;
 		s32 iTileY = fix2int(iy);// >> 8;
-		s32 newindex = GrabIndex(iTileX+8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
-		World1Level1Collision[newindex] = 0x0019;
-		World1Level1Collision[newindex + 1] = 0x0019;
+		s32 newindex = GrabIndex(iTileX+8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
+		iMarioBGCollision[newindex] = 0x0019;
+		iMarioBGCollision[newindex + 1] = 0x0019;
 		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset, false);
 	}
 	if (TopMiddle == 4)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
 	{
 		s32 iTileX = fix2int(ix);// >> 8;
 		s32 iTileY = fix2int(iy);// >> 8;
-		s32 newindex = GrabIndex(iTileX + 8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
-		World1Level1Collision[newindex] = 0x0019;
-		World1Level1Collision[newindex + 1] = 0x0019;
+		s32 newindex = GrabIndex(iTileX + 8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
+		iMarioBGCollision[newindex] = 0x0019;
+		iMarioBGCollision[newindex + 1] = 0x0019;
 		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset, true);
 	}
 	FlashMario(a_SpriteManager);
@@ -560,9 +558,9 @@ void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
 			s32 iTileXA = (sfire[i].fx >> 8);
 			s32 iTileYA = (sfire[i].fy >> 8);
 			u16 Bottom = tile_lookup(iTileXA + 4, iTileYA + 8, iMapOffsetX,
-				iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+				iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
 			u16 Right = tile_lookup(iTileXA + 8, iTileYA + 4, iMapOffsetX,
-				iMapOffsetY, (u16*)World1Level1Collision, iMapWidth, iMapHeight);
+				iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
 
 			if (Bottom > COLLISIONTILE)
 			{

@@ -44,6 +44,14 @@ void delay(int a_iDelay)
 
 
 
+void CopyCollision(const unsigned short* a_iROMMap, unsigned short* a_iIWRAMMap, s32 a_iLength)
+{
+	for (int i = 0; i < a_iLength; i++)
+	{
+		a_iIWRAMMap[i] = a_iROMMap[i];
+	}
+}
+
 int main()
 {
 	s32 iGameState = WORLDMAPINIT;
@@ -76,6 +84,7 @@ int main()
 		
 		if (iGameState == WORLDMAPINIT)
 		{
+			Tilemanager.iCurrentMapArray = (unsigned short*)World1MapMap;
 			Tilemanager.SetupBG(0, 0, World1MapTilesA, 1024 * 2, World1MapPalette, 512, World1MapMap, 32);
 			iGameState = WORLDMAP;
 			MarioSprite.bMapMode = true;
@@ -95,9 +104,16 @@ int main()
 		}
 		if (iGameState == LOAD_LEVEL1)
 		{
+			Tilemanager.iCurrentMapArray = (unsigned short*)World1Level1Map;
 			Tilemanager.SetupBG(2, 12, World1Level1Tiles, 816 * 2, World1Level1Palette, 32, World1Level1Map, 424);
-			Tilemanager.SetPos(2, 12, World1Level1Map, 424);
+			Tilemanager.SetPos(2, 12, World1Level1Map, 424);			
+			CopyCollision(World1Level1Collision, iCurrentCollisionMap, 13568);
+			MarioSprite.iMarioBGCollision = iCurrentCollisionMap;
+			EnemyArray[0].iEnemyBGCollision = iCurrentCollisionMap;
+
+
 			iGameState = GAMEINIT;
+
 		}
 		if (iGameState == GAMEINIT)
 		{			
@@ -189,6 +205,7 @@ int main()
 			if (MarioSprite.bFinished == true || MarioSprite.bDead == true)
 			{
 				MarioSprite.ResetMario();
+				MarioSprite.TransformMario(0, Spritemanager, false);
 				EnemyArray[0].DeleteEnemies(Spritemanager, EnemyArray);
 				iGameState = WORLDMAPINIT;
 			}

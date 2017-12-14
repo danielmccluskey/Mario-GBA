@@ -72,6 +72,8 @@ public:
 
 	ParticleManager particleee;
 	Fireball sfire[MAX_FIREBALLS];
+
+	unsigned short* iMarioBGCollision;
 	
 
 	void CreateMario(SpriteManager& a_SpriteManager);

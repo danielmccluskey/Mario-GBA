@@ -1,6 +1,5 @@
 #include "DM_AIManager.h"
 #include "EnemySprites.h"
-#include "World1Level1_Externs.h"
 #include "Powerups.h"
 #include "DM_Enums.h"
 
@@ -105,10 +104,7 @@ void AIManager::UpdateOffset(AIManager* a_EnemyArray, s32 a_iOffsetX, s32 a_iOff
 
 u16 AIManager::CheckSpriteCollision(SpriteManager& a_SpriteManager, AIManager* a_AIManager, s32 a_ix, s32 a_iy, s32 a_iSpriteWidth, s32 a_iSpriteHeight, bool a_bMarioInvulnerable)
 {
-	if (a_bMarioInvulnerable)
-	{
-		return 15;
-	}
+	
 	int x1Min = fix2int(a_ix);
 	int x1Max = fix2int(a_ix) + a_iSpriteWidth;
 	int y1Max = fix2int(a_iy) + a_iSpriteHeight;
@@ -119,24 +115,29 @@ u16 AIManager::CheckSpriteCollision(SpriteManager& a_SpriteManager, AIManager* a
 	{
 		if (a_AIManager[i].bActive == true && a_AIManager[i].bDead == false)
 		{
+			if (a_bMarioInvulnerable && !(a_AIManager[i].iSpriteType >= MUSHROOM))
+			{
+				continue;
+			}
 			int x2Min = a_AIManager[i].ix;
 			int x2Max = a_AIManager[i].ix + iSpriteWidth;
 			int y2Max = fix2int(a_AIManager[i].iy) + iSpriteHeight;
 			int y2Min = fix2int(a_AIManager[i].iy);
 
+			
 
 			if (x1Max < x2Min || x1Min > x2Max)
 			{
-				return 15;
+				continue;
 			}
 			else if (y1Max < y2Min || y1Min > y2Max)
 			{
-				return 15;
+				continue;
 			}
 			else if (y2Min + 5 > y1Max)
 			{
 				a_AIManager[i].bDead = true;
-				return 15;
+				continue;
 			}
 			else
 			{
@@ -183,14 +184,14 @@ void AIManager::UpdateEnemies(SpriteManager& a_SpriteManager, AIManager* a_Enemy
 
 
 			u8 Bottom = tile_lookup(iTileX, iTileY + iSpriteHeight, iMapOffsetX,
-				iMapOffsetY, (u16*)World1Level1Collision, 424, 32);
+				iMapOffsetY, (u16*)iEnemyBGCollision, 424, 32);
 			u8 Left = tile_lookup(iTileX - 4, iTileY + 8, iMapOffsetX,
-				iMapOffsetY, (u16*)World1Level1Collision, 424, 32);
+				iMapOffsetY, (u16*)iEnemyBGCollision, 424, 32);
 			u8 Right = tile_lookup(iTileX + iSpriteWidth + 4, iTileY, iMapOffsetX,
-				iMapOffsetY, (u16*)World1Level1Collision, 424, 32);
+				iMapOffsetY, (u16*)iEnemyBGCollision, 424, 32);
 
 			u8 BottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, iMapOffsetX,
-				iMapOffsetY, (u16*)World1Level1Collision, 424, 32);
+				iMapOffsetY, (u16*)iEnemyBGCollision, 424, 32);
 
 
 			if (a_EnemyArray[i].iSpriteType != FLOWER )

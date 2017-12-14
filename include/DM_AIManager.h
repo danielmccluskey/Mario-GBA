@@ -16,7 +16,7 @@ public:
 
 	s32 iSpriteHeight = 16;
 	s32 iSpriteWidth = 16;
-
+	unsigned short* iEnemyBGCollision;
 
 	bool bOnGround = false;
 	bool bActive = false;

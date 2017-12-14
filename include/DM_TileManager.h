@@ -16,6 +16,7 @@ public:
 
 	s32 i_x = 0, i_y = 0;
 
+	unsigned short* iCurrentMapArray;
 
 	bool left = false;
 	bool right = false;
