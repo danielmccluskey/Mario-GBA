@@ -1,10 +1,12 @@
 #include "DM_MarioManager.h"
 #include "Mario_Small.h"
 #include "Mario_Tall.h"
+#include "Mario_Fire.h"
 #include "particles.h"
 #include "gba.h"
 #include "World1Level1_Externs.h"
 #include "gba_math.h"
+#include "DM_Enums.h"
 
 enum MARIOTYPES
 {
@@ -52,10 +54,9 @@ enum MarioFrames
 	DEATH,
 	SWIM1
 };
+#define InvulnerableStartTime 500
 
-s32 testxpos = 0;
-s32 testypos = 0;
-s32 testcontroller = 0;
+s32 iTimer = 0;
 s32 iMapWidth = 424;
 s32 iMapHeight = 32;
 void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
@@ -63,6 +64,7 @@ void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
 	iSpriteID=	a_SpriteManager.CreateSprite((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*3, MarioTileBlock, MarioPalb);
 	a_SpriteManager.MoveSprite(32, 120, iSpriteID);
 
+	iCurrentType = NORMAL;
 	iVelocityX = 0;
 	iVelocityY = 0;
 	ix = 32;
@@ -74,45 +76,101 @@ void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
 	//particleee.DeleteArray(a_SpriteManager);
 }
 
-void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager)
+void MarioManager::FlashMario(SpriteManager& a_SpriteManager)
 {
-	switch (a_iMarioType)
+	if (bInvulnerable && iTimer == -128)
+	{
+		iInvulnerableTime = InvulnerableStartTime;
+		iTimer = 20;
+
+	}
+
+	if (bInvulnerable &&  iInvulnerableTime <= 0)
+	{
+		iInvulnerableTime = 0;
+		bInvulnerable = false;
+		iTimer = -128;
+		a_SpriteManager.ShowSprite(iSpriteID);
+	}
+	if (bInvulnerable && iInvulnerableTime >= 0)
+	{
+		iInvulnerableTime -= 1;
+		iTimer -= 1;
+		if (iTimer == 0)
+		{
+			a_SpriteManager.HideSprite(iSpriteID);
+			iTimer = 20;
+		}
+		else if (iTimer == 10)
+		{
+			a_SpriteManager.ShowSprite(iSpriteID);
+		}
+	}
+
+
+
+}
+
+void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager, bool a_bHurtMario)
+{
+	
+	if (a_bHurtMario)
+	{
+		iCurrentType -= 1;
+		if (iCurrentType < NORMAL)
+		{
+			bDead = true;
+			return;
+		}
+	}
+	if (a_iMarioType == TALL)
+	{
+		iCurrentType = a_iMarioType;
+	}
+	if (a_iMarioType == FIRE)
+	{
+		iCurrentType = a_iMarioType;
+	}
+
+	switch (iCurrentType)
 	{
 	case NORMAL:
 	{
-		iCurrentType = NORMAL;
 		iSpriteHeight = 16;
 		iFrameSize = 4;
-		a_SpriteManager.LoadTiles((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen * 3, MarioTileBlock, MarioPalb);
+		a_SpriteManager.LoadTiles((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*3, MarioTileBlock, MarioPalb);
 		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(fix2int(iy), 0, 0, 0, A0_4BPP, A0_SQUARE);
-		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
+		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_1);
 
 
-		break;
+		
 	}
+	break;
 	case TALL:
 	{
-		if (iCurrentType == TALL)
-		{
-			break;
-		}
-		else
-		{
-			iCurrentType = TALL;
-			iSpriteHeight = 32;
-			iFrameSize = 8;
-			iy = fix2int(iy);
-			iy -= 16;
-			a_SpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 3, MarioTileBlock, MarioPalb);
-			a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
-			a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
-			iy = int2fix(iy);
-		}
-		
+		iSpriteHeight = 32;
+		iFrameSize = 8;
+		iy = fix2int(iy);
+		iy -= 16;
+		a_SpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 3, MarioTileBlock, MarioPalb);
+		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
+		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
+		iy = int2fix(iy);
+
 		break;
+		
 	}
+	
 	case FIRE:
 	{
+		iSpriteHeight = 32;
+		iFrameSize = 8;
+		iy = fix2int(iy);
+		iy -= 16;
+		a_SpriteManager.LoadTiles((u16*)Mario_FireTiles, (u16*)Mario_FirePal, Mario_FireTilesLen, Mario_FirePalLen * 3, MarioTileBlock, MarioPalb);
+		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
+		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
+		iy = int2fix(iy);
 		break;
 	}
 
@@ -428,7 +486,7 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 		World1Level1Collision[newindex + 1] = 0x0019;
 		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset, true);
 	}
-
+	FlashMario(a_SpriteManager);
 	PhysicsHandler();
 	AnimateMario(a_SpriteManager);
 	UpdateFireBall(a_SpriteManager);	
@@ -454,40 +512,7 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 }
 
 
-bool MarioManager::CheckSpriteCollision(SpriteManager& a_SpriteManager, s32 a_ix, s32 a_iy, s32 a_iSpriteWidth, s32 a_iSpriteHeight, u8 a_iSpriteType)
-{
-	int x1Min = fix2int(ix);
-	int x1Max = fix2int(ix) + iSpriteWidth;
-	int y1Max = fix2int(iy) + iSpriteHeight;
-	int y1Min = fix2int(iy);
 
-	// AABB 2
-	int x2Min = a_ix;
-	int x2Max = a_ix + a_iSpriteWidth;
-	int y2Max = fix2int(a_iy) + a_iSpriteHeight;
-	int y2Min = fix2int(a_iy);
-
-
-	if (x1Max < x2Min || x1Min > x2Max)
-	{
-		return false;
-	}
-	else if (y1Max < y2Min || y1Min > y2Max)
-	{
-		return false;
-	}
-	else
-	{
-		TransformMario(TALL, a_SpriteManager);
-		return true;
-	}
-
-
-	
-
-
-
-}
 
 
 

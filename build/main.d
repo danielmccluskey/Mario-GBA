@@ -16,7 +16,8 @@ main.o: c:/Users/Betat/Documents/gba-mario/source/main.cpp \
  c:/Users/Betat/Documents/gba-mario/include/DM_TileManager.h \
  c:/Users/Betat/Documents/gba-mario/include/DM_AIManager.h \
  c:/Users/Betat/Documents/gba-mario/include/World1Map_Externs.h \
- c:/Users/Betat/Documents/gba-mario/include/World1Level1_Externs.h
+ c:/Users/Betat/Documents/gba-mario/include/World1Level1_Externs.h \
+ c:/Users/Betat/Documents/gba-mario/include/DM_Enums.h
 
 c:/Users/Betat/Documents/gba-mario/include/Intellisense.h:
 
@@ -53,3 +54,5 @@ c:/Users/Betat/Documents/gba-mario/include/DM_AIManager.h:
 c:/Users/Betat/Documents/gba-mario/include/World1Map_Externs.h:
 
 c:/Users/Betat/Documents/gba-mario/include/World1Level1_Externs.h:
+
+c:/Users/Betat/Documents/gba-mario/include/DM_Enums.h:

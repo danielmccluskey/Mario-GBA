@@ -42,6 +42,9 @@ public:
 	bool bOnGround = false;
 	bool bMoving = false;
 	bool bHitPrizeBlock = false;
+	bool bInvulnerable = false;
+	bool bDead = true;
+	u16 iInvulnerableTime = 0;
 
 	fixed iVelocityX;
 	fixed iVelocityY;
@@ -73,15 +76,15 @@ public:
 	void UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager* a_PrizeBlockManagerArray, u16 a_iScrollOffset);
 	void AnimateMario(SpriteManager& a_SpriteManager);
 	void PhysicsHandler();
+	void FlashMario(SpriteManager& a_SpriteManager);
 	u16 MapManager(const unsigned short* a_bgCollisionMap, SpriteManager a_SpriteManager);
 	s32 GrabIndex(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap, u32 tilemap_w, u32 tilemap_h);
 	void CheckCollisions();
-	void TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager);
+	void TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager, bool a_bHurtMario);
 	void UpdateFireBall(SpriteManager& a_SpriteManager);
 	void ShootFireBall(SpriteManager& a_SpriteManager);
 	void InitFireBall(SpriteManager& a_SpriteManager);
 
-	bool CheckSpriteCollision(SpriteManager& a_SpriteManager, s32 a_ix, s32 a_iy, s32 a_iSpriteWidth, s32 a_iSpriteHeight, u8 a_iSpriteType);
 	u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,u16* tilemap, u32 tilemap_w, u32 tilemap_h);
 
 };

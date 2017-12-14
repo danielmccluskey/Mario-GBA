@@ -21,9 +21,12 @@ public:
 	bool bOnGround = false;
 	bool bActive = false;
 	bool bAnimate = false;
+	bool bDead = false;
 
 	s32 iMapOffsetX = 0;
 	s32 iMapOffsetY = 0;
+
+	s8 iSpriteType = 0;
 
 	s8 bDirection = -1;
 	fixed iVelocityY;
@@ -36,6 +39,7 @@ public:
 	void UpdateOffset(AIManager* a_EnemyArray, s32 a_iOffsetX, s32 a_iOffsetY);
 	void TransformEnemy(s32 a_iMarioType, SpriteManager& a_SpriteManager);
 	u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,	u16* tilemap, u32 tilemap_w, u32 tilemap_h);
+	u16 CheckSpriteCollision(SpriteManager& a_SpriteManager, AIManager* a_AIManager, s32 a_ix, s32 a_iy, s32 a_iSpriteWidth, s32 a_iSpriteHeight, bool a_bMarioInvulnerable);
 	void DeleteEnemy(AIManager& a_Enemy);
 	void ScrollEnemies(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray, s32 a_ix);
 

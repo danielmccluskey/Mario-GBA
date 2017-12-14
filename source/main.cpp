@@ -7,6 +7,7 @@
 #include "DM_AIManager.h"
 #include "World1Map_Externs.h"
 #include "World1Level1_Externs.h"
+#include "DM_Enums.h"
 
 
 enum GAMESTATES
@@ -17,6 +18,7 @@ enum GAMESTATES
 	WORLDMAP,
 	GAMEINIT,
 	GAME,
+	MARIOFLASH,
 	LOAD_LEVEL1,
 	LOAD_LEVEL2,
 	LOAD_LEVEL3,
@@ -32,6 +34,13 @@ vu16 setBG_Control_Register(u8 a_priority, u8 a_tileBlockID, u8 a_mosaic, u8 a_c
 	return control;
 }
 
+void delay(int a_iDelay)
+{
+	for (int i = 0; i < a_iDelay; i++)
+	{
+
+	}
+}
 
 
 
@@ -137,7 +146,7 @@ int main()
 				if (!((bool*)MarioSprite.AlmostBotRight))
 				{
 					PrizeManager[0].MoveBlocks(Spritemanager, PrizeManager, 2);
-					//EnemyArray[0].ScrollEnemies(Spritemanager, EnemyArray, 2);
+					EnemyArray[0].ScrollEnemies(Spritemanager, EnemyArray, 2);
 				}
 				
 
@@ -151,16 +160,31 @@ int main()
 			Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight, World1Level1Map);
 			
 
-			if (EnemyArray[0].bActive)
+			
+			
+			u16 bKill = EnemyArray[0].CheckSpriteCollision(Spritemanager, EnemyArray, MarioSprite.ix, MarioSprite.iy, MarioSprite.iSpriteWidth, MarioSprite.iSpriteHeight, MarioSprite.bInvulnerable);
+			if (bKill != 15)
 			{
-				bool bKill = MarioSprite.CheckSpriteCollision(Spritemanager, EnemyArray[0].ix, EnemyArray[0].iy, 16, 16, 0);
-				if (bKill)
+				
+				if (bKill <= 2 && !MarioSprite.bInvulnerable)
 				{
-					EnemyArray[0].DeleteEnemy(EnemyArray[0]);
-					Spritemanager.DeleteSprite(EnemyArray[0].iSpriteID);
+					MarioSprite.TransformMario(0, Spritemanager, true);
+					MarioSprite.bInvulnerable = true;
+					//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0, 240, 00);
 				}
-
+				else if (bKill == 3)
+				{
+					MarioSprite.TransformMario(1, Spritemanager, false);
+				}
+				else if (bKill == 4)
+				{
+					MarioSprite.TransformMario(2, Spritemanager, false);
+				}
 			}
+				
+			
+
+			
 
 
 			PrizeManager[0].SpawnPowerUp(PrizeManager, Spritemanager, EnemyArray);
@@ -169,14 +193,14 @@ int main()
 			if (keyHit(KEYS::B))
 			{
 				//MarioSprite.ShootFireBall(Spritemanager);
-				//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 3, 240, 00);
+				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 3, 240, 00);
 				//PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset, false);
 
 			}
 			if (keyHit(KEYS::A))
 			{
 				//MarioSprite.ShootFireBall(Spritemanager);
-				//EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0, 240, 00);
+				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, 0, 240, 00);
 				//PrizeManager[0].CreateBlock(MarioSprite.ix, MarioSprite.iy+10, PrizeManager, Spritemanager, Tilemanager.iScrollOffset, false);
 
 			}

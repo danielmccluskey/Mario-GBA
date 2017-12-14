@@ -9,7 +9,8 @@ DM_AIManager.o: \
  c:/Users/Betat/Documents/gba-mario/include/gba_reg.h \
  c:/Users/Betat/Documents/gba-mario/include/EnemySprites.h \
  c:/Users/Betat/Documents/gba-mario/include/World1Level1_Externs.h \
- c:/Users/Betat/Documents/gba-mario/include/Powerups.h
+ c:/Users/Betat/Documents/gba-mario/include/Powerups.h \
+ c:/Users/Betat/Documents/gba-mario/include/DM_Enums.h
 
 c:/Users/Betat/Documents/gba-mario/include/DM_AIManager.h:
 
@@ -30,3 +31,5 @@ c:/Users/Betat/Documents/gba-mario/include/EnemySprites.h:
 c:/Users/Betat/Documents/gba-mario/include/World1Level1_Externs.h:
 
 c:/Users/Betat/Documents/gba-mario/include/Powerups.h:
+
+c:/Users/Betat/Documents/gba-mario/include/DM_Enums.h:

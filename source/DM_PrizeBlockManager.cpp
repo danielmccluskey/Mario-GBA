@@ -1,6 +1,8 @@
 #include "DM_PrizeBlockManager.h"
 #include "PrizeBlockEmpty.h"
 
+#include "DM_Enums.h"
+#include "gba_mathUtil.h"
 enum POWERUPTYPES
 {
 	MUSHROOM,
@@ -70,7 +72,9 @@ void PrizeBlockManager::SpawnPowerUp(PrizeBlockManager* a_PrizeBlockArray, Sprit
 		if (a_PrizeBlockArray[i].bActive == true && a_PrizeBlockArray[i].bNeedsSpawn == true)
 		{
 			a_PrizeBlockArray[i].bNeedsSpawn = false;
-			a_AIManager[0].CreateEnemy(a_SpriteManager, a_AIManager, 3, a_PrizeBlockArray[i].ix, a_PrizeBlockArray[i].iy);
+			s32 iRandomNumber = qran_range(3, 6);
+
+			a_AIManager[0].CreateEnemy(a_SpriteManager, a_AIManager, iRandomNumber, a_PrizeBlockArray[i].ix, int2fix(a_PrizeBlockArray[i].iy-16));
 		}
 	}
 	

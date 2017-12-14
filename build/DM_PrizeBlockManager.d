@@ -8,7 +8,9 @@ DM_PrizeBlockManager.o: \
  c:/Users/Betat/Documents/gba-mario/include/Intellisense.h \
  c:/Users/Betat/Documents/gba-mario/include/gba_reg.h \
  c:/Users/Betat/Documents/gba-mario/include/DM_AIManager.h \
- c:/Users/Betat/Documents/gba-mario/include/PrizeBlockEmpty.h
+ c:/Users/Betat/Documents/gba-mario/include/PrizeBlockEmpty.h \
+ c:/Users/Betat/Documents/gba-mario/include/DM_Enums.h \
+ c:/Users/Betat/Documents/gba-mario/include/gba_mathUtil.h
 
 c:/Users/Betat/Documents/gba-mario/include/DM_PrizeBlockManager.h:
 
@@ -27,3 +29,7 @@ c:/Users/Betat/Documents/gba-mario/include/gba_reg.h:
 c:/Users/Betat/Documents/gba-mario/include/DM_AIManager.h:
 
 c:/Users/Betat/Documents/gba-mario/include/PrizeBlockEmpty.h:
+
+c:/Users/Betat/Documents/gba-mario/include/DM_Enums.h:
+
+c:/Users/Betat/Documents/gba-mario/include/gba_mathUtil.h:

@@ -37,6 +37,9 @@
     <Filter Include="Resource Files\Map\Level1">
       <UniqueIdentifier>{35e847b0-d23a-44d8-9ffa-e4ab36d2991a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Defs">
+      <UniqueIdentifier>{99166240-9f9e-4e50-bb8f-3051fa4cfeeb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -115,6 +118,9 @@
     <ClCompile Include="source\Powerups.c">
       <Filter>Resource Files\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="source\Mario_Fire.c">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\DM_MarioManager.h">
@@ -187,6 +193,12 @@
       <Filter>Resource Files\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="include\Powerups.h">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DM_Enums.h">
+      <Filter>Header Files\Defs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mario_Fire.h">
       <Filter>Resource Files\Sprites</Filter>
     </ClInclude>
   </ItemGroup>
