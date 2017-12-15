@@ -32,7 +32,8 @@ enum MARIOPHYSICS
 	MARIO_PHYSICS_MAXXVELOCITY = 550,
 	MARIO_PHYSICS_MAXYVELOCITY = 550,
 	MARIO_PHYSICS_QUESTIONRANGEA = 2,
-	MARIO_PHYSICS_QUESTIONRANGEB = 5
+	MARIO_PHYSICS_QUESTIONRANGEB = 5,
+	MARIO_PHYSICS_XPUSHBACK= 500
 };
 
 enum WorldSelection
@@ -61,80 +62,77 @@ enum MarioFrames
 };
 #define InvulnerableStartTime 500
 
-s32 iTimer = 0;
-s32 iMapWidth = 424;
-s32 iMapHeight = 32;
+s32 iTimer = 0;//Timer for flashing
+s32 iMapWidth = 424;//Map width in tiles
+s32 iMapHeight = 32;//Map height in tiles
 void MarioManager::CreateMario(SpriteManager& a_oSpriteManager)
 {
-	iSpriteID=	a_oSpriteManager.CreateSprite((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*3, MarioTileBlock, MarioPalb);
-	a_oSpriteManager.MoveSprite(32, 120, iSpriteID);
+	iSpriteID=	a_oSpriteManager.CreateSprite((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*3, MarioTileBlock, MarioPalb);//Create mario and assign a sprite ID
+	a_oSpriteManager.MoveSprite(32, 120, iSpriteID);//Move mario to the starting position
 
-	iCurrentType = MARIO_TYPES_NORMAL;
-	fpVelocityX = 0;
-	fpVelocityY = 0;
-	ix = 32;
-	iy = 120;
-	bDead = false;
-	bFinished = false;
-
-	
-	///particleee.InitArray(a_oSpriteManager,0);
-	InitFireBall(a_oSpriteManager);
-	//particleee.DeleteArray(a_oSpriteManager);
+	iCurrentType = MARIO_TYPES_NORMAL;//Set mario the small mario
+	fpVelocityX = 0;//Reset velocity
+	fpVelocityY = 0;//Reset velocity
+	ix = 32;//Set Starting position
+	iy = 120;//Set starting position
+	bDead = false;//Reset dead 
+	bFinished = false;//Reset finished	
+	InitFireBall(a_oSpriteManager);//Initialise the fireball array
 }
 
 void MarioManager::ResetMario(SpriteManager& a_oSpriteManager)
 {
-	iInvulnerableTime = 0;
-	bInvulnerable = false;
-	iTimer = -128;
-	bFinished = false;
-	bDead = false;
-	bMoving = false;
-	fpVelocityX = 0;
-	fpVelocityY = 0;
-	iCurrentType = MARIO_TYPES_NORMAL;
+	iInvulnerableTime = 0;//Reset invulnerable time
+	bInvulnerable = false;//Set mario to vulnerable
+	iTimer = -128;//Reset Invulonerable timer
+	bFinished = false;//Reset finished flag
+	bDead = false;//REset dead flag
+	bMoving = false;//Reset moving flag
+	fpVelocityX = 0;//Reset velocity
+	fpVelocityY = 0;//REset velocity
+	iCurrentType = MARIO_TYPES_NORMAL;//Reset marios type
 
-	for (int i = 0; i < MAX_FIREBALLS; i++)
+	for (int i = 0; i < MAX_FIREBALLS; i++)//Loop through the fireballs
 	{
-		if (sfire[i].bActive)
+		if (sfire[i].bActive)//If the fireball is active
 		{
-			sfire[i].bActive = false;
+			sfire[i].bActive = false;//Deactivate the fireballs
+			a_oSpriteManager.HideSprite(sfire[i].iSpriteID);//Hide the sprite
 		}
 	}
 
-	Particlemanager.DeleteArray(a_oSpriteManager);
-	EnemyParticlemanager.DeleteArray(a_oSpriteManager);
+	Particlemanager.DeleteArray(a_oSpriteManager);//Delete all mario particles
+	EnemyParticlemanager.DeleteArray(a_oSpriteManager);//Delete all enemy particles
 }
 
 void MarioManager::FlashMario(SpriteManager& a_oSpriteManager)
 {
-	if (bInvulnerable && iTimer == -128)
+	if (bInvulnerable && iTimer == -128)//If Mario is not currently invulnerable
 	{
-		iInvulnerableTime = InvulnerableStartTime;
-		iTimer = 20;
+		iInvulnerableTime = InvulnerableStartTime;//Set the timer
+		iTimer = 20;//Set the timer for flashing mario
 
 	}
 
-	if (bInvulnerable &&  iInvulnerableTime <= 0)
+	if (bInvulnerable &&  iInvulnerableTime <= 0)//If the Invulnerable timer has ended
 	{
-		iInvulnerableTime = 0;
-		bInvulnerable = false;
-		iTimer = -128;
-		a_oSpriteManager.ShowSprite(iSpriteID);
+		iInvulnerableTime = 0;//Reset timer
+		bInvulnerable = false;//Set to vulnerable
+		iTimer = -128;//Reset timer
+		a_oSpriteManager.ShowSprite(iSpriteID);//Show mario
 	}
-	if (bInvulnerable && iInvulnerableTime >= 0)
+	if (bInvulnerable && iInvulnerableTime >= 0)//If the timer is still going
 	{
-		iInvulnerableTime -= 1;
-		iTimer -= 1;
-		if (iTimer == 0)
+		iInvulnerableTime -= 1;//decremeent invulnerable tiemr
+		iTimer -= 1;//decrement timer
+		if (iTimer == 0)//If the flash timer is 0
 		{
-			a_oSpriteManager.HideSprite(iSpriteID);
-			iTimer = 20;
+			a_oSpriteManager.HideSprite(iSpriteID);//Hide mario
+			iTimer = 20;//Reset timer
 		}
-		else if (iTimer == 10)
+		else if (iTimer == 10)//If the timer is 10
 		{
-			a_oSpriteManager.ShowSprite(iSpriteID);
+			a_oSpriteManager.ShowSprite(iSpriteID);//Hide mario
 		}
 	}
 
@@ -144,16 +142,16 @@ void MarioManager::FlashMario(SpriteManager& a_oSpriteManager)
 
 void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_oSpriteManager, bool a_bHurtMario)
 {
-	if (!a_bHurtMario && a_iMarioType == MARIO_TYPES_TALL && iCurrentType == MARIO_TYPES_FIRE)
+	if (!a_bHurtMario && a_iMarioType == MARIO_TYPES_TALL && iCurrentType == MARIO_TYPES_FIRE)//If mario picks up a mushroom but is already FIRE mario
 	{
-		return;
+		return;//Do nothing
 	}
-	if (a_bHurtMario)
+	if (a_bHurtMario)//If mario is hit by an enemy
 	{
-		iCurrentType -= 1;
-		if (iCurrentType < MARIO_TYPES_NORMAL)
+		iCurrentType -= 1;//Go to the previous mario
+		if (iCurrentType < MARIO_TYPES_NORMAL)//If it is less than small mario
 		{
-			bDead = true;
+			bDead = true;//Set dead flag to true
 			return;
 		}
 	}
@@ -172,11 +170,11 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_oSpriteMana
 	{
 	case MARIO_TYPES_NORMAL:
 	{
-		iSpriteHeight = 16;
-		iFrameSize = 4;
-		a_oSpriteManager.LoadTiles((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*2, MarioTileBlock, MarioPalb);
-		a_oSpriteManager.SpriteArray[iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(fix2int(iy), 0, 0, 0, A0_4BPP, A0_SQUARE);
-		a_oSpriteManager.SpriteArray[iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_1);
+		iSpriteHeight = 16;//Set new sprite height
+		iFrameSize = 4;//Set new frame size for animations
+		a_oSpriteManager.LoadTiles((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*2, MarioTileBlock, MarioPalb);//Load New mario tiles
+		a_oSpriteManager.SpriteArray[iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(fix2int(iy), 0, 0, 0, A0_4BPP, A0_SQUARE);//Set new sprite sizes
+		a_oSpriteManager.SpriteArray[iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_1);//Set new sprite sizes
 
 
 		
@@ -184,13 +182,13 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_oSpriteMana
 	break;
 	case MARIO_TYPES_TALL:
 	{
-		iSpriteHeight = 32;
-		iFrameSize = 8;
-		iy = fix2int(iy);
-		iy -= 16;
-		a_oSpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 2, MarioTileBlock, MarioPalb);
-		a_oSpriteManager.SpriteArray[iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
-		a_oSpriteManager.SpriteArray[iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
+		iSpriteHeight = 32;//Set new sprite height
+		iFrameSize = 8;//Set new frame size for animations
+		iy = fix2int(iy);//Convert to screen pos
+		iy -= 16;//Pull mario out of the floor
+		a_oSpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 2, MarioTileBlock, MarioPalb);//Load New mario tiles
+		a_oSpriteManager.SpriteArray[iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);//Set new sprite sizes
+		a_oSpriteManager.SpriteArray[iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);//Set new sprite sizes
 		iy = int2fix(iy);
 
 		break;
@@ -199,106 +197,102 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_oSpriteMana
 	
 	case MARIO_TYPES_FIRE:
 	{
-		iSpriteHeight = 32;
-		iFrameSize = 8;
-		iy = fix2int(iy);
-		iy -= 16;
-		a_oSpriteManager.LoadTiles((u16*)Mario_FireTiles, (u16*)Mario_FirePal, Mario_FireTilesLen, Mario_FirePalLen * 2, MarioTileBlock, MarioPalb);
-		a_oSpriteManager.SpriteArray[iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
-		a_oSpriteManager.SpriteArray[iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
+		iSpriteHeight = 32;//Set new sprite height
+		iFrameSize = 8;//Set new frame size for animations
+		iy = fix2int(iy);//Convert to screen pos
+		iy -= 16;//Pull mario out of the floor
+		a_oSpriteManager.LoadTiles((u16*)Mario_FireTiles, (u16*)Mario_FirePal, Mario_FireTilesLen, Mario_FirePalLen * 2, MarioTileBlock, MarioPalb);//Load New mario tiles
+		a_oSpriteManager.SpriteArray[iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);//Set new sprite sizes
+		a_oSpriteManager.SpriteArray[iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);//Set new sprite sizes
 		iy = int2fix(iy);
 		break;
 	}
-
-
-
-
 	}
 
 }
 
 void MarioManager::MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_oSpriteManager)
 {
-	if ((fpVelocityX < MARIO_PHYSICS_MAXXVELOCITY) && (fpVelocityX > -MARIO_PHYSICS_MAXXVELOCITY))
+	if ((fpVelocityX < MARIO_PHYSICS_MAXXVELOCITY) && (fpVelocityX > -MARIO_PHYSICS_MAXXVELOCITY))//If the Velocity is not exceeding the max values on each axis
 	{
-		fpVelocityX = fixAdd(a_ix, fpVelocityX);
+		fpVelocityX = fixAdd(a_ix, fpVelocityX);//Add the given velocity
 	}
-	if (fpVelocityY < MARIO_PHYSICS_MAXYVELOCITY)
+	if (fpVelocityY < MARIO_PHYSICS_MAXYVELOCITY)//If the Velocity is not exceeding the max values on each axis
 	{
-		fpVelocityY = fixAdd(fpVelocityY, 10);
-		fpVelocityY = fixAdd(a_iy, fpVelocityY);
+		fpVelocityY = fixAdd(a_iy, fpVelocityY);//Add the given velocity
 	}
 }
 
 void MarioManager::SetPos(s32 a_ix, s32 a_iy, SpriteManager& a_oSpriteManager)
 {
-	ix = a_ix;
-	iy = a_iy;
-	a_oSpriteManager.MoveSprite(ix, iy, iSpriteID);
+	ix = a_ix;//Set x pos
+	iy = a_iy;//Set y pos
+	a_oSpriteManager.MoveSprite(ix, iy, iSpriteID);//Move sprite to that pos
 }
 
 u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManager a_oSpriteManager)
 {
 	
-	s32 i = 0;
+	s32 i = 0;//There are a lot of For loops in this function
 
 
-	s32 iTilesX = (ix >> 3);// >> 3);
-	s32 iTilesY = (iy >> 3);// >> 3);
+	s32 iTilesX = (ix >> 3);//Get tile co ordinates
+	s32 iTilesY = (iy >> 3);//Get Tile co ordinates
 
-	s32 Current = a_bgCollisionMap[iTilesY * 32 + iTilesX];
-	s32 Right = a_bgCollisionMap[iTilesY * 32 + (iTilesX + 1)];
-	s32 Left = a_bgCollisionMap[iTilesY * 32 + (iTilesX-1)];
-	s32 Top = a_bgCollisionMap[(iTilesY - 1) * 32 + iTilesX];
-	s32 Bottom = a_bgCollisionMap[(iTilesY + 1) * 32 + iTilesX];
+	//Get collision points around the sprite
+	u8 uiCurrent = a_bgCollisionMap[iTilesY * 32 + iTilesX];
+	u8 uiRight = a_bgCollisionMap[iTilesY * 32 + (iTilesX + 1)];
+	u8 uiLeft = a_bgCollisionMap[iTilesY * 32 + (iTilesX-1)];
+	u8 uiTop = a_bgCollisionMap[(iTilesY - 1) * 32 + iTilesX];
+	u8 uiBottom = a_bgCollisionMap[(iTilesY + 1) * 32 + iTilesX];
 
 
-	if (keyHit(KEYS::RIGHT) && bMoving == false)
+	if (keyHit(KEYS::RIGHT) && bMoving == false)//If the play attempts to move and the sprite is not currently moving
 	{
-		if (Right != WORLD_MAP_TILES_WALL && bRight == false)
+		if (uiRight != WORLD_MAP_TILES_WALL && bRight == false)//If the tile in the attempted move direction is not a wall
 		{
-			bRight = true;
-			bMoving = true;
+			bRight = true;//Set direction flag
+			bMoving = true;//Set Moving flag
 
-			for (i = 0; i < 16; i++)
+			for (i = 0; i < 16; i++)//Move the player 16 pixels in that direction
 			{
 				SetPos(ix + 1, iy, a_oSpriteManager);
 			}
 		}
 	}
-	if (keyHit(KEYS::LEFT) && bMoving == false)
+	if (keyHit(KEYS::LEFT) && bMoving == false)//If the play attempts to move and the sprite is not currently moving
 	{
-		if (Left != WORLD_MAP_TILES_WALL && bLeft == false)
+		if (uiLeft != WORLD_MAP_TILES_WALL && bLeft == false)//If the tile in the attempted move direction is not a wall
 		{
-			bLeft = true;
-			bMoving = true;
+			bLeft = true;//Set direction flag
+			bMoving = true;//Set Moving flag
 
-			for (i = 0; i < 16; i++)
+			for (i = 0; i < 16; i++)//Move the player 16 pixels in that direction
 			{
 				SetPos(ix - 1, iy, a_oSpriteManager);
 			}
 		}
 	}
-	if (keyHit(KEYS::UP) && bMoving == false)
+	if (keyHit(KEYS::UP) && bMoving == false)//If the play attempts to move and the sprite is not currently moving
 	{
-		if (Top != WORLD_MAP_TILES_WALL && bTop == false)
+		if (uiTop != WORLD_MAP_TILES_WALL && bTop == false)//If the tile in the attempted move direction is not a wall
 		{
-			bTop = true;
-			bMoving = true;
+			bTop = true;//Set direction flag
+			bMoving = true;//Set Moving flag
 
-			for (i = 0; i < 16; i++)
+			for (i = 0; i < 16; i++)//Move the player 16 pixels in that direction
 			{
 				SetPos(ix, iy - 1, a_oSpriteManager);
 			}
 		}
 	}
-	if (keyHit(KEYS::DOWN) && bMoving == false)
+	if (keyHit(KEYS::DOWN) && bMoving == false)//If the play attempts to move and the sprite is not currently moving
 	{
-		if (Bottom != WORLD_MAP_TILES_WALL && bBottom == false)
+		if (uiBottom != WORLD_MAP_TILES_WALL && bBottom == false)//If the tile in the attempted move direction is not a wall
 		{
-			bBottom = true;
-			bMoving = true;
-			for (i = 0; i < 16; i++)
+			bBottom = true;//Set direction flag
+			bMoving = true;//Set Moving flag
+			for (i = 0; i < 16; i++)//Move the player 16 pixels in that direction
 			{
 				SetPos(ix, iy + 1, a_oSpriteManager);
 			}
@@ -306,108 +300,111 @@ u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManag
 	}
 
 
-	if (bRight)
+	if (bRight)//If moving
 	{
-		if (Right >= WORLD_MAP_TILES_PIN)
+		if (uiRight >= WORLD_MAP_TILES_PIN)//if the player has reached a junction or corner
 		{
-			bRight = false;
-			bMoving = false;
+			bRight = false;//Set direction flag
+			bMoving = false;//Set moving flag
 
-			for (i = 0; i < 8; i++)
+			for (i = 0; i < 8; i++)//Move the sprite a final 8 pixels in that direction
 			{
 				SetPos(ix + 1, iy, a_oSpriteManager);
 			}
 			return 0;
 		}
-		for (i = 0; i < 4; i++)
+		for (i = 0; i < 4; i++)//Move the sprite 4 pixels in that direction
 		{
 			SetPos(ix + 1, iy, a_oSpriteManager);
 		}
 	}
 	if (bLeft)
 	{
-		if (Left >= WORLD_MAP_TILES_PIN)
+		if (uiLeft >= WORLD_MAP_TILES_PIN)//if the player has reached a junction or corner
 		{
-			bMoving = false;
-			bLeft = false;
-			for (i = 0; i < 8; i++)
+			bMoving = false;//Set moving flag
+			bLeft = false;//Set direction flag
+			for (i = 0; i < 8; i++)//Move the sprite a final 8 pixels in that direction
 			{
 				SetPos(ix - 1, iy, a_oSpriteManager);
 			}
 			return 0;
 		}
-		for (i = 0; i < 4; i++)
+		for (i = 0; i < 4; i++)//Move the sprite 4 pixels in that direction
 		{
 			SetPos(ix - 1, iy, a_oSpriteManager);
 		}
 	}
 	else if (bTop)
 	{
-		if (Top >= WORLD_MAP_TILES_PIN)
+		if (uiTop >= WORLD_MAP_TILES_PIN)//if the player has reached a junction or corner
 		{
-			bMoving = false;
-			bTop = false;
-			for (i = 0; i < 8; i++)
+			bMoving = false;//Set moving flag
+			bTop = false;//Set direction flag
+			for (i = 0; i < 8; i++)//Move the sprite a final 8 pixels in that direction
 			{
 				SetPos(ix , iy - 1, a_oSpriteManager);
 			}
 			return 0;
 		}
-		for (i = 0; i < 4; i++)
+		for (i = 0; i < 4; i++)//Move the sprite 4 pixels in that direction
 		{
 			SetPos(ix, iy - 1, a_oSpriteManager);
 		}
 	}
 	else if (bBottom)
 	{
-		if (Bottom >= WORLD_MAP_TILES_PIN)
+		if (uiBottom >= WORLD_MAP_TILES_PIN)//if the player has reached a junction or corner
 		{
-			bMoving = false;
-			bBottom = false;
-			for (i = 0; i < 8; i++)
+			bMoving = false;//Set moving flag
+			bBottom = false;//Set direction flag
+			for (i = 0; i < 8; i++)//Move the sprite a final 8 pixels in that direction
 			{
 				SetPos(ix, iy + 1, a_oSpriteManager);
 			}
 			return 0;
 		}
-		for ( i = 0; i < 4; i++)
+		for ( i = 0; i < 4; i++)//Move the sprite 4 pixels in that direction
 		{
 			SetPos(ix, iy + 1, a_oSpriteManager);
 		}
 	}
 
 
-	if (keyHit(KEYS::A) && Current >= WORLD_MAP_TILES_LEVEL1)
+	if (keyHit(KEYS::A) && uiCurrent >= WORLD_MAP_TILES_LEVEL1)//If the player is attempting the select a level
 	{
-		return Current - WORLD_MAP_TILES_LEVEL1+1;
+		return uiCurrent - WORLD_MAP_TILES_LEVEL1+1;//Return the level id
 	}
 
 	return 0;
 
 }
-u16 MarioManager::tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap, u32 tilemap_w, u32 tilemap_h)
+u16 MarioManager::LookupTile(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap, u32 tilemap_w, u32 tilemap_h)
 {
-	x += xscroll;
-	y += yscroll * 8;
-	x >>= 3;
-	y >>= 3;
-	s32 index = y * tilemap_w + x;
-	return tilemap[index];
+	x += xscroll;//Add the Map offset to the X value
+	y += yscroll * 8;//Add the map offset to the Y value
+	x >>= 3;//Divide by 8 (TileWidth)
+	y >>= 3;//Divide by 8 (TileHeight)
+	s32 iCollisionIndex = y * tilemap_w + x;//Get the current position in the array.
+	return tilemap[iCollisionIndex];//return the tile found at that position
 }
 s32 MarioManager::GrabIndex(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap, u32 tilemap_w, u32 tilemap_h)
 {
-	x += xscroll;
-	y += yscroll * 8;
-	x >>= 3;
-	y >>= 3;
-	s32 index = y * tilemap_w + x;
-	return index;
+	x += xscroll;//Add the Map offset to the X value
+	y += yscroll * 8;//Add the map offset to the Y value
+	x >>= 3;//Divide by 8 (TileWidth)
+	y >>= 3;//Divide by 8 (TileHeight)
+	s32 iCollisionIndex = y * tilemap_w + x;//Get the current position in the array.
+	return iCollisionIndex;//return the tile found at that position
 }
 
 void MarioManager::CheckCollisions()
 {
-	s32 iTileX = fix2int(ix);
-	s32 iTileY = fix2int(iy);
+	s32 iTileX = fix2int(ix);//Sets to screen pos
+	s32 iTileY = fix2int(iy);//Sets the screen pos
+
+
+	//Following is for finding various collision points around the sprite
 	uiTopLeft = tile_lookup(iTileX, iTileY, iMapOffsetX,
 		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 
@@ -427,7 +424,7 @@ void MarioManager::CheckCollisions()
 		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 
 
-	if (uiAlmostBotRight == MARIO_PHYSICS_ENDMAPTILE)
+	if (uiAlmostBotRight == MARIO_PHYSICS_ENDMAPTILE)//If the player is colliding with the flag at the end of the level
 	{
 		bFinished = true;
 	}
@@ -435,78 +432,79 @@ void MarioManager::CheckCollisions()
 
 void MarioManager::AnimateMario(SpriteManager& a_oSpriteManager)
 {
-	if (fpVelocityX != MARIO_PHYSICS_STOPPED || bMoving == true)
+	if (fpVelocityX != MARIO_PHYSICS_STOPPED || bMoving == true)//If the playeris moving
 	{
-		iFrame += iFrameSize;
-		if (iFrame >= 4 * iFrameSize)
+		iFrame += iFrameSize;//Increment frame counter
+		if (iFrame >= 4 * iFrameSize)//If the frame counter has gone past the walking animations
 		{
-			iFrame = 0;
+			iFrame = 0;//Reset counter
 		}
 
-		if (fpVelocityX >= 0)
+		if (fpVelocityX >= 0)//If velocity is positive
 		{
-			bFacing = MARIO_FACING_RIGHT;
+			bFacing = MARIO_FACING_RIGHT;//Face mario right
 		}
 		else
 		{
-			bFacing = MARIO_FACING_LEFT;
+			bFacing = MARIO_FACING_LEFT;//Face mario left
 		}
 	}
 
-	a_oSpriteManager.SetFrame(iFrame, iSpriteID);
+	a_oSpriteManager.SetFrame(iFrame, iSpriteID);//Set the animation frame
 }
 void MarioManager::PhysicsHandler()
 {
-	if (fpVelocityX != MARIO_PHYSICS_STOPPED || bMoving == true)
+	if (fpVelocityX != MARIO_PHYSICS_STOPPED || bMoving == true)//If mario is moving
 	{
-		if (fpVelocityX > MARIO_PHYSICS_STOPPED && ((uiTopRight > MARIO_PHYSICS_COLLISIONTILE || uiAlmostBotRight > MARIO_PHYSICS_COLLISIONTILE)))
+		if (fpVelocityX > MARIO_PHYSICS_STOPPED && ((uiTopRight > MARIO_PHYSICS_COLLISIONTILE || uiAlmostBotRight > MARIO_PHYSICS_COLLISIONTILE)))//If mario collides on the right
 		{
-			fpVelocityX = MARIO_PHYSICS_STOPPED;
-			ix -= 500;
+			fpVelocityX = MARIO_PHYSICS_STOPPED;//Stop mario
+			ix -= MARIO_PHYSICS_XPUSHBACK;//Move mario away from the collided block to avoid getting stuck in it
 		}
-		if (fpVelocityX < MARIO_PHYSICS_STOPPED && ((uiTopLeft > MARIO_PHYSICS_COLLISIONTILE || uiAlmostBotLeft > MARIO_PHYSICS_COLLISIONTILE)))
+		if (fpVelocityX < MARIO_PHYSICS_STOPPED && ((uiTopLeft > MARIO_PHYSICS_COLLISIONTILE || uiAlmostBotLeft > MARIO_PHYSICS_COLLISIONTILE)))//If mario collides on the left
 		{
-			fpVelocityX = MARIO_PHYSICS_STOPPED;
+			fpVelocityX = MARIO_PHYSICS_STOPPED;//Stop mario
+			ix += MARIO_PHYSICS_XPUSHBACK;//Move mario away from the collided block to avoid getting stuck in it
 		}
 
-		ix = fixAdd(ix, fpVelocityX);
+		ix = fixAdd(ix, fpVelocityX);//Move mario to the calculated position
 	}
 
-	if (fpVelocityY < MARIO_PHYSICS_STOPPED && ((uiTopLeft > MARIO_PHYSICS_COLLISIONTILE || uiTopRight > MARIO_PHYSICS_COLLISIONTILE)))
+	if (fpVelocityY < MARIO_PHYSICS_STOPPED && ((uiTopLeft > MARIO_PHYSICS_COLLISIONTILE || uiTopRight > MARIO_PHYSICS_COLLISIONTILE)))//If mario hits his head off something
 	{
-		fpVelocityY = MARIO_PHYSICS_PUSHBACK;
+		fpVelocityY = MARIO_PHYSICS_PUSHBACK;//Push mario back down to avoid getting stuck
 	}
 
-	if (uiBottomLeft > MARIO_PHYSICS_COLLISIONTILE || uiBottomRight > MARIO_PHYSICS_COLLISIONTILE)
+	if (uiBottomLeft > MARIO_PHYSICS_COLLISIONTILE || uiBottomRight > MARIO_PHYSICS_COLLISIONTILE)//If mario is colliding with something below
 	{
-		iy &= MARIO_PHYSICS_ALIGNMASK;
-		if (bOnGround == false)
+		iy &= MARIO_PHYSICS_ALIGNMASK;//Align mario with the floor (Removes the last bits of the variable making it aligned with the map since fixed will sometimes merge through the floor)
+		if (bOnGround == false)//if mario is not on ground (but has just collided with floor)
 		{
-			bJustLanded = true;
+			bJustLanded = true;//Set just landed flag (For landing particles)
 		}
-		bOnGround = true;
-		if (bJump)
+		bOnGround = true;//Set on ground flag
+		if (bJump)//If jump flag active (Controlled from main)
 		{
-			fpVelocityY = MARIO_PHYSICS_JUMPHEIGHT;
-			iy = fixAdd(iy, fpVelocityY);
+			fpVelocityY = MARIO_PHYSICS_JUMPHEIGHT;//Make mario jump
+			iy = fixAdd(iy, fpVelocityY);//Make mario jump
 		}
 	}
 	else
 	{
-		bOnGround = false;
-		fpVelocityY = fixAdd(fpVelocityY, MARIO_PHYSICS_GRAVITY);
+		bOnGround = false;//Set not on ground flag
+		fpVelocityY = fixAdd(fpVelocityY, MARIO_PHYSICS_GRAVITY);//Add gravity to mario
 		iy = fixAdd(iy, fpVelocityY);
 	}
-	bJump = false;
+	bJump = false;//Set jump to false
 
 
-	if (fpVelocityX >= MARIO_PHYSICS_WALKSPEED)
+	if (fpVelocityX >= MARIO_PHYSICS_WALKSPEED)//If marios velocity is greater than the walkspeed
 	{
-		fpVelocityX = fixSub(fpVelocityX, MARIO_PHYSICS_WALKSPEED);
+		fpVelocityX = fixSub(fpVelocityX, MARIO_PHYSICS_WALKSPEED);//Subtract walk speed from the velocity
 	}
-	else if (fpVelocityX <= -MARIO_PHYSICS_WALKSPEED)
+	else if (fpVelocityX <= -MARIO_PHYSICS_WALKSPEED)//If marios velocity is less than the walkspeed
 	{
-		fpVelocityX = fixAdd(fpVelocityX, MARIO_PHYSICS_WALKSPEED);
+		fpVelocityX = fixAdd(fpVelocityX, MARIO_PHYSICS_WALKSPEED);//add walk speed to the velocity
 	}
 	else if (!bMoving)
 	{
@@ -517,63 +515,57 @@ void MarioManager::PhysicsHandler()
 
 void MarioManager::UpdateMario(SpriteManager& a_oSpriteManager, PrizeBlockManager* a_oPrizeBlockManagerArray, u16 a_iScrollOffset)
 {
-	CheckCollisions();
+	CheckCollisions();//Update collision points
 
-	if (uiTopMiddle == 5)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
+	if (uiTopMiddle == 5)//If mario hits left side of prize block
 	{
-		s32 iTileX = fix2int(ix);// >> 8;
-		s32 iTileY = fix2int(iy);// >> 8;
-		iTileX += (iSpriteWidth >> 2);
-		s32 newindex = GrabIndex(iTileX, iTileY, iMapOffsetX, iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
-		apiMarioBGCollision[newindex] = 0x0019;
-		apiMarioBGCollision[newindex + 1] = 0x0019;
-		a_oPrizeBlockManagerArray[0].CreateBlock(ix, iy, a_oPrizeBlockManagerArray, a_oSpriteManager, a_iScrollOffset, false);
+		s32 iTileX = fix2int(ix);//Convert to screen pos
+		s32 iTileY = fix2int(iy);//Convert to screen pos
+		iTileX += (iSpriteWidth >> 2);//Get index from middle of marios head
+		s32 newindex = GrabIndex(iTileX, iTileY, iMapOffsetX, iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);//Get index for collision array
+		apiMarioBGCollision[newindex] = 0x0019;//Set to magic number
+		apiMarioBGCollision[newindex + 1] = 0x0019;//Set to magic number
+		a_oPrizeBlockManagerArray[0].CreateBlock(ix, iy, a_oPrizeBlockManagerArray, a_oSpriteManager, a_iScrollOffset, false);//Create a prize block at that pos
 	}
-	if (uiTopMiddle == 4)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
+	if (uiTopMiddle == 4)//If mario hits left side of prize block
 	{
-		s32 iTileX = fix2int(ix);// >> 8;
-		s32 iTileY = fix2int(iy);// >> 8;
-		iTileX += (iSpriteWidth >> 2);
-		s32 newindex = GrabIndex(iTileX, iTileY, iMapOffsetX, iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
-		apiMarioBGCollision[newindex] = 0x0019;
-		apiMarioBGCollision[newindex + 1] = 0x0019;
-		a_oPrizeBlockManagerArray[0].CreateBlock(ix, iy, a_oPrizeBlockManagerArray, a_oSpriteManager, a_iScrollOffset, true);
+		s32 iTileX = fix2int(ix);//Convert to screen pos
+		s32 iTileY = fix2int(iy);//Convert to screen pos
+		iTileX += (iSpriteWidth >> 2);//Get index from middle of marios head
+		s32 newindex = GrabIndex(iTileX, iTileY, iMapOffsetX, iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);//Get index for collision array
+		apiMarioBGCollision[newindex] = 0x0019;//Set to magic number
+		apiMarioBGCollision[newindex - 1] = 0x0019;//Set to magic number
+		a_oPrizeBlockManagerArray[0].CreateBlock(ix, iy, a_oPrizeBlockManagerArray, a_oSpriteManager, a_iScrollOffset, true);//Create a prize block at that pos
 	}
-	FlashMario(a_oSpriteManager);
-	PhysicsHandler();
-	AnimateMario(a_oSpriteManager);
-	UpdateFireBall(a_oSpriteManager);
+	FlashMario(a_oSpriteManager);//Make mario flash if he is invulnerable
+	PhysicsHandler();//Handle physics
+	AnimateMario(a_oSpriteManager);//Animate mario
+	UpdateFireBall(a_oSpriteManager);//Update the fireball array
 
 
-	if (fix2int(iy) >= SCREEN_H)
+	if (fix2int(iy) >= SCREEN_H-1)//Simple check to see if mario is off screen
 	{
-		bDead = true;
+		bDead = true;//Set dead flag
 	}
 
+	a_oSpriteManager.MoveSprite(fix2int(ix), fix2int(iy), iSpriteID);//Move mario to calculated positions
 	
-
-
-
-
-	a_oSpriteManager.MoveSprite(fix2int(ix), fix2int(iy), iSpriteID);
-	
-
-	
-	if (bJustLanded)
+	if (bJustLanded)//If mario has just landed on the ground make a god awful landing particle thing
 	{
-		bJustLanded = false;
-		if (Particlemanager.bActive == true)
+		bJustLanded = false;//Reset flag
+		if (Particlemanager.bActive == true)//If there is already a particle going on
 		{
-			Particlemanager.DeleteArray(a_oSpriteManager);
+			Particlemanager.DeleteArray(a_oSpriteManager);//Delete those particles make way for the "newer, betterer" landing particles
 		}
-		Particlemanager.InitArray(a_oSpriteManager, 1, 50);
-		Particlemanager.SetEmitterPos(ix + int2fix(iSpriteWidth >> 2), iy + int2fix(iSpriteHeight));
+		Particlemanager.InitArray(a_oSpriteManager, 1, 20);//Initialise a new landing particle emitter
+		Particlemanager.SetEmitterPos(ix + int2fix(iSpriteWidth >> 2), iy + int2fix(iSpriteHeight));//Set new emitter position
 	}
 
+	//If you just want constant buggy particles uncomment the below line
 	//particleee.bActive = true;
 	
-	Particlemanager.UpdateParticleArray(a_oSpriteManager);
-	EnemyParticlemanager.UpdateParticleArray(a_oSpriteManager);
+	Particlemanager.UpdateParticleArray(a_oSpriteManager);//Update particle arrays
+	EnemyParticlemanager.UpdateParticleArray(a_oSpriteManager);//Update particle arrays
 
 	
 

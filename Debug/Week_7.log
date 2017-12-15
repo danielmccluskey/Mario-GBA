@@ -1,19 +1,5 @@
-﻿  DM_AIManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_AIManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_AIManager.cpp -o DM_AIManager.o 
-  DM_MarioManager.cpp
+﻿  DM_MarioManager.cpp
   arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_MarioManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_MarioManager.cpp -o DM_MarioManager.o 
-  DM_ParticleManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_ParticleManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_ParticleManager.cpp -o DM_ParticleManager.o 
-  DM_PrizeBlockManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_PrizeBlockManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_PrizeBlockManager.cpp -o DM_PrizeBlockManager.o 
-  DM_SpriteManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_SpriteManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_SpriteManager.cpp -o DM_SpriteManager.o 
-  DM_TileManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_TileManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_TileManager.cpp -o DM_TileManager.o 
-  main.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/main.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/main.cpp -o main.o 
-  gba_gfx.c
-  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/gba_gfx.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/gba_gfx.c -o gba_gfx.o 
   linking cartridge
   built ... gba-mario.gba
   ROM fixed!
