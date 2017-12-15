@@ -405,22 +405,22 @@ void MarioManager::CheckCollisions()
 
 
 	//Following is for finding various collision points around the sprite
-	uiTopLeft = tile_lookup(iTileX, iTileY, iMapOffsetX,
+	uiTopLeft = LookupTile(iTileX, iTileY, iMapOffsetX,
 		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 
-	uiTopMiddle = tile_lookup(iTileX+(iSpriteWidth >> 2), iTileY, iMapOffsetX,
+	uiTopMiddle = LookupTile(iTileX+(iSpriteWidth >> 2), iTileY, iMapOffsetX,
 		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 
-	uiBottomLeft = tile_lookup(iTileX, iTileY + iSpriteHeight, iMapOffsetX,
+	uiBottomLeft = LookupTile(iTileX, iTileY + iSpriteHeight, iMapOffsetX,
 		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
-	uiTopRight = tile_lookup(iTileX + iSpriteWidth, iTileY, iMapOffsetX,
+	uiTopRight = LookupTile(iTileX + iSpriteWidth, iTileY, iMapOffsetX,
 		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
-	uiBottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, iMapOffsetX,
+	uiBottomRight = LookupTile(iTileX + iSpriteWidth, iTileY + iSpriteHeight, iMapOffsetX,
 		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 
-	uiAlmostBotRight = tile_lookup(iTileX + iSpriteWidth+2, iTileY + iSpriteHeight - (iSpriteHeight >> 3), iMapOffsetX,
+	uiAlmostBotRight = LookupTile(iTileX + iSpriteWidth+2, iTileY + iSpriteHeight - (iSpriteHeight >> 3), iMapOffsetX,
 		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
-	uiAlmostBotLeft = tile_lookup(iTileX-2, iTileY + iSpriteHeight - (iSpriteHeight >> 3), iMapOffsetX,
+	uiAlmostBotLeft = LookupTile(iTileX-2, iTileY + iSpriteHeight - (iSpriteHeight >> 3), iMapOffsetX,
 		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 
 
@@ -581,38 +581,40 @@ void MarioManager::UpdateMario(SpriteManager& a_oSpriteManager, PrizeBlockManage
 
 void MarioManager::UpdateFireBall(SpriteManager& a_oSpriteManager)
 {
-	for (int i = 0; i < MAX_FIREBALLS; i++)
+	for (int i = 0; i < MAX_FIREBALLS; i++)//Loop through the fireball array
 	{
-		if (sfire[i].bActive)
+		if (sfire[i].bActive)//If that fireball is active
 		{
-			s32 iTileXA = (sfire[i].fx >> 8);
-			s32 iTileYA = (sfire[i].fy >> 8);
-			u16 Bottom = tile_lookup(iTileXA + 4, iTileYA + 8, iMapOffsetX,
+			s32 iTileXA = fix2int(sfire[i].fx);//Convert to screen pos
+			s32 iTileYA = fix2int(sfire[i].fy);//Convert to screen pos
+
+			//Get various collision points for the sprite
+			u16 Bottom = LookupTile(iTileXA + 4, iTileYA + 8, iMapOffsetX,
 				iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
-			u16 Right = tile_lookup(iTileXA + 8, iTileYA + 4, iMapOffsetX,
+			u16 Right = LookupTile(iTileXA + 8, iTileYA + 4, iMapOffsetX,
 				iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 
-			if (Bottom > MARIO_PHYSICS_COLLISIONTILE)
+			if (Bottom > MARIO_PHYSICS_COLLISIONTILE)//If the fireball is colliding with the floor
 			{
-				sfire[i].fvy = -356;
+				sfire[i].fvy = -356;//Make it bounce magic number
 			}
-			sfire[i].fvy = fixAdd(sfire[i].fvy, MARIO_PHYSICS_GRAVITY);
-			sfire[i].fx = fixAdd(sfire[i].fx, sfire[i].fvx);
-			sfire[i].fy = fixAdd(sfire[i].fy, sfire[i].fvy);
+			sfire[i].fvy = fixAdd(sfire[i].fvy, MARIO_PHYSICS_GRAVITY);//Add the velocity and gravity
+			sfire[i].fx = fixAdd(sfire[i].fx, sfire[i].fvx);//Move the sprite
+			sfire[i].fy = fixAdd(sfire[i].fy, sfire[i].fvy);//Move the sprite
 
-			a_oSpriteManager.MoveSprite(fix2int(sfire[i].fx), fix2int(sfire[i].fy), sfire[i].iSpriteID);
+			a_oSpriteManager.MoveSprite(fix2int(sfire[i].fx), fix2int(sfire[i].fy), sfire[i].iSpriteID);//Move the sprite
 
-			sfire[i].iFrame++;
-			if (sfire[i].iFrame >= 4)
+			sfire[i].iFrame++;//Increment the animation frame
+			if (sfire[i].iFrame >= 4)//Fireballs have 4 frames
 			{
-				sfire[i].iFrame = 0;
+				sfire[i].iFrame = 0;//Reset counter
 			}
-			a_oSpriteManager.SetFrame(FireballTileBlock+(sfire[i].iFrame*sfire[i].iFrameSize), sfire[i].iSpriteID);
+			a_oSpriteManager.SetFrame(FireballTileBlock+(sfire[i].iFrame*sfire[i].iFrameSize), sfire[i].iSpriteID);//Set the frame
 
-			if (fix2int(sfire[i].fx) > SCREEN_W || Right > MARIO_PHYSICS_COLLISIONTILE)
+			if (fix2int(sfire[i].fx) > SCREEN_W || fix2int(sfire[i].fx) <= 0 || Right > MARIO_PHYSICS_COLLISIONTILE)//if the fireball goes off screen or hits something
 			{
-				sfire[i].bActive = false;
-				a_oSpriteManager.HideSprite(sfire[i].iSpriteID);
+				sfire[i].bActive = false;//Deactivate fireball
+				a_oSpriteManager.HideSprite(sfire[i].iSpriteID);//Hide the fireball
 			}
 
 		}
@@ -622,26 +624,26 @@ void MarioManager::UpdateFireBall(SpriteManager& a_oSpriteManager)
 
 void MarioManager::ShootFireBall(SpriteManager& a_oSpriteManager)
 {
-	if (iCurrentType == MARIO_TYPES_FIRE)
+	if (iCurrentType == MARIO_TYPES_FIRE)//If mario is currently fire mario
 	{
-		for (int i = 0; i < MAX_FIREBALLS; i++)
+		for (int i = 0; i < MAX_FIREBALLS; i++)//Loop through array
 		{
-			if (sfire[i].bActive == false)
+			if (sfire[i].bActive == false)//Choose first iinactive fireball
 			{
-				if (bFacing == false)
+				if (bFacing == false)//if mario is facing right
 				{
-					sfire[i].fvx = int2fix(2);
+					sfire[i].fvx = int2fix(2);//Shoot fireball right
 				}
-				else
+				else//Facing left
 				{
-					sfire[i].fvx = int2fix(-2);
+					sfire[i].fvx = int2fix(-2);//Shoot fireball left
 				}
 
-				sfire[i].fvy = int2fix(1);
-				sfire[i].fx = ix;
-				sfire[i].fy = iy;
-				sfire[i].bActive = true;
-				a_oSpriteManager.ShowSprite(sfire[i].iSpriteID);
+				sfire[i].fvy = int2fix(1);//Add small increment to y velocity for start
+				sfire[i].fx = ix;//Move fireball to mario
+				sfire[i].fy = iy;//Move fireball to mario
+				sfire[i].bActive = true;//Set fireball to active
+				a_oSpriteManager.ShowSprite(sfire[i].iSpriteID);//Shopw the fireball
 				break;
 			}
 
@@ -652,15 +654,15 @@ void MarioManager::ShootFireBall(SpriteManager& a_oSpriteManager)
 void MarioManager::InitFireBall(SpriteManager& a_oSpriteManager)
 {
 
-	for (int i = 0; i < MAX_FIREBALLS; i++)
+	for (int i = 0; i < MAX_FIREBALLS; i++)//Loop through fireball array
 	{
-		sfire[i].fx = ix;
-		sfire[i].fy = iy;
-		sfire[i].iSpriteID = a_oSpriteManager.CreateSprite((u16*)FireballTiles, (u16*)FireballPal, FireballTilesLen, FireballPalLen, FireballTileBlock, FireballPalb);
-		a_oSpriteManager.SpriteArray[sfire[i].iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(sfire[i].fy, 2, 0, 0, A0_4BPP, A0_SQUARE);
-		a_oSpriteManager.SpriteArray[sfire[i].iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(sfire[i].fx, 0, 0, 0, A1_SIZE_0);
-		a_oSpriteManager.SpriteArray[sfire[i].iSpriteID]->attr2 = a_oSpriteManager.setSpriteAttr2(FireballTileBlock, FireballPalb, 0);
-		a_oSpriteManager.HideSprite(sfire[i].iSpriteID);
+		sfire[i].fx = ix;//Set position
+		sfire[i].fy = iy;//Set position
+		sfire[i].iSpriteID = a_oSpriteManager.CreateSprite((u16*)FireballTiles, (u16*)FireballPal, FireballTilesLen, FireballPalLen, FireballTileBlock, FireballPalb);//Assign sprite id and create sprite
+		a_oSpriteManager.SpriteArray[sfire[i].iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(sfire[i].fy, 2, 0, 0, A0_4BPP, A0_SQUARE);//Set sprite to square
+		a_oSpriteManager.SpriteArray[sfire[i].iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(sfire[i].fx, 0, 0, 0, A1_SIZE_0);//Set sprite to 8x8
+		a_oSpriteManager.SpriteArray[sfire[i].iSpriteID]->attr2 = a_oSpriteManager.setSpriteAttr2(FireballTileBlock, FireballPalb, 0);//Set pal banks and tile indexes
+		a_oSpriteManager.HideSprite(sfire[i].iSpriteID);//Hide the sprite
 	}
 
 	
@@ -668,57 +670,56 @@ void MarioManager::InitFireBall(SpriteManager& a_oSpriteManager)
 
 void MarioManager::CheckFireballCollisions(SpriteManager& a_oSpriteManager, AIManager* a_aoEnemyArray)
 {
-	
+	for (int y = 0; y < MAX_ENEMIES; y++)//Loop through enemy array
+	{
+		if (a_aoEnemyArray[y].bSquish)//If the enemy has been squished
+		{
+			EnemyParticlemanager.InitArray(a_oSpriteManager, 0, 100);//Init score particle
+			EnemyParticlemanager.SetEmitterPos(int2fix(a_aoEnemyArray[y].ix) + int2fix(iSpriteWidth >> 2), a_aoEnemyArray[y].iy + int2fix(iSpriteHeight));//et emitter pos to the enemy pos
+			a_aoEnemyArray[y].bSquish = false;//Reset squish flag
 
-			for (int y = 0; y < MAX_ENEMIES; y++)
+		}
+
+
+		if (a_aoEnemyArray[y].bActive == true && a_aoEnemyArray[y].bDead == false)//If enemy is active and not dead
+		{
+			//The following values are used for AABB collision against the fireballs. They determine the Min and Max positions on each axis.
+			int iX2Min = a_aoEnemyArray[y].ix;
+			int iX2Max = a_aoEnemyArray[y].ix + iSpriteWidth;
+			int iY2Max = fix2int(a_aoEnemyArray[y].iy) + iSpriteWidth;
+			int iY2Min = fix2int(a_aoEnemyArray[y].iy);
+
+			for (int i = 0; i < MAX_FIREBALLS; i++)
 			{
-				if (a_aoEnemyArray[y].bSquish)
+				if (sfire[i].bActive == true)
 				{
-					EnemyParticlemanager.InitArray(a_oSpriteManager, 0, 100);
-					EnemyParticlemanager.SetEmitterPos(int2fix(a_aoEnemyArray[y].ix) + int2fix(iSpriteWidth >> 2), a_aoEnemyArray[y].iy + int2fix(iSpriteHeight));
-					a_aoEnemyArray[y].bSquish = false;
+					//The following values are used for AABB collision against the fireballs. They determine the Min and Max positions on each axis.
+					int iX1Min = fix2int(sfire[i].fx);
+					int iX1Max = fix2int(sfire[i].fx) + (iSpriteWidth >>2);
+					int iY1Max = fix2int(sfire[i].fy) + (iSpriteWidth >>2);
+					int iY1Min = fix2int(sfire[i].fy);
 
-				}
-
-
-				if (a_aoEnemyArray[y].bActive == true && a_aoEnemyArray[y].bDead == false)
-				{
-					int x2Min = a_aoEnemyArray[y].ix;
-					int x2Max = a_aoEnemyArray[y].ix + 16;
-					int y2Max = fix2int(a_aoEnemyArray[y].iy) + 16;
-					int y2Min = fix2int(a_aoEnemyArray[y].iy);
-
-					for (int i = 0; i < MAX_FIREBALLS; i++)
+					if (iX1Max < iX2Min || iX1Min > iX2Max)//If the X axis is not colliding
 					{
-						if (sfire[i].bActive == true)
-						{
-							int x1Min = fix2int(sfire[i].fx);
-							int x1Max = fix2int(sfire[i].fx) + 8;
-							int y1Max = fix2int(sfire[i].fy) + 8;
-							int y1Min = fix2int(sfire[i].fy);
-							
-							if (x1Max < x2Min || x1Min > x2Max)
-							{
-								
-							}
-							else if (y1Max < y2Min || y1Min > y2Max)
-							{
-								
-							}
-							else
-							{
-								//a_oSpriteManager.DeleteSprite(a_aoEnemyArray[y].iSpriteID);
-								a_aoEnemyArray[y].bSquish = true;
-								a_aoEnemyArray[y].bDead = true;
-								sfire[i].bActive = false;
-								a_oSpriteManager.HideSprite(sfire[i].iSpriteID);
-								sfire[i].fx = 0;
-								sfire[i].fy = 0;
 
-							}
-						}
+					}
+					else if (iY1Max < iY2Min || iY1Min > iY2Max)//If the Y axis is not colliding
+					{
+
+					}
+					else//If colliding
+					{
+						a_aoEnemyArray[y].bSquish = true;//Set squish flag for particles
+						a_aoEnemyArray[y].bDead = true;//Set death flag for animation
+						sfire[i].bActive = false;//Deactivate sprite
+						a_oSpriteManager.HideSprite(sfire[i].iSpriteID);//Hide the sprite
+						sfire[i].fx = 0;//REset pos
+						sfire[i].fy = 0;//Reset pos
+
 					}
 				}
+			}
+		}
 
 	}
 

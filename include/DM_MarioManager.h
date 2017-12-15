@@ -96,7 +96,7 @@ public:
 	void InitFireBall(SpriteManager& a_oSpriteManager);
 	void CheckFireballCollisions(SpriteManager& a_oSpriteManager, AIManager* a_aoEnemyArray);
 
-	u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,u16* tilemap, u32 tilemap_w, u32 tilemap_h);
+	u16 LookupTile(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap, u32 tilemap_w, u32 tilemap_h);
 
 };
 

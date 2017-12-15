@@ -123,7 +123,8 @@ extern u16* tile_block_address(u32 a_blockNum);
 //function to return a pointer to address space for the tile map blocks location (0-31)
 extern u16* tileMap_block_address(u32 a_blockNum);
 //function to set a background control register's values
-extern void setBG_Control_Register(u8 a_regNum, u8 a_priority, u8 a_tileBlockID, u8 a_mosaic, u8 a_colourMode, u8 a_mapBlockID, u8 a_affineWrap, u8 a_bgSize);
+extern void setBG_Control_Registera(u8 a_regNum, u8 a_priority, u8 a_tileBlockID, u8 a_mosaic, u8 a_colourMode, u8 a_mapBlockID, u8 a_affineWrap, u8 a_bgSize);
+extern vu16 setBG_Control_Register(u8 a_priority, u8 a_tileBlockID, u8 a_mosaic, u8 a_colourMode, u8 a_mapBlockID, u8 a_affineWrap, u8 a_bgSize);
 //====================================================================================
 //defines for palette locations
 //====================================================================================
