@@ -1,7 +1,14 @@
+//==============================================================================================================================
+// Project: Mario GBA
+// File: DM_PrizeBlockManager.cpp
+// Author: Daniel McCluskey
+// Date Created: 01/12/17
+// Brief: This is the cpp file that spawns and controls prizeblocks and the power ups they spawn.
+// Last Edited by: (See BitBucket Commits: https://bitbucket.org/Danielmclovin/gba-mario
+//==============================================================================================================================
 #include "DM_PrizeBlockManager.h"
 #include "PrizeBlockEmpty.h"
 
-#include "DM_Enums.h"
 #include "gba_mathUtil.h"
 enum POWERUPTYPES
 {
@@ -10,6 +17,7 @@ enum POWERUPTYPES
 	POWERUP_TYPES_STAR,
 	POWERUP_TYPES_COIN
 };
+
 s16 PrizeBlockManager::CreateBlock(s32 a_ix, s32 a_iy, PrizeBlockManager* a_PrizeBlockArray, SpriteManager& a_oSpriteManager, u16 a_iScrollOffset, bool a_bRightSide)
 {
 	a_ix = fix2int(a_ix);//Convert X to screen

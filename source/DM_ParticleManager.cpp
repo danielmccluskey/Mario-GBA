@@ -1,3 +1,12 @@
+
+//==============================================================================================================================
+// Project: Mario GBA
+// File: DM_ParticleManager.cpp
+// Author: Daniel McCluskey
+// Date Created: 01/12/17
+// Brief: This is the cpp file That contains the struct and class for managing particles and emitters.
+// Last Edited by: (See BitBucket Commits: https://bitbucket.org/Danielmclovin/gba-mario
+//==============================================================================================================================
 #include "gba.h"
 #include "DM_ParticleManager.h"
 #include "Mario_Small.h"
@@ -23,7 +32,7 @@ void ParticleManager::InitArray(SpriteManager& a_oSpriteManager, s32 a_iSpriteTy
 	}
 	else//Landing particle
 	{
-		iMaxParticles = 10;
+		iMaxParticles = 6;
 
 	}
 

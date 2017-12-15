@@ -1,5 +1,69 @@
-﻿  DM_MarioManager.cpp
+﻿  DM_AIManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_AIManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_AIManager.cpp -o DM_AIManager.o 
+  DM_MarioManager.cpp
   arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_MarioManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_MarioManager.cpp -o DM_MarioManager.o 
+  DM_ParticleManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_ParticleManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_ParticleManager.cpp -o DM_ParticleManager.o 
+  DM_PrizeBlockManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_PrizeBlockManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_PrizeBlockManager.cpp -o DM_PrizeBlockManager.o 
+  DM_SpriteManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_SpriteManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_SpriteManager.cpp -o DM_SpriteManager.o 
+  DM_TileManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_TileManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_TileManager.cpp -o DM_TileManager.o 
+  World1Level1_Collisions.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Level1_Collisions.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Level1_Collisions.cpp -o World1Level1_Collisions.o 
+  World1Level1_Maps.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Level1_Maps.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Level1_Maps.cpp -o World1Level1_Maps.o 
+  World1Level1_Palette.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Level1_Palette.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Level1_Palette.cpp -o World1Level1_Palette.o 
+  World1Level1_Tiles.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Level1_Tiles.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Level1_Tiles.cpp -o World1Level1_Tiles.o 
+  World1Level2_Collisions.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Level2_Collisions.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Level2_Collisions.cpp -o World1Level2_Collisions.o 
+  World1Level2_Maps.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Level2_Maps.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Level2_Maps.cpp -o World1Level2_Maps.o 
+  World1Level2_Palette.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Level2_Palette.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Level2_Palette.cpp -o World1Level2_Palette.o 
+  World1Level2_Tiles.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Level2_Tiles.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Level2_Tiles.cpp -o World1Level2_Tiles.o 
+  World1MapCollisions.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1MapCollisions.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1MapCollisions.cpp -o World1MapCollisions.o 
+  World1Map_Maps.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Map_Maps.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Map_Maps.cpp -o World1Map_Maps.o 
+  World1Map_Palette.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Map_Palette.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Map_Palette.cpp -o World1Map_Palette.o 
+  World1Map_Tiles.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/World1Map_Tiles.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/World1Map_Tiles.cpp -o World1Map_Tiles.o 
+  main.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/main.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/main.cpp -o main.o 
+  EnemySprites.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/EnemySprites.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/EnemySprites.c -o EnemySprites.o 
+  Fireball.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/Fireball.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/Fireball.c -o Fireball.o 
+  Mario_Fire.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/Mario_Fire.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/Mario_Fire.c -o Mario_Fire.o 
+  Mario_Small.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/Mario_Small.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/Mario_Small.c -o Mario_Small.o 
+  Mario_Tall.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/Mario_Tall.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/Mario_Tall.c -o Mario_Tall.o 
+  NewParticle.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/NewParticle.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/NewParticle.c -o NewParticle.o 
+  Powerups.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/Powerups.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/Powerups.c -o Powerups.o 
+  PrizeBlockEmpty.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/PrizeBlockEmpty.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/PrizeBlockEmpty.c -o PrizeBlockEmpty.o 
+  ScoreParticle.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/ScoreParticle.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/ScoreParticle.c -o ScoreParticle.o 
+  gab_mathUtil.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/gab_mathUtil.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/gab_mathUtil.c -o gab_mathUtil.o 
+  gba_gfx.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/gba_gfx.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/gba_gfx.c -o gba_gfx.o 
+  gba_input.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/gba_input.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/gba_input.c -o gba_input.o 
+  gba_math.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/gba_math.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/gba_math.c -o gba_math.o 
+  particles.c
+  arm-none-eabi-gcc -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/particles.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -c /c/Users/Betat/Documents/gba-mario/source/particles.c -o particles.o 
   linking cartridge
   built ... gba-mario.gba
   ROM fixed!

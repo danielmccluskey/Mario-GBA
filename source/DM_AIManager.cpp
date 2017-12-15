@@ -1,7 +1,14 @@
+//==============================================================================================================================
+// Project: Mario GBA
+// File: DM_AIManager.cpp
+// Author: Daniel McCluskey
+// Date Created: 01/12/17
+// Brief: This is the cpp file that contains the class for handling the AI of the game and the powerups.
+// Last Edited by: (See BitBucket Commits: https://bitbucket.org/Danielmclovin/gba-mario
+//==============================================================================================================================
 #include "DM_AIManager.h"
 #include "EnemySprites.h"
 #include "Powerups.h"
-#include "DM_Enums.h"
 
 
 
@@ -158,14 +165,14 @@ u16 AIManager::CheckSpriteCollision(SpriteManager& a_oSpriteManager, AIManager* 
 	return 15;//Mario did not collide with an enemy
 }
 
-u16 AIManager::LookupTile(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap, u32 tilemap_w, u32 tilemap_h)
+u16 AIManager::LookupTile(u32 a_uix, u32 a_uiy, u32 a_uixscroll, u32 a_uiyscroll, u16* a_uitilemap, u32 a_uitilemap_w, u32 a_uitilemap_h)
 {
-	x += xscroll;//Add the Map offset to the X value
-	y += yscroll * 8;//Add the map offset to the Y value
-	x >>= 3;//Divide by 8 (TileWidth)
-	y >>= 3;//Divide by 8 (TileHeight)
-	s32 iCollisionIndex = y * tilemap_w + x;//Get the current position in the array.
-	return tilemap[iCollisionIndex];//return the tile found at that position
+	a_uix += a_uixscroll;//Add the Map offset to the X value
+	a_uiy += a_uiyscroll * 8;//Add the map offset to the Y value
+	a_uix >>= 3;//Divide by 8 (TileWidth)
+	a_uiy >>= 3;//Divide by 8 (TileHeight)
+	s32 iCollisionIndex = a_uiy * a_uitilemap_w + a_uix;//Get the current position in the array.
+	return a_uitilemap[iCollisionIndex];//return the tile found at that position
 }
 
 void AIManager::UpdateEnemies(SpriteManager& a_oSpriteManager, AIManager* a_aoEnemyArray)

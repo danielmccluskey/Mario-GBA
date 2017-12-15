@@ -1,4 +1,11 @@
-
+//==============================================================================================================================
+// Project: Mario GBA
+// File: DM_TileManager.cpp
+// Author: Daniel McCluskey
+// Date Created: 01/12/17
+// Brief: This is the cpp file for .
+// Last Edited by: (See BitBucket Commits: https://bitbucket.org/Danielmclovin/gba-mario
+//==============================================================================================================================
 
 
 #include "DM_Tilemanager.h"

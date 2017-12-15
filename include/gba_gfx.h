@@ -8,7 +8,7 @@
 
 
 #define MAX_ENEMIES 5
-#define MAX_PARTICLES 30
+#define MAX_PARTICLES 10
 #define MAX_FIREBALLS 5
 #define MAX_PRIZEBLOCKS 5
 

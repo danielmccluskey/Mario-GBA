@@ -1,3 +1,11 @@
+//==============================================================================================================================
+// Project: Mario GBA
+// File: DM_MarioManager.cpp
+// Author: Daniel McCluskey
+// Date Created: 01/12/17
+// Brief: This is the cpp file for that contains the fireball class and the MAriomanager class.
+// Last Edited by: (See BitBucket Commits: https://bitbucket.org/Danielmclovin/gba-mario
+//==============================================================================================================================
 #include "DM_MarioManager.h"
 #include "Mario_Small.h"
 #include "Mario_Tall.h"
@@ -5,7 +13,6 @@
 #include "Fireball.h"
 #include "gba.h"
 #include "gba_math.h"
-#include "DM_Enums.h"
 
 enum MARIOTYPES
 {
@@ -379,22 +386,22 @@ u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManag
 	return 0;
 
 }
-u16 MarioManager::LookupTile(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap, u32 tilemap_w, u32 tilemap_h)
+u16 MarioManager::LookupTile(u32 a_uix, u32 a_uiy, u32 a_uixscroll, u32 a_uiyscroll, u16* a_uitilemap, u32 a_uitilemap_w, u32 a_uitilemap_h)
 {
-	x += xscroll;//Add the Map offset to the X value
-	y += yscroll * 8;//Add the map offset to the Y value
-	x >>= 3;//Divide by 8 (TileWidth)
-	y >>= 3;//Divide by 8 (TileHeight)
-	s32 iCollisionIndex = y * tilemap_w + x;//Get the current position in the array.
-	return tilemap[iCollisionIndex];//return the tile found at that position
+	a_uix += a_uixscroll;//Add the Map offset to the X value
+	a_uiy += a_uiyscroll * 8;//Add the map offset to the Y value
+	a_uix >>= 3;//Divide by 8 (TileWidth)
+	a_uiy >>= 3;//Divide by 8 (TileHeight)
+	s32 iCollisionIndex = a_uiy * a_uitilemap_w + a_uix;//Get the current position in the array.
+	return a_uitilemap[iCollisionIndex];//return the tile found at that position
 }
-s32 MarioManager::GrabIndex(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap, u32 tilemap_w, u32 tilemap_h)
+s32 MarioManager::GrabIndex(u32 a_uix, u32 a_uiy, u32 a_uixscroll, u32 a_uiyscroll, u16* a_uitilemap, u32 a_uitilemap_w, u32 a_uitilemap_h)
 {
-	x += xscroll;//Add the Map offset to the X value
-	y += yscroll * 8;//Add the map offset to the Y value
-	x >>= 3;//Divide by 8 (TileWidth)
-	y >>= 3;//Divide by 8 (TileHeight)
-	s32 iCollisionIndex = y * tilemap_w + x;//Get the current position in the array.
+	a_uix += a_uixscroll;//Add the Map offset to the X value
+	a_uiy += a_uiyscroll * 8;//Add the map offset to the Y value
+	a_uix >>= 3;//Divide by 8 (TileWidth)
+	a_uiy >>= 3;//Divide by 8 (TileHeight)
+	s32 iCollisionIndex = a_uiy * a_uitilemap_w + a_uix;//Get the current position in the array.
 	return iCollisionIndex;//return the tile found at that position
 }
 

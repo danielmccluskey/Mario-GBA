@@ -1,3 +1,12 @@
+
+//==============================================================================================================================
+// Project: Mario GBA
+// File: DM_SpriteManager.cpp
+// Author: Daniel McCluskey
+// Date Created: 01/12/17
+// Brief: This is the cpp file that handles all sprite spawning and manages them.
+// Last Edited by: (See BitBucket Commits: https://bitbucket.org/Danielmclovin/gba-mario
+//==============================================================================================================================
 #include "DM_SpriteManager.h"
 #include "gba_reg.h"
 #include <string.h>
