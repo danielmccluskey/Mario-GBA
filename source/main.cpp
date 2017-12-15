@@ -77,6 +77,9 @@ int main()
 	PrizeBlockManager PrizeManager[MAX_PRIZEBLOCKS];
 	
 	s32 frame = 0;
+
+	s32 iCheapEnemySpawner = 0;
+
 	while (1)
 	{
 		vsync();
@@ -180,11 +183,18 @@ int main()
 				Tilemanager.right = true;
 				if (!((bool*)MarioSprite.AlmostBotRight))
 				{
+					iCheapEnemySpawner += 2;
 					PrizeManager[0].MoveBlocks(Spritemanager, PrizeManager, 2);
 					EnemyArray[0].ScrollEnemies(Spritemanager, EnemyArray, 2);
 				}
 				
 
+			}
+
+			if (iCheapEnemySpawner >= 250)
+			{
+				EnemyArray[0].CreateEnemy(Spritemanager, EnemyArray, qran_range(0, 3), 240, int2fix(100));
+				iCheapEnemySpawner = 0;
 			}
 			
 			MarioSprite.UpdateMario(Spritemanager, PrizeManager, Tilemanager.iScrollOffset);

@@ -68,6 +68,7 @@ void ParticleManager::EmitParticle(Particle& a_p)
 	a_p.fx = fx; a_p.fy = fy;
 	a_p.fvx = int2fix(qran_range(-5, 5)); a_p.fvy = int2fix(20 + qran_range(0, 1));
 	a_p.iLife = 0;
+
 }
 
 void ParticleManager::UpdateParticle(Particle& a_p, SpriteManager& a_SpriteManager)
@@ -76,10 +77,11 @@ void ParticleManager::UpdateParticle(Particle& a_p, SpriteManager& a_SpriteManag
 	a_p.fy = fixAdd(a_p.fy, fixMul(fixMul(a_p.fvy, g_frameTime), a_p.iGravity));
 	a_p.fvy -= fixMul(a_p.iGravity, g_frameTime);
 	a_p.iLife += 16;
-
+	a_SpriteManager.ShowSprite(a_p.iSpriteID);
 	if ((a_p.iParticleType == 0 && (a_p.fy + fy) < (40 << 8)) || (a_p.iParticleType == 1 && (a_p.fy - fy) > (10 << 8)))
 	{
 		EmitParticle(a_p);
+		
 		for (int y = 0; y < iMaxParticles; ++y)
 		{
 			a_SpriteManager.DeleteSprite(sParticles[y].iSpriteID);
@@ -95,9 +97,11 @@ void ParticleManager::UpdateParticleArray(SpriteManager& a_SpriteManager)
 	{
 		for (int i = 0; i < iMaxParticles; ++i)
 		{
-			a_SpriteManager.ShowSprite(sParticles[i].iSpriteID);
+			
 			UpdateParticle(sParticles[i], a_SpriteManager);
+			
 			a_SpriteManager.MoveSprite(fix2int(sParticles[i].fx), fix2int(sParticles[i].fy), sParticles[i].iSpriteID);
+			
 		}
 		
 	}

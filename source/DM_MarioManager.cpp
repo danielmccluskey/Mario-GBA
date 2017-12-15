@@ -675,7 +675,7 @@ void MarioManager::CheckFireballCollisions(SpriteManager& a_SpriteManager, AIMan
 				{
 					EnemyParticlemanager.InitArray(a_SpriteManager, 0);
 					EnemyParticlemanager.bActive = true;
-					EnemyParticlemanager.SetEmitterPos(ix + int2fix(iSpriteWidth >> 2), iy + int2fix(iSpriteHeight));
+					EnemyParticlemanager.SetEmitterPos(int2fix(a_EnemyArray[y].ix) + int2fix(iSpriteWidth >> 2), a_EnemyArray[y].iy + int2fix(iSpriteHeight));
 					a_EnemyArray[y].bSquish = false;
 
 				}
@@ -708,6 +708,7 @@ void MarioManager::CheckFireballCollisions(SpriteManager& a_SpriteManager, AIMan
 							else
 							{
 								//a_SpriteManager.DeleteSprite(a_EnemyArray[y].iSpriteID);
+								a_EnemyArray[y].bSquish = true;
 								a_EnemyArray[y].bDead = true;
 								sfire[i].bActive = false;
 								a_SpriteManager.HideSprite(sfire[i].iSpriteID);

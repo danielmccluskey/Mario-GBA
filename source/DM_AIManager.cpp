@@ -44,26 +44,35 @@ void AIManager::CreateEnemy(SpriteManager& a_SpriteManager, AIManager* a_EnemyAr
 				a_EnemyArray[i].iStartingFrame = EnemyTileBlock;
 				a_EnemyArray[i].bDirection = -1;
 				a_EnemyArray[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)EnemySpritesTiles, (u16*)EnemySpritesPal, EnemySpritesTilesLen, EnemySpritesPalLen, EnemyTileBlock, EnemyPalb);
+				a_EnemyArray[i].bAnimate = true;
 				break;
 			case GREENTURTLE:
 				a_EnemyArray[i].iStartingFrame = EnemyTileBlock + 8;
 				a_EnemyArray[i].bDirection = -1;
 				a_EnemyArray[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)EnemySpritesTiles, (u16*)EnemySpritesPal, EnemySpritesTilesLen, EnemySpritesPalLen, EnemyTileBlock, EnemyPalb);
+				a_EnemyArray[i].bAnimate = true;
+
 				break;
 			case REDTURTLE:
-				a_EnemyArray[i].iStartingFrame = EnemyTileBlock + 8;
+				a_EnemyArray[i].iStartingFrame = EnemyTileBlock + 16;
 				a_EnemyArray[i].bDirection = -1;
 				a_EnemyArray[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)EnemySpritesTiles, (u16*)EnemySpritesPal, EnemySpritesTilesLen, EnemySpritesPalLen, EnemyTileBlock, EnemyPalb);
+				a_EnemyArray[i].bAnimate = true;
+
 				break;
 			case MUSHROOM:
 				a_EnemyArray[i].iStartingFrame = PowerupsTileBlock;
 				a_EnemyArray[i].bDirection = 1;
 				a_EnemyArray[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)PowerupsTiles, (u16*)PowerupsPal, PowerupsTilesLen, PowerupsPalLen, PowerupsTileBlock, PowerupsPalb);
+				a_EnemyArray[i].bAnimate = false;
+
 				break;
 			case FLOWER:
 				a_EnemyArray[i].iStartingFrame = PowerupsTileBlock + 4;
 				a_EnemyArray[i].bDirection = 1;
 				a_EnemyArray[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)PowerupsTiles, (u16*)PowerupsPal, PowerupsTilesLen, PowerupsPalLen, PowerupsTileBlock, PowerupsPalb);
+				a_EnemyArray[i].bAnimate = false;
+
 				break;
 
 			}
@@ -207,12 +216,14 @@ void AIManager::UpdateEnemies(SpriteManager& a_SpriteManager, AIManager* a_Enemy
 				if (Left > COLLISIONTILE)
 				{
 					a_EnemyArray[i].bDirection = 1;
+					a_SpriteManager.SetHFlip(true, a_EnemyArray[i].iSpriteID);
+
 
 				}
 				if (Right > COLLISIONTILE)
 				{
 					a_EnemyArray[i].bDirection = -1;
-
+					a_SpriteManager.SetHFlip(false, a_EnemyArray[i].iSpriteID);
 				}
 				a_EnemyArray[i].ix += a_EnemyArray[i].bDirection;
 			}

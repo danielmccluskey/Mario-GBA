@@ -1,19 +1,18 @@
-﻿  DM_MarioManager.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_MarioManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_MarioManager.cpp -o DM_MarioManager.o 
+﻿  DM_AIManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_AIManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_AIManager.cpp -o DM_AIManager.o 
   In file included from c:/Users/Betat/Documents/gba-mario/include/DM_SpriteManager.h:6:0,
-                   from c:/Users/Betat/Documents/gba-mario/include/DM_MarioManager.h:6,
-                   from c:/Users/Betat/Documents/gba-mario/source/DM_MarioManager.cpp:1:
+                   from c:/Users/Betat/Documents/gba-mario/include/DM_AIManager.h:4,
+                   from c:/Users/Betat/Documents/gba-mario/source/DM_AIManager.cpp:1:
   c:/Users/Betat/Documents/gba-mario/include/gba_gfx.h:101:0: warning: "REG_BG_OFS" redefined
    #define REG_BG_OFS  ((BackgroundOffsets*)(REG_BASE+0x0010))
    
   c:/Users/Betat/Documents/gba-mario/include/gba_gfx.h:62:0: note: this is the location of the previous definition
    #define REG_BG_OFS      ((BG_POINT*)(REG_BASE+0x0010))
    
-  In file included from c:/Users/Betat/Documents/gba-mario/include/gba.h:11:0,
-                   from c:/Users/Betat/Documents/gba-mario/source/DM_MarioManager.cpp:6:
-  c:/Users/Betat/Documents/gba-mario/include/gba_mathUtil.h:14:12: warning: declaration of 's32 abs(s32)' conflicts with built-in declaration 'int abs(int)' [-Wbuiltin-declaration-mismatch]
-   extern s32 abs(s32 a_val);
-              ^~~
+  c:/Users/Betat/Documents/gba-mario/source/DM_AIManager.cpp: In member function 'void AIManager::UpdateEnemies(SpriteManager&, AIManager*)':
+  c:/Users/Betat/Documents/gba-mario/source/DM_AIManager.cpp:186:6: warning: unused variable 'iTileTest' [-Wunused-variable]
+    s32 iTileTest = 0;
+        ^~~~~~~~~
   linking cartridge
   built ... gba-mario.gba
   ROM fixed!
