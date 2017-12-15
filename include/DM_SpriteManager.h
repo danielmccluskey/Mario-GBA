@@ -8,8 +8,6 @@
 class SpriteManager
 {
 public:
-	s32 testx = 0;
-	//SpriteInfo* SpriteInformation[128];
 	volatile ObjectAttribute* SpriteArray[128];
 	bool OccupiedSprite[128];
 	s32 SpriteIndex = 0;
@@ -24,10 +22,9 @@ public:
 	void SetFrame(s32 a_iframe, s32 a_iSpriteID);
 	void MoveSprite(s16 a_ix, s16 a_iy, s32 a_SpriteID);
 	void UpdateSprites();
-	void TranslateSprite(s32 a_ix, s32 a_iy, s32 a_SpriteID);
-	u16 setSpriteAttr0(u16 a_y, u8 a_objectMode, u8 a_gfxMode, u8 a_mosaic, u8 a_colormode, u8 a_shape);
-	u16 setSpriteAttr1(u16 a_x, u8 a_affine, u8 a_horiFlip, u8 a_vertFlip, u8 a_size);
-	u16 setSpriteAttr2(u32 a_tileId, u32 a_palBank, u32 a_priority);
+	u16 setSpriteAttr0(u16 a_uiY, u8 a_uiObjectMode, u8 a_uiGfxMode, u8 a_uiMosaic, u8 a_uiColormode, u8 a_uiShape);
+	u16 setSpriteAttr1(u16 a_uiX, u8 a_uiAffine, u8 a_uiHoriFlip, u8 a_uiVertFlip, u8 a_uiSize);
+	u16 setSpriteAttr2(u32 a_uiTileId, u32 a_uiPalBank, u32 a_uiPriority);
 
 };
 

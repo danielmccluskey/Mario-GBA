@@ -33,6 +33,8 @@ Discarded input sections
  .data          0x00000000        0x0 DM_AIManager.o
  .bss           0x00000000        0x0 DM_AIManager.o
  .group         0x00000000        0x8 DM_MarioManager.o
+ .data          0x00000000        0x0 DM_ParticleManager.o
+ .bss           0x00000000        0x0 DM_ParticleManager.o
  .data          0x00000000        0x0 DM_PrizeBlockManager.o
  .bss           0x00000000        0x0 DM_PrizeBlockManager.o
  .data          0x00000000        0x0 DM_SpriteManager.o
@@ -100,6 +102,9 @@ Discarded input sections
  .text          0x00000000        0x0 Mario_Tall.o
  .data          0x00000000        0x0 Mario_Tall.o
  .bss           0x00000000        0x0 Mario_Tall.o
+ .text          0x00000000        0x0 NewParticle.o
+ .data          0x00000000        0x0 NewParticle.o
+ .bss           0x00000000        0x0 NewParticle.o
  .text          0x00000000        0x0 Powerups.o
  .data          0x00000000        0x0 Powerups.o
  .bss           0x00000000        0x0 Powerups.o
@@ -186,319 +191,319 @@ Linker script and memory map
  *(.plt)
                 0x0800021c                . = ALIGN (0x4)
 
-.text           0x08000220     0x5ac8
+.text           0x08000220     0x57b0
  *(EXCLUDE_FILE(*.iwram*) .text)
- .text          0x08000220      0xcd8 DM_AIManager.o
+ .text          0x08000220      0xcd4 DM_AIManager.o
                 0x08000220                AIManager::CreateEnemy(SpriteManager&, AIManager*, signed char, long, long)
                 0x08000610                AIManager::UpdateOffset(AIManager*, long, long)
                 0x0800067c                AIManager::CheckSpriteCollision(SpriteManager&, AIManager*, long, long, long, long, bool)
                 0x0800088c                AIManager::tile_lookup(unsigned long, unsigned long, unsigned long, unsigned long, unsigned short*, unsigned long, unsigned long)
                 0x080008dc                AIManager::UpdateEnemies(SpriteManager&, AIManager*)
-                0x08000d6e                AIManager::ScrollEnemies(SpriteManager&, AIManager*, long)
-                0x08000e6c                AIManager::DeleteEnemies(SpriteManager&, AIManager*)
- .text          0x08000ef8     0x1ae4 DM_MarioManager.o
-                0x08000ef8                MarioManager::CreateMario(SpriteManager&)
-                0x08000f84                MarioManager::ResetMario(SpriteManager&)
+                0x08000d6a                AIManager::ScrollEnemies(SpriteManager&, AIManager*, long)
+                0x08000e68                AIManager::DeleteEnemies(SpriteManager&, AIManager*)
+ .text          0x08000ef4     0x1ad0 DM_MarioManager.o
+                0x08000ef4                MarioManager::CreateMario(SpriteManager&)
+                0x08000f80                MarioManager::ResetMario(SpriteManager&)
                 0x08001044                MarioManager::FlashMario(SpriteManager&)
                 0x0800110c                MarioManager::TransformMario(long, SpriteManager&, bool)
-                0x080013e0                MarioManager::MoveMario(long, long, SpriteManager&)
-                0x0800145c                MarioManager::SetPos(long, long, SpriteManager&)
-                0x0800149c                MarioManager::MapManager(unsigned short const*, SpriteManager)
-                0x080018e0                MarioManager::tile_lookup(unsigned long, unsigned long, unsigned long, unsigned long, unsigned short*, unsigned long, unsigned long)
-                0x08001930                MarioManager::GrabIndex(unsigned long, unsigned long, unsigned long, unsigned long, unsigned short*, unsigned long, unsigned long)
-                0x08001978                MarioManager::CheckCollisions()
-                0x08001bec                MarioManager::AnimateMario(SpriteManager&)
-                0x08001c60                MarioManager::PhysicsHandler()
-                0x08001e08                MarioManager::UpdateMario(SpriteManager&, PrizeBlockManager*, unsigned short)
-                0x080020a0                MarioManager::UpdateFireBall(SpriteManager&)
-                0x08002444                MarioManager::ShootFireBall(SpriteManager&)
+                0x080013c8                MarioManager::MoveMario(long, long, SpriteManager&)
+                0x08001444                MarioManager::SetPos(long, long, SpriteManager&)
+                0x08001484                MarioManager::MapManager(unsigned short const*, SpriteManager)
+                0x080018c8                MarioManager::tile_lookup(unsigned long, unsigned long, unsigned long, unsigned long, unsigned short*, unsigned long, unsigned long)
+                0x08001918                MarioManager::GrabIndex(unsigned long, unsigned long, unsigned long, unsigned long, unsigned short*, unsigned long, unsigned long)
+                0x08001960                MarioManager::CheckCollisions()
+                0x08001bdc                MarioManager::AnimateMario(SpriteManager&)
+                0x08001c50                MarioManager::PhysicsHandler()
+                0x08001df8                MarioManager::UpdateMario(SpriteManager&, PrizeBlockManager*, unsigned short)
+                0x08002098                MarioManager::UpdateFireBall(SpriteManager&)
+                0x08002434                MarioManager::ShootFireBall(SpriteManager&)
                 0x08002570                MarioManager::InitFireBall(SpriteManager&)
-                0x08002704                MarioManager::CheckFireballCollisions(SpriteManager&, AIManager*)
- .text          0x080029dc      0x5d0 DM_ParticleManager.o
-                0x080029dc                ParticleManager::InitArray(SpriteManager&, long)
-                0x08002c48                ParticleManager::DeleteArray(SpriteManager&)
-                0x08002c92                ParticleManager::InitParticle(Particle&)
-                0x08002ccc                ParticleManager::EmitParticle(Particle&)
-                0x08002d2a                ParticleManager::UpdateParticle(Particle&, SpriteManager&)
-                0x08002e60                ParticleManager::UpdateParticleArray(SpriteManager&)
-                0x08002f04                ParticleManager::SetEmitterPos(long, long)
- .text          0x08002fac      0x2b8 DM_PrizeBlockManager.o
-                0x08002fac                PrizeBlockManager::CreateBlock(long, long, PrizeBlockManager*, SpriteManager&, unsigned short, bool)
-                0x080030e8                PrizeBlockManager::PlaceEmptyBlock(long, long, SpriteManager&)
-                0x08003102                PrizeBlockManager::ChoosePowerUp(long, long, long, unsigned short const*)
-                0x0800311c                PrizeBlockManager::SpawnPowerUp(PrizeBlockManager*, SpriteManager&, AIManager*)
-                0x080031b0                PrizeBlockManager::MoveBlocks(SpriteManager&, PrizeBlockManager*, long)
- .text          0x08003264      0x6e4 DM_SpriteManager.o
-                0x08003264                SpriteManager::CreateSprite(unsigned short*, unsigned short*, long, long, long, long)
-                0x0800338e                SpriteManager::DeleteSprite(long)
-                0x080033dc                SpriteManager::LoadTiles(unsigned short*, unsigned short*, long, long, long, long)
-                0x0800341a                SpriteManager::InitialiseArray()
-                0x080034b6                SpriteManager::HideSprite(long)
-                0x0800350c                SpriteManager::ShowSprite(long)
-                0x08003550                SpriteManager::SetHFlip(bool, long)
-                0x080035d0                SpriteManager::SetVFlip(bool, long)
-                0x08003650                SpriteManager::SetFrame(long, long)
-                0x080036cc                SpriteManager::MoveSprite(short, short, long)
-                0x0800377a                SpriteManager::setSpriteAttr0(unsigned short, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char)
-                0x08003832                SpriteManager::setSpriteAttr1(unsigned short, unsigned char, unsigned char, unsigned char, unsigned char)
-                0x080038d8                SpriteManager::setSpriteAttr2(unsigned long, unsigned long, unsigned long)
-                0x08003934                SpriteManager::UpdateSprites()
- .text          0x08003948      0x540 DM_TileManager.o
-                0x08003948                TileManager::SetupBG(long, long, unsigned short const*, unsigned long, unsigned short const*, unsigned long, unsigned short const*, unsigned long)
-                0x08003a34                TileManager::SetPos(long, long, unsigned short const*, unsigned long)
-                0x08003ad0                TileManager::AnimateBackground(unsigned short const*, unsigned short const*, unsigned short const*, unsigned short const*)
-                0x08003b5c                TileManager::ScrollBackGround(bool, bool, unsigned short const*)
-                0x08003cd4                TileManager::AddRow(long, long, unsigned short const*)
-                0x08003ddc                TileManager::AddCol(long, long, unsigned short const*)
- .text          0x08003e88      0xa68 main.o
-                0x08003e88                setBG_Control_Register(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char)
-                0x08003f6e                delay(int)
-                0x08003f96                CopyCollision(unsigned short const*, unsigned short*, long)
-                0x08003fd6                main
- .text          0x080048f0       0xd8 gab_mathUtil.o
-                0x080048f0                sqran
-                0x08004918                qran
-                0x08004950                qran_range
-                0x0800497c                sign
-                0x080049a4                abs
- .text          0x080049c8      0x5d4 gba_gfx.o
-                0x080049c8                vsync
-                0x080049f8                page_flip
-                0x08004a30                tile_block_address
-                0x08004a50                tileMap_block_address
-                0x08004a70                sprite_tile_block_address
-                0x08004a98                setBG_Control_Register
-                0x08004b94                palette__bg_block_address
-                0x08004bb4                palette_sp_block_address
-                0x08004bd8                SetAttrib0
-                0x08004c98                SetAttrib1
-                0x08004cfe                SetAttrib1AffineIndex
-                0x08004d50                SetAttrib2
-                0x08004db6                SetObjectPosition
-                0x08004e26                obj_hide
-                0x08004e60                obj_unhide
-                0x08004eb0                oam_init
-                0x08004f16                oam_copy
-                0x08004f68                obj_aff_identity
- .text          0x08004f9c      0x134 gba_math.o
-                0x08004f9c                int2fix
-                0x08004fb4                float2fix
-                0x08004fdc                fix2uint
-                0x08004ff4                fix2ufrac
-                0x0800500e                fix2int
-                0x0800502c                fix2float
-                0x08005054                fixAdd
-                0x08005070                fixSub
-                0x0800508c                fixMul
-                0x080050ac                fixDiv
- .text          0x080050d0      0x150 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_divsi3.o)
-                0x080050d0                __divsi3
-                0x080050d0                __aeabi_idiv
-                0x08005200                __aeabi_idivmod
- .text          0x08005220        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_dvmd_tls.o)
-                0x08005220                __aeabi_idiv0
-                0x08005220                __aeabi_ldiv0
- .text          0x08005224      0x2ac c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_arm_addsubsf3.o)
-                0x08005224                __aeabi_frsub
-                0x0800522c                __subsf3
-                0x0800522c                __aeabi_fsub
-                0x08005230                __aeabi_fadd
-                0x08005230                __addsf3
-                0x080053ec                __aeabi_ui2f
-                0x080053ec                __floatunsisf
-                0x080053f4                __aeabi_i2f
-                0x080053f4                __floatsisf
-                0x08005414                __aeabi_ul2f
-                0x08005414                __floatundisf
-                0x08005424                __aeabi_l2f
-                0x08005424                __floatdisf
- .text          0x080054d0      0x2f8 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_arm_muldivsf3.o)
-                0x080054d0                __mulsf3
-                0x080054d0                __aeabi_fmul
-                0x08005668                __aeabi_fdiv
-                0x08005668                __divsf3
- .text          0x080057c8       0x5c c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_arm_fixsfsi.o)
-                0x080057c8                __aeabi_f2iz
-                0x080057c8                __fixsfsi
+                0x080026f8                MarioManager::CheckFireballCollisions(SpriteManager&, AIManager*)
+ .text          0x080029c4      0x510 DM_ParticleManager.o
+                0x080029c4                ParticleManager::InitArray(SpriteManager&, long, long)
+                0x08002c30                ParticleManager::DeleteArray(SpriteManager&)
+                0x08002c80                ParticleManager::InitParticle(Particle&)
+                0x08002cb8                ParticleManager::EmitParticle(Particle&)
+                0x08002d16                ParticleManager::UpdateParticle(Particle&, SpriteManager&)
+                0x08002dac                ParticleManager::UpdateParticleArray(SpriteManager&)
+                0x08002e7c                ParticleManager::SetEmitterPos(long, long)
+ .text          0x08002ed4      0x288 DM_PrizeBlockManager.o
+                0x08002ed4                PrizeBlockManager::CreateBlock(long, long, PrizeBlockManager*, SpriteManager&, unsigned short, bool)
+                0x08003014                PrizeBlockManager::SpawnPowerUp(PrizeBlockManager*, SpriteManager&, AIManager*)
+                0x080030a8                PrizeBlockManager::MoveBlocks(SpriteManager&, PrizeBlockManager*, long)
+ .text          0x0800315c      0x670 DM_SpriteManager.o
+                0x0800315c                SpriteManager::CreateSprite(unsigned short*, unsigned short*, long, long, long, long)
+                0x08003276                SpriteManager::DeleteSprite(long)
+                0x080032c0                SpriteManager::LoadTiles(unsigned short*, unsigned short*, long, long, long, long)
+                0x080032fe                SpriteManager::InitialiseArray()
+                0x0800338a                SpriteManager::HideSprite(long)
+                0x080033d8                SpriteManager::ShowSprite(long)
+                0x08003414                SpriteManager::SetHFlip(bool, long)
+                0x08003484                SpriteManager::SetVFlip(bool, long)
+                0x080034f4                SpriteManager::SetFrame(long, long)
+                0x08003560                SpriteManager::MoveSprite(short, short, long)
+                0x080035fe                SpriteManager::setSpriteAttr0(unsigned short, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char)
+                0x080036b6                SpriteManager::setSpriteAttr1(unsigned short, unsigned char, unsigned char, unsigned char, unsigned char)
+                0x0800375c                SpriteManager::setSpriteAttr2(unsigned long, unsigned long, unsigned long)
+                0x080037b8                SpriteManager::UpdateSprites()
+ .text          0x080037cc      0x458 DM_TileManager.o
+                0x080037cc                TileManager::SetupBG(long, long, unsigned short const*, unsigned long, unsigned short const*, unsigned long, unsigned short const*, unsigned long)
+                0x080038b8                TileManager::SetPos(long, long, unsigned long)
+                0x08003954                TileManager::AnimateBackground(unsigned short const*, unsigned short const*, unsigned short const*, unsigned short const*)
+                0x080039e0                TileManager::ScrollBackGround(unsigned char, unsigned char)
+                0x08003b18                TileManager::AddRow(long, long)
+ .text          0x08003c24      0x9d0 main.o
+                0x08003c24                setBG_Control_Register(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char)
+                0x08003d0a                delay(int)
+                0x08003d32                CopyCollision(unsigned short const*, unsigned short*, long)
+                0x08003d72                main
+ .text          0x080045f4       0xb4 gab_mathUtil.o
+                0x080045f4                sqran
+                0x0800461c                qran
+                0x08004654                qran_range
+                0x08004680                sign
+ .text          0x080046a8      0x5d4 gba_gfx.o
+                0x080046a8                vsync
+                0x080046d8                page_flip
+                0x08004710                tile_block_address
+                0x08004730                tileMap_block_address
+                0x08004750                sprite_tile_block_address
+                0x08004778                setBG_Control_Register
+                0x08004874                palette__bg_block_address
+                0x08004894                palette_sp_block_address
+                0x080048b8                SetAttrib0
+                0x08004978                SetAttrib1
+                0x080049de                SetAttrib1AffineIndex
+                0x08004a30                SetAttrib2
+                0x08004a96                SetObjectPosition
+                0x08004b06                obj_hide
+                0x08004b40                obj_unhide
+                0x08004b90                oam_init
+                0x08004bf6                oam_copy
+                0x08004c48                obj_aff_identity
+ .text          0x08004c7c      0x134 gba_math.o
+                0x08004c7c                int2fix
+                0x08004c94                float2fix
+                0x08004cbc                fix2uint
+                0x08004cd4                fix2ufrac
+                0x08004cee                fix2int
+                0x08004d0c                fix2float
+                0x08004d34                fixAdd
+                0x08004d50                fixSub
+                0x08004d6c                fixMul
+                0x08004d8c                fixDiv
+ .text          0x08004db0      0x150 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_divsi3.o)
+                0x08004db0                __divsi3
+                0x08004db0                __aeabi_idiv
+                0x08004ee0                __aeabi_idivmod
+ .text          0x08004f00        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_dvmd_tls.o)
+                0x08004f00                __aeabi_idiv0
+                0x08004f00                __aeabi_ldiv0
+ .text          0x08004f04      0x2ac c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_arm_addsubsf3.o)
+                0x08004f04                __aeabi_frsub
+                0x08004f0c                __subsf3
+                0x08004f0c                __aeabi_fsub
+                0x08004f10                __aeabi_fadd
+                0x08004f10                __addsf3
+                0x080050cc                __aeabi_ui2f
+                0x080050cc                __floatunsisf
+                0x080050d4                __aeabi_i2f
+                0x080050d4                __floatsisf
+                0x080050f4                __aeabi_ul2f
+                0x080050f4                __floatundisf
+                0x08005104                __aeabi_l2f
+                0x08005104                __floatdisf
+ .text          0x080051b0      0x2f8 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_arm_muldivsf3.o)
+                0x080051b0                __mulsf3
+                0x080051b0                __aeabi_fmul
+                0x08005348                __aeabi_fdiv
+                0x08005348                __divsf3
+ .text          0x080054a8       0x5c c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_arm_fixsfsi.o)
+                0x080054a8                __aeabi_f2iz
+                0x080054a8                __fixsfsi
  *(.text .stub .text.* .gnu.linkonce.t.*)
  .text.deregister_tm_clones
-                0x08005824       0x2c c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
+                0x08005504       0x2c c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
  .text.register_tm_clones
-                0x08005850       0x34 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
+                0x08005530       0x34 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
  .text.__do_global_dtors_aux
-                0x08005884       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
+                0x08005564       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
  .text.frame_dummy
-                0x080058b4       0x28 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
- .text.keyHit   0x080058dc       0x30 DM_MarioManager.o
-                0x080058dc                keyHit
+                0x08005594       0x28 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
+ .text.keyHit   0x080055bc       0x30 DM_MarioManager.o
+                0x080055bc                keyHit
  .text.PollKeys
-                0x0800590c       0x3c main.o
-                0x0800590c                PollKeys
- .text.keyDown  0x08005948       0x24 main.o
-                0x08005948                keyDown
+                0x080055ec       0x3c main.o
+                0x080055ec                PollKeys
+ .text.keyDown  0x08005628       0x24 main.o
+                0x08005628                keyDown
  .text._ZN13SpriteManagerC2Ev
-                0x0800596c       0x26 main.o
-                0x0800596c                SpriteManager::SpriteManager()
-                0x0800596c                SpriteManager::SpriteManager()
+                0x0800564c       0x20 main.o
+                0x0800564c                SpriteManager::SpriteManager()
+                0x0800564c                SpriteManager::SpriteManager()
  .text._ZN15ParticleManagerC2Ev
-                0x08005992       0x22 main.o
-                0x08005992                ParticleManager::ParticleManager()
-                0x08005992                ParticleManager::ParticleManager()
+                0x0800566c       0x28 main.o
+                0x0800566c                ParticleManager::ParticleManager()
+                0x0800566c                ParticleManager::ParticleManager()
  .text._ZN8FireballC2Ev
-                0x080059b4       0x2e main.o
-                0x080059b4                Fireball::Fireball()
-                0x080059b4                Fireball::Fireball()
+                0x08005694       0x2e main.o
+                0x08005694                Fireball::Fireball()
+                0x08005694                Fireball::Fireball()
+ *fill*         0x080056c2        0x2 ff
  .text._ZN12MarioManagerC2Ev
-                0x080059e2       0xf2 main.o
-                0x080059e2                MarioManager::MarioManager()
-                0x080059e2                MarioManager::MarioManager()
+                0x080056c4       0xf8 main.o
+                0x080056c4                MarioManager::MarioManager()
+                0x080056c4                MarioManager::MarioManager()
  .text._ZN9AIManagerC2Ev
-                0x08005ad4       0x8e main.o
-                0x08005ad4                AIManager::AIManager()
-                0x08005ad4                AIManager::AIManager()
+                0x080057bc       0x8e main.o
+                0x080057bc                AIManager::AIManager()
+                0x080057bc                AIManager::AIManager()
  .text._ZN11TileManagerC2Ev
-                0x08005b62       0x46 main.o
-                0x08005b62                TileManager::TileManager()
-                0x08005b62                TileManager::TileManager()
+                0x0800584a       0x46 main.o
+                0x0800584a                TileManager::TileManager()
+                0x0800584a                TileManager::TileManager()
  .text._ZN17PrizeBlockManagerC2Ev
-                0x08005ba8       0x28 main.o
-                0x08005ba8                PrizeBlockManager::PrizeBlockManager()
-                0x08005ba8                PrizeBlockManager::PrizeBlockManager()
+                0x08005890       0x28 main.o
+                0x08005890                PrizeBlockManager::PrizeBlockManager()
+                0x08005890                PrizeBlockManager::PrizeBlockManager()
  .text.__libc_init_array
-                0x08005bd0       0x54 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-init.o)
-                0x08005bd0                __libc_init_array
- .text.memcpy   0x08005c24       0x8c c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-memcpy-stub.o)
-                0x08005c24                memcpy
+                0x080058b8       0x54 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-init.o)
+                0x080058b8                __libc_init_array
+ .text.memcpy   0x0800590c       0x8c c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-memcpy-stub.o)
+                0x0800590c                memcpy
  .text.memcpy.__stub
-                0x08005cb0       0x34 linker stubs
+                0x08005998       0x34 linker stubs
  *(.text.*personality*)
  *(.gnu.warning)
  *(.glue_7t)
- .glue_7t       0x08005ce8        0x0 linker stubs
+ .glue_7t       0x080059d0        0x0 linker stubs
  *(.glue_7)
- .glue_7        0x08005ce8        0x0 linker stubs
+ .glue_7        0x080059d0        0x0 linker stubs
  *(.vfp11_veneer)
- .vfp11_veneer  0x08005ce8        0x0 linker stubs
-                0x08005ce8                . = ALIGN (0x4)
-                0x08005ce8                __text_end = .
+ .vfp11_veneer  0x080059d0        0x0 linker stubs
+                0x080059d0                . = ALIGN (0x4)
+                0x080059d0                __text_end = .
 
-.v4_bx          0x08005ce8        0x0
- .v4_bx         0x08005ce8        0x0 linker stubs
+.v4_bx          0x080059d0        0x0
+ .v4_bx         0x080059d0        0x0 linker stubs
 
-.iplt           0x08005ce8        0x0
- .iplt          0x08005ce8        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
+.iplt           0x080059d0        0x0
+ .iplt          0x080059d0        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
 
-.fini           0x08005ce8        0xc
+.fini           0x080059d0        0xc
  *(.fini)
- .fini          0x08005ce8        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crti.o
-                0x08005ce8                _fini
- .fini          0x08005cec        0x8 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtn.o
-                0x08005cf4                . = ALIGN (0x4)
+ .fini          0x080059d0        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crti.o
+                0x080059d0                _fini
+ .fini          0x080059d4        0x8 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtn.o
+                0x080059dc                . = ALIGN (0x4)
 
-.rodata         0x08005cf4    0x1fab8
+.rodata         0x080059dc    0x1fae4
  *(.rodata)
- .rodata        0x08005cf4       0x14 DM_AIManager.o
- .rodata        0x08005d08     0x6a00 World1Level1_Collisions.o
-                0x08005d08                World1Level1Collision
- .rodata        0x0800c708     0x6a00 World1Level1_Maps.o
-                0x0800c708                World1Level1Map
- .rodata        0x08013108       0x20 World1Level1_Palette.o
-                0x08013108                World1Level1Palette
- .rodata        0x08013128      0x660 World1Level1_Tiles.o
-                0x08013128                World1Level1Tiles
- .rodata        0x08013788     0x6a00 World1Level2_Collisions.o
-                0x08013788                World1Level2Collision
- .rodata        0x0801a188     0x6a00 World1Level2_Maps.o
-                0x0801a188                World1Level2Map
- .rodata        0x08020b88       0x20 World1Level2_Palette.o
-                0x08020b88                World1Level2Palette
- .rodata        0x08020ba8      0x660 World1Level2_Tiles.o
-                0x08020ba8                World1Level2Tiles
- .rodata        0x08021208      0x800 World1Map_Maps.o
-                0x08021208                World1MapMap
- .rodata        0x08021a08      0x200 World1Map_Palette.o
-                0x08021a08                World1MapPalette
- .rodata        0x08021c08     0x2000 World1Map_Tiles.o
-                0x08021c08                World1MapTilesA
-                0x08022408                World1MapTilesB
-                0x08022c08                World1MapTilesC
-                0x08023408                World1MapTilesD
- .rodata        0x08023c08      0x414 EnemySprites.o
-                0x08023c08                EnemySpritesTiles
-                0x08024008                EnemySpritesPal
- .rodata        0x0802401c       0x8c Fireball.o
-                0x0802401c                FireballTiles
-                0x0802409c                FireballPal
- .rodata        0x080240a8      0x80c Mario_Fire.o
-                0x080240a8                Mario_FireTiles
-                0x080248a8                Mario_FirePal
- .rodata        0x080248b4      0x40c Mario_Small.o
-                0x080248b4                Mario_SmallTiles
-                0x08024cb4                Mario_SmallPal
- .rodata        0x08024cc0      0x80c Mario_Tall.o
-                0x08024cc0                Mario_TallTiles
-                0x080254c0                Mario_TallPal
- .rodata        0x080254cc      0x210 Powerups.o
-                0x080254cc                PowerupsTiles
-                0x080256cc                PowerupsPal
- .rodata        0x080256dc       0x88 PrizeBlockEmpty.o
-                0x080256dc                PrizeBlockEmptyTiles
-                0x0802575c                PrizeBlockEmptyPal
- .rodata        0x08025764       0x48 ScoreParticle.o
-                0x08025764                ScoreParticleTiles
-                0x080257a4                ScoreParticlePal
+ .rodata        0x080059dc       0x14 DM_AIManager.o
+ .rodata        0x080059f0     0x6a00 World1Level1_Collisions.o
+                0x080059f0                World1Level1Collision
+ .rodata        0x0800c3f0     0x6a00 World1Level1_Maps.o
+                0x0800c3f0                World1Level1Map
+ .rodata        0x08012df0       0x20 World1Level1_Palette.o
+                0x08012df0                World1Level1Palette
+ .rodata        0x08012e10      0x660 World1Level1_Tiles.o
+                0x08012e10                World1Level1Tiles
+ .rodata        0x08013470     0x6a00 World1Level2_Collisions.o
+                0x08013470                World1Level2Collision
+ .rodata        0x08019e70     0x6a00 World1Level2_Maps.o
+                0x08019e70                World1Level2Map
+ .rodata        0x08020870       0x20 World1Level2_Palette.o
+                0x08020870                World1Level2Palette
+ .rodata        0x08020890      0x660 World1Level2_Tiles.o
+                0x08020890                World1Level2Tiles
+ .rodata        0x08020ef0      0x800 World1Map_Maps.o
+                0x08020ef0                World1MapMap
+ .rodata        0x080216f0      0x200 World1Map_Palette.o
+                0x080216f0                World1MapPalette
+ .rodata        0x080218f0     0x2000 World1Map_Tiles.o
+                0x080218f0                World1MapTilesA
+                0x080220f0                World1MapTilesB
+                0x080228f0                World1MapTilesC
+                0x080230f0                World1MapTilesD
+ .rodata        0x080238f0      0x414 EnemySprites.o
+                0x080238f0                EnemySpritesTiles
+                0x08023cf0                EnemySpritesPal
+ .rodata        0x08023d04       0x8c Fireball.o
+                0x08023d04                FireballTiles
+                0x08023d84                FireballPal
+ .rodata        0x08023d90      0x80c Mario_Fire.o
+                0x08023d90                Mario_FireTiles
+                0x08024590                Mario_FirePal
+ .rodata        0x0802459c      0x40c Mario_Small.o
+                0x0802459c                Mario_SmallTiles
+                0x0802499c                Mario_SmallPal
+ .rodata        0x080249a8      0x80c Mario_Tall.o
+                0x080249a8                Mario_TallTiles
+                0x080251a8                Mario_TallPal
+ .rodata        0x080251b4       0x2c NewParticle.o
+                0x080251b4                NewParticleTiles
+                0x080251d4                NewParticlePal
+ .rodata        0x080251e0      0x210 Powerups.o
+                0x080251e0                PowerupsTiles
+                0x080253e0                PowerupsPal
+ .rodata        0x080253f0       0x88 PrizeBlockEmpty.o
+                0x080253f0                PrizeBlockEmptyTiles
+                0x08025470                PrizeBlockEmptyPal
+ .rodata        0x08025478       0x48 ScoreParticle.o
+                0x08025478                ScoreParticleTiles
+                0x080254b8                ScoreParticlePal
  *all.rodata*(*)
  *(.roda)
  *(.rodata.*)
  *(.gnu.linkonce.r*)
-                0x080257ac                . = ALIGN (0x4)
+                0x080254c0                . = ALIGN (0x4)
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x080257ac                __exidx_start = .
+                0x080254c0                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x080257ac                __exidx_end = .
+                0x080254c0                __exidx_end = .
 
-.ctors          0x080257ac        0x0
+.ctors          0x080254c0        0x0
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT(.ctors.*))
  *(.ctors)
-                0x080257ac                . = ALIGN (0x4)
+                0x080254c0                . = ALIGN (0x4)
 
-.dtors          0x080257ac        0x0
+.dtors          0x080254c0        0x0
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT(.dtors.*))
  *(.dtors)
-                0x080257ac                . = ALIGN (0x4)
+                0x080254c0                . = ALIGN (0x4)
 
-.eh_frame       0x080257ac        0x4
+.eh_frame       0x080254c0        0x4
  *(.eh_frame)
- .eh_frame      0x080257ac        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
- .eh_frame      0x080257ac        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtend.o
-                0x080257b0                . = ALIGN (0x4)
+ .eh_frame      0x080254c0        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
+ .eh_frame      0x080254c0        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtend.o
+                0x080254c4                . = ALIGN (0x4)
 
-.rel.dyn        0x080257b0        0x0
- .rel.iplt      0x080257b0        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
+.rel.dyn        0x080254c4        0x0
+ .rel.iplt      0x080254c4        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
 
 .gcc_except_table
-                0x080257b0        0x0
+                0x080254c4        0x0
  *(.gcc_except_table)
-                0x080257b0                . = ALIGN (0x4)
-                0x080257b0                __iwram_lma = .
+                0x080254c4                . = ALIGN (0x4)
+                0x080254c4                __iwram_lma = .
 
-.iwram          0x03000000        0x0 load address 0x080257b0
+.iwram          0x03000000        0x0 load address 0x080254c4
                 0x03000000                __iwram_start__ = ABSOLUTE (.)
  *(.iwram)
  *iwram.*(.text)
                 0x03000000                . = ALIGN (0x4)
                 0x03000000                __iwram_end__ = ABSOLUTE (.)
-                0x080257b0                __data_lma = (__iwram_lma + SIZEOF (.iwram))
+                0x080254c4                __data_lma = (__iwram_lma + SIZEOF (.iwram))
 
-.bss            0x03000000     0x6a2c
+.bss            0x03000000     0x6a28
                 0x03000000                __bss_start = ABSOLUTE (.)
                 0x03000000                __bss_start__ = ABSOLUTE (.)
  *(.dynbss)
@@ -511,162 +516,147 @@ Linker script and memory map
                 0x03000004       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
  .bss           0x0300001c        0x4 DM_MarioManager.o
                 0x0300001c                iTimer
- .bss           0x03000020        0x4 DM_ParticleManager.o
-                0x03000020                g_pixels2Meter
- .bss           0x03000024     0x6a00 World1Level1_Collisions.o
-                0x03000024                iCurrentCollisionMap
- .bss           0x03006a24        0x4 gba_input.o
-                0x03006a24                __currKeys
-                0x03006a26                __prevKeys
+ .bss           0x03000020     0x6a00 World1Level1_Collisions.o
+                0x03000020                iCurrentCollisionMap
+ .bss           0x03006a20        0x4 gba_input.o
+                0x03006a20                __currKeys
+                0x03006a22                __prevKeys
  .bss.fake_heap_end
-                0x03006a28        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(malloc_vars.o)
-                0x03006a28                fake_heap_end
+                0x03006a24        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(malloc_vars.o)
+                0x03006a24                fake_heap_end
  *(COMMON)
-                0x03006a2c                . = ALIGN (0x4)
-                0x03006a2c                __bss_end__ = ABSOLUTE (.)
+                0x03006a28                . = ALIGN (0x4)
+                0x03006a28                __bss_end__ = ABSOLUTE (.)
 
-.data           0x03006a2c      0x848 load address 0x080257b0
-                0x03006a2c                __data_start__ = ABSOLUTE (.)
+.data           0x03006a28      0x81c load address 0x080254c4
+                0x03006a28                __data_start__ = ABSOLUTE (.)
  *(.data)
- .data          0x03006a2c        0x8 DM_MarioManager.o
-                0x03006a2c                iMapWidth
-                0x03006a30                iMapHeight
- .data          0x03006a34        0xc DM_ParticleManager.o
-                0x03006a34                g_gravity
-                0x03006a38                g_antigravity
-                0x03006a3c                g_frameTime
- .data          0x03006a40       0x2a DM_TileManager.o
-                0x03006a40                MAPWIDTH
-                0x03006a44                MAPHEIGHT
-                0x03006a48                BG0SC_X
-                0x03006a4c                BG0SC_Y
-                0x03006a50                BG1SC_X
-                0x03006a54                BG1SC_Y
-                0x03006a58                BG2SC_X
-                0x03006a5c                BG2SC_Y
-                0x03006a60                BG3SC_X
-                0x03006a64                BG3SC_Y
-                0x03006a68                ScrollAmount
- *fill*         0x03006a6a        0x2 ff
- .data          0x03006a6c      0x800 World1MapCollisions.o
-                0x03006a6c                World1MapCollision
- .data          0x0300726c        0x4 gab_mathUtil.o
-                0x0300726c                __qran_seed
- .data          0x03007270        0x4 gba_gfx.o
-                0x03007270                vid_page
+ .data          0x03006a28        0x8 DM_MarioManager.o
+                0x03006a28                iMapWidth
+                0x03006a2c                iMapHeight
+ .data          0x03006a30        0xa DM_TileManager.o
+                0x03006a30                MAPWIDTH
+                0x03006a34                MAPHEIGHT
+                0x03006a38                ScrollAmount
+ *fill*         0x03006a3a        0x2 ff
+ .data          0x03006a3c      0x800 World1MapCollisions.o
+                0x03006a3c                World1MapCollision
+ .data          0x0300723c        0x4 gab_mathUtil.o
+                0x0300723c                __qran_seed
+ .data          0x03007240        0x4 gba_gfx.o
+                0x03007240                vid_page
  *(.data.*)
  *(.gnu.linkonce.d*)
-                0x03007274                . = ALIGN (0x4)
-                0x08025ff8                __preinit_lma = (__data_lma + SIZEOF (.data))
+                0x03007244                . = ALIGN (0x4)
+                0x08025ce0                __preinit_lma = (__data_lma + SIZEOF (.data))
 
-.igot.plt       0x03007274        0x0 load address 0x08025ff8
- .igot.plt      0x03007274        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
+.igot.plt       0x03007244        0x0 load address 0x08025ce0
+ .igot.plt      0x03007244        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
 
 .tm_clone_table
-                0x03007274        0x0 load address 0x08025ff8
+                0x03007244        0x0 load address 0x08025ce0
  .tm_clone_table
-                0x03007274        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
+                0x03007244        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
  .tm_clone_table
-                0x03007274        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtend.o
+                0x03007244        0x0 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtend.o
 
-.preinit_array  0x03007274        0x0 load address 0x08025ff8
-                0x03007274                __preinit_array_start = ABSOLUTE (.)
+.preinit_array  0x03007244        0x0 load address 0x08025ce0
+                0x03007244                __preinit_array_start = ABSOLUTE (.)
  *(.preinit_array)
-                0x03007274                __preinit_array_end = ABSOLUTE (.)
-                0x08025ff8                __init_lma = (__preinit_lma + SIZEOF (.preinit_array))
+                0x03007244                __preinit_array_end = ABSOLUTE (.)
+                0x08025ce0                __init_lma = (__preinit_lma + SIZEOF (.preinit_array))
 
-.init_array     0x03007274        0x8 load address 0x08025ff8
-                0x03007274                __init_array_start = ABSOLUTE (.)
+.init_array     0x03007244        0x4 load address 0x08025ce0
+                0x03007244                __init_array_start = ABSOLUTE (.)
  *(SORT(.init_array.*))
  *(.init_array)
- .init_array    0x03007274        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
- .init_array    0x03007278        0x4 DM_ParticleManager.o
-                0x0300727c                __init_array_end = ABSOLUTE (.)
-                0x08026000                __fini_lma = (__init_lma + SIZEOF (.init_array))
+ .init_array    0x03007244        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
+                0x03007248                __init_array_end = ABSOLUTE (.)
+                0x08025ce4                __fini_lma = (__init_lma + SIZEOF (.init_array))
 
-.fini_array     0x0300727c        0x4 load address 0x08026000
-                0x0300727c                __fini_array_start = ABSOLUTE (.)
+.fini_array     0x03007248        0x4 load address 0x08025ce4
+                0x03007248                __fini_array_start = ABSOLUTE (.)
  *(SORT(.fini_array.*))
  *(.fini_array)
- .fini_array    0x0300727c        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
-                0x03007280                __fini_array_end = ABSOLUTE (.)
-                0x08026004                __jcr_lma = (__fini_lma + SIZEOF (.fini_array))
+ .fini_array    0x03007248        0x4 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtbegin.o
+                0x0300724c                __fini_array_end = ABSOLUTE (.)
+                0x08025ce8                __jcr_lma = (__fini_lma + SIZEOF (.fini_array))
 
-.jcr            0x03007280        0x0 load address 0x08026004
+.jcr            0x0300724c        0x0 load address 0x08025ce8
  *(.jcr)
-                0x03007280                __data_end__ = ABSOLUTE (.)
-                0x08026004                __iwram_overlay_lma = (__jcr_lma + SIZEOF (.jcr))
-                0x03007280                __iwram_overlay_start = .
+                0x0300724c                __data_end__ = ABSOLUTE (.)
+                0x08025ce8                __iwram_overlay_lma = (__jcr_lma + SIZEOF (.jcr))
+                0x0300724c                __iwram_overlay_start = .
 
-.iwram0         0x03007280        0x0 load address 0x08026004
+.iwram0         0x0300724c        0x0 load address 0x08025ce8
  *(.iwram0)
-                0x03007280                . = ALIGN (0x4)
-                0x08026004                PROVIDE (__load_start_iwram0, LOADADDR (.iwram0))
-                0x08026004                PROVIDE (__load_stop_iwram0, (LOADADDR (.iwram0) + SIZEOF (.iwram0)))
+                0x0300724c                . = ALIGN (0x4)
+                0x08025ce8                PROVIDE (__load_start_iwram0, LOADADDR (.iwram0))
+                0x08025ce8                PROVIDE (__load_stop_iwram0, (LOADADDR (.iwram0) + SIZEOF (.iwram0)))
 
-.iwram1         0x03007280        0x0
+.iwram1         0x0300724c        0x0
  *(.iwram1)
-                0x03007280                . = ALIGN (0x4)
+                0x0300724c                . = ALIGN (0x4)
                 [!provide]                PROVIDE (__load_start_iwram1, LOADADDR (.iwram1))
                 [!provide]                PROVIDE (__load_stop_iwram1, (LOADADDR (.iwram1) + SIZEOF (.iwram1)))
 
-.iwram2         0x03007280        0x0
+.iwram2         0x0300724c        0x0
  *(.iwram2)
-                0x03007280                . = ALIGN (0x4)
+                0x0300724c                . = ALIGN (0x4)
                 [!provide]                PROVIDE (__load_start_iwram2, LOADADDR (.iwram2))
                 [!provide]                PROVIDE (__load_stop_iwram2, (LOADADDR (.iwram2) + SIZEOF (.iwram2)))
 
-.iwram3         0x03007280        0x0
+.iwram3         0x0300724c        0x0
  *(.iwram3)
-                0x03007280                . = ALIGN (0x4)
+                0x0300724c                . = ALIGN (0x4)
                 [!provide]                PROVIDE (__load_start_iwram3, LOADADDR (.iwram3))
                 [!provide]                PROVIDE (__load_stop_iwram3, (LOADADDR (.iwram3) + SIZEOF (.iwram3)))
 
-.iwram4         0x03007280        0x0
+.iwram4         0x0300724c        0x0
  *(.iwram4)
-                0x03007280                . = ALIGN (0x4)
+                0x0300724c                . = ALIGN (0x4)
                 [!provide]                PROVIDE (__load_start_iwram4, LOADADDR (.iwram4))
                 [!provide]                PROVIDE (__load_stop_iwram4, (LOADADDR (.iwram4) + SIZEOF (.iwram4)))
 
-.iwram5         0x03007280        0x0
+.iwram5         0x0300724c        0x0
  *(.iwram5)
-                0x03007280                . = ALIGN (0x4)
+                0x0300724c                . = ALIGN (0x4)
                 [!provide]                PROVIDE (__load_start_iwram5, LOADADDR (.iwram5))
                 [!provide]                PROVIDE (__load_stop_iwram5, (LOADADDR (.iwram5) + SIZEOF (.iwram5)))
 
-.iwram6         0x03007280        0x0
+.iwram6         0x0300724c        0x0
  *(.iwram6)
-                0x03007280                . = ALIGN (0x4)
+                0x0300724c                . = ALIGN (0x4)
                 [!provide]                PROVIDE (__load_start_iwram6, LOADADDR (.iwram6))
                 [!provide]                PROVIDE (__load_stop_iwram6, (LOADADDR (.iwram6) + SIZEOF (.iwram6)))
 
-.iwram7         0x03007280        0x0
+.iwram7         0x0300724c        0x0
  *(.iwram7)
-                0x03007280                . = ALIGN (0x4)
+                0x0300724c                . = ALIGN (0x4)
                 [!provide]                PROVIDE (__load_start_iwram7, LOADADDR (.iwram7))
                 [!provide]                PROVIDE (__load_stop_iwram7, (LOADADDR (.iwram7) + SIZEOF (.iwram7)))
 
-.iwram8         0x03007280        0x0
+.iwram8         0x0300724c        0x0
  *(.iwram8)
-                0x03007280                . = ALIGN (0x4)
+                0x0300724c                . = ALIGN (0x4)
                 [!provide]                PROVIDE (__load_start_iwram8, LOADADDR (.iwram8))
                 [!provide]                PROVIDE (__load_stop_iwram8, (LOADADDR (.iwram8) + SIZEOF (.iwram8)))
 
-.iwram9         0x03007280        0x0
+.iwram9         0x0300724c        0x0
  *(.iwram9)
-                0x03007280                . = ALIGN (0x4)
+                0x0300724c                . = ALIGN (0x4)
                 [!provide]                PROVIDE (__load_start_iwram9, LOADADDR (.iwram9))
                 [!provide]                PROVIDE (__load_stop_iwram9, (LOADADDR (.iwram9) + SIZEOF (.iwram9)))
-                0x03007280                __iwram_overlay_end = .
-                0x08026004                __ewram_lma = (__iwram_overlay_lma + (__iwram_overlay_end - __iwram_overlay_start))
-                0x03007280                __iheap_start = .
+                0x0300724c                __iwram_overlay_end = .
+                0x08025ce8                __ewram_lma = (__iwram_overlay_lma + (__iwram_overlay_end - __iwram_overlay_start))
+                0x0300724c                __iheap_start = .
                 0x02000000                __ewram_start = ORIGIN (ewram)
 
-.ewram          0x02000000        0x0 load address 0x08026004
+.ewram          0x02000000        0x0 load address 0x08025ce8
  *(.ewram)
                 0x02000000                . = ALIGN (0x4)
                 0x02000000                __ewram_end = ABSOLUTE (.)
-                0x08026004                __pad_lma = (__ewram_lma + SIZEOF (.ewram))
+                0x08025ce8                __pad_lma = (__ewram_lma + SIZEOF (.ewram))
 
 .sbss           0x02000000        0x0
                 0x02000000                __sbss_start__ = ABSOLUTE (.)
@@ -676,11 +666,11 @@ Linker script and memory map
                 0x02000000                __end__ = ABSOLUTE (.)
                 0x02000000                __eheap_start = ABSOLUTE (.)
 
-.pad            0x02000000        0x8 load address 0x08026004
+.pad            0x02000000        0x8 load address 0x08025ce8
                 0x02000000        0x4 LONG 0x52416b64
                 0x02000004        0x4 LONG 0x4d
                 0x02000008                . = ALIGN (0x4)
-                0x0802600c                __rom_end__ = (__pad_lma + SIZEOF (.pad))
+                0x08025cf0                __rom_end__ = (__pad_lma + SIZEOF (.pad))
 
 .stab
  *(.stab)
@@ -728,6 +718,7 @@ Linker script and memory map
  .comment       0x00000022       0x23 Mario_Fire.o
  .comment       0x00000022       0x23 Mario_Small.o
  .comment       0x00000022       0x23 Mario_Tall.o
+ .comment       0x00000022       0x23 NewParticle.o
  .comment       0x00000022       0x23 Powerups.o
  .comment       0x00000022       0x23 PrizeBlockEmpty.o
  .comment       0x00000022       0x23 ScoreParticle.o
@@ -753,7 +744,7 @@ Linker script and memory map
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x3a8
+.debug_aranges  0x00000000      0x3c0
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x20 DM_AIManager.o
@@ -804,222 +795,229 @@ Linker script and memory map
  .debug_aranges
                 0x000002b8       0x18 Mario_Tall.o
  .debug_aranges
-                0x000002d0       0x18 Powerups.o
+                0x000002d0       0x18 NewParticle.o
  .debug_aranges
-                0x000002e8       0x18 PrizeBlockEmpty.o
+                0x000002e8       0x18 Powerups.o
  .debug_aranges
-                0x00000300       0x18 ScoreParticle.o
+                0x00000300       0x18 PrizeBlockEmpty.o
  .debug_aranges
-                0x00000318       0x20 gab_mathUtil.o
+                0x00000318       0x18 ScoreParticle.o
  .debug_aranges
-                0x00000338       0x20 gba_gfx.o
+                0x00000330       0x20 gab_mathUtil.o
  .debug_aranges
-                0x00000358       0x18 gba_input.o
+                0x00000350       0x20 gba_gfx.o
  .debug_aranges
-                0x00000370       0x20 gba_math.o
+                0x00000370       0x18 gba_input.o
  .debug_aranges
-                0x00000390       0x18 particles.o
+                0x00000388       0x20 gba_math.o
+ .debug_aranges
+                0x000003a8       0x18 particles.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x9d3d
+.debug_info     0x00000000     0x98a7
  *(.debug_info)
- .debug_info    0x00000000      0xdcf DM_AIManager.o
- .debug_info    0x00000dcf     0x1b78 DM_MarioManager.o
- .debug_info    0x00002947      0xb02 DM_ParticleManager.o
- .debug_info    0x00003449      0xc74 DM_PrizeBlockManager.o
- .debug_info    0x000040bd     0x1389 DM_SpriteManager.o
- .debug_info    0x00005446     0x136c DM_TileManager.o
- .debug_info    0x000067b2       0xde World1Level1_Collisions.o
- .debug_info    0x00006890       0xd1 World1Level1_Maps.o
- .debug_info    0x00006961       0xd1 World1Level1_Palette.o
- .debug_info    0x00006a32       0xd1 World1Level1_Tiles.o
- .debug_info    0x00006b03       0xb3 World1Level2_Collisions.o
- .debug_info    0x00006bb6       0xb3 World1Level2_Maps.o
- .debug_info    0x00006c69       0xb2 World1Level2_Palette.o
- .debug_info    0x00006d1b       0xb3 World1Level2_Tiles.o
- .debug_info    0x00006dce       0xd5 World1MapCollisions.o
- .debug_info    0x00006ea3       0xd5 World1Map_Maps.o
- .debug_info    0x00006f78       0xd5 World1Map_Palette.o
- .debug_info    0x0000704d       0xfc World1Map_Tiles.o
- .debug_info    0x00007149     0x1b40 main.o
- .debug_info    0x00008c89       0x82 EnemySprites.o
- .debug_info    0x00008d0b       0x8f Fireball.o
- .debug_info    0x00008d9a       0x82 Mario_Fire.o
- .debug_info    0x00008e1c       0x82 Mario_Small.o
- .debug_info    0x00008e9e       0x82 Mario_Tall.o
- .debug_info    0x00008f20       0x81 Powerups.o
- .debug_info    0x00008fa1       0x8f PrizeBlockEmpty.o
- .debug_info    0x00009030       0x81 ScoreParticle.o
- .debug_info    0x000090b1      0x19a gab_mathUtil.o
- .debug_info    0x0000924b      0x702 gba_gfx.o
- .debug_info    0x0000994d       0xb9 gba_input.o
- .debug_info    0x00009a06      0x2b6 gba_math.o
- .debug_info    0x00009cbc       0x81 particles.o
+ .debug_info    0x00000000      0xd88 DM_AIManager.o
+ .debug_info    0x00000d88     0x1b52 DM_MarioManager.o
+ .debug_info    0x000028da      0xa72 DM_ParticleManager.o
+ .debug_info    0x0000334c      0xb7d DM_PrizeBlockManager.o
+ .debug_info    0x00003ec9     0x1350 DM_SpriteManager.o
+ .debug_info    0x00005219     0x1163 DM_TileManager.o
+ .debug_info    0x0000637c       0xde World1Level1_Collisions.o
+ .debug_info    0x0000645a       0xd1 World1Level1_Maps.o
+ .debug_info    0x0000652b       0xd1 World1Level1_Palette.o
+ .debug_info    0x000065fc       0xd1 World1Level1_Tiles.o
+ .debug_info    0x000066cd       0xb3 World1Level2_Collisions.o
+ .debug_info    0x00006780       0xb3 World1Level2_Maps.o
+ .debug_info    0x00006833       0xb2 World1Level2_Palette.o
+ .debug_info    0x000068e5       0xb3 World1Level2_Tiles.o
+ .debug_info    0x00006998       0xd5 World1MapCollisions.o
+ .debug_info    0x00006a6d       0xd5 World1Map_Maps.o
+ .debug_info    0x00006b42       0xd5 World1Map_Palette.o
+ .debug_info    0x00006c17       0xfc World1Map_Tiles.o
+ .debug_info    0x00006d13     0x1a9a main.o
+ .debug_info    0x000087ad       0x82 EnemySprites.o
+ .debug_info    0x0000882f       0x8f Fireball.o
+ .debug_info    0x000088be       0x82 Mario_Fire.o
+ .debug_info    0x00008940       0x82 Mario_Small.o
+ .debug_info    0x000089c2       0x82 Mario_Tall.o
+ .debug_info    0x00008a44       0x81 NewParticle.o
+ .debug_info    0x00008ac5       0x81 Powerups.o
+ .debug_info    0x00008b46       0x8f PrizeBlockEmpty.o
+ .debug_info    0x00008bd5       0x81 ScoreParticle.o
+ .debug_info    0x00008c56      0x15f gab_mathUtil.o
+ .debug_info    0x00008db5      0x702 gba_gfx.o
+ .debug_info    0x000094b7       0xb9 gba_input.o
+ .debug_info    0x00009570      0x2b6 gba_math.o
+ .debug_info    0x00009826       0x81 particles.o
 
-.debug_abbrev   0x00000000     0x1c1e
+.debug_abbrev   0x00000000     0x1c09
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x26d DM_AIManager.o
  .debug_abbrev  0x0000026d      0x2c2 DM_MarioManager.o
- .debug_abbrev  0x0000052f      0x22f DM_ParticleManager.o
- .debug_abbrev  0x0000075e      0x1ef DM_PrizeBlockManager.o
- .debug_abbrev  0x0000094d      0x2b1 DM_SpriteManager.o
- .debug_abbrev  0x00000bfe      0x2b1 DM_TileManager.o
- .debug_abbrev  0x00000eaf       0x5b World1Level1_Collisions.o
- .debug_abbrev  0x00000f0a       0x5b World1Level1_Maps.o
- .debug_abbrev  0x00000f65       0x5b World1Level1_Palette.o
- .debug_abbrev  0x00000fc0       0x5b World1Level1_Tiles.o
- .debug_abbrev  0x0000101b       0x5b World1Level2_Collisions.o
- .debug_abbrev  0x00001076       0x5b World1Level2_Maps.o
- .debug_abbrev  0x000010d1       0x59 World1Level2_Palette.o
- .debug_abbrev  0x0000112a       0x5b World1Level2_Tiles.o
- .debug_abbrev  0x00001185       0x5b World1MapCollisions.o
- .debug_abbrev  0x000011e0       0x5b World1Map_Maps.o
- .debug_abbrev  0x0000123b       0x5b World1Map_Palette.o
- .debug_abbrev  0x00001296       0x5b World1Map_Tiles.o
- .debug_abbrev  0x000012f1      0x2b5 main.o
- .debug_abbrev  0x000015a6       0x51 EnemySprites.o
- .debug_abbrev  0x000015f7       0x52 Fireball.o
- .debug_abbrev  0x00001649       0x51 Mario_Fire.o
- .debug_abbrev  0x0000169a       0x51 Mario_Small.o
- .debug_abbrev  0x000016eb       0x51 Mario_Tall.o
- .debug_abbrev  0x0000173c       0x48 Powerups.o
- .debug_abbrev  0x00001784       0x52 PrizeBlockEmpty.o
- .debug_abbrev  0x000017d6       0x48 ScoreParticle.o
- .debug_abbrev  0x0000181e      0x115 gab_mathUtil.o
- .debug_abbrev  0x00001933      0x191 gba_gfx.o
- .debug_abbrev  0x00001ac4       0x5e gba_input.o
- .debug_abbrev  0x00001b22       0xb4 gba_math.o
- .debug_abbrev  0x00001bd6       0x48 particles.o
+ .debug_abbrev  0x0000052f      0x226 DM_ParticleManager.o
+ .debug_abbrev  0x00000755      0x1d5 DM_PrizeBlockManager.o
+ .debug_abbrev  0x0000092a      0x2a2 DM_SpriteManager.o
+ .debug_abbrev  0x00000bcc      0x2b1 DM_TileManager.o
+ .debug_abbrev  0x00000e7d       0x5b World1Level1_Collisions.o
+ .debug_abbrev  0x00000ed8       0x5b World1Level1_Maps.o
+ .debug_abbrev  0x00000f33       0x5b World1Level1_Palette.o
+ .debug_abbrev  0x00000f8e       0x5b World1Level1_Tiles.o
+ .debug_abbrev  0x00000fe9       0x5b World1Level2_Collisions.o
+ .debug_abbrev  0x00001044       0x5b World1Level2_Maps.o
+ .debug_abbrev  0x0000109f       0x59 World1Level2_Palette.o
+ .debug_abbrev  0x000010f8       0x5b World1Level2_Tiles.o
+ .debug_abbrev  0x00001153       0x5b World1MapCollisions.o
+ .debug_abbrev  0x000011ae       0x5b World1Map_Maps.o
+ .debug_abbrev  0x00001209       0x5b World1Map_Palette.o
+ .debug_abbrev  0x00001264       0x5b World1Map_Tiles.o
+ .debug_abbrev  0x000012bf      0x2b5 main.o
+ .debug_abbrev  0x00001574       0x51 EnemySprites.o
+ .debug_abbrev  0x000015c5       0x52 Fireball.o
+ .debug_abbrev  0x00001617       0x51 Mario_Fire.o
+ .debug_abbrev  0x00001668       0x51 Mario_Small.o
+ .debug_abbrev  0x000016b9       0x51 Mario_Tall.o
+ .debug_abbrev  0x0000170a       0x48 NewParticle.o
+ .debug_abbrev  0x00001752       0x48 Powerups.o
+ .debug_abbrev  0x0000179a       0x52 PrizeBlockEmpty.o
+ .debug_abbrev  0x000017ec       0x48 ScoreParticle.o
+ .debug_abbrev  0x00001834       0xea gab_mathUtil.o
+ .debug_abbrev  0x0000191e      0x191 gba_gfx.o
+ .debug_abbrev  0x00001aaf       0x5e gba_input.o
+ .debug_abbrev  0x00001b0d       0xb4 gba_math.o
+ .debug_abbrev  0x00001bc1       0x48 particles.o
 
-.debug_line     0x00000000     0x281c
+.debug_line     0x00000000     0x2805
  *(.debug_line)
- .debug_line    0x00000000      0x2f5 DM_AIManager.o
- .debug_line    0x000002f5      0x630 DM_MarioManager.o
- .debug_line    0x00000925      0x29d DM_ParticleManager.o
- .debug_line    0x00000bc2      0x21d DM_PrizeBlockManager.o
- .debug_line    0x00000ddf      0x25e DM_SpriteManager.o
- .debug_line    0x0000103d      0x2e6 DM_TileManager.o
- .debug_line    0x00001323       0xab World1Level1_Collisions.o
- .debug_line    0x000013ce       0xa5 World1Level1_Maps.o
- .debug_line    0x00001473       0xa8 World1Level1_Palette.o
- .debug_line    0x0000151b       0xa6 World1Level1_Tiles.o
- .debug_line    0x000015c1       0xab World1Level2_Collisions.o
- .debug_line    0x0000166c       0xa5 World1Level2_Maps.o
- .debug_line    0x00001711       0xa8 World1Level2_Palette.o
- .debug_line    0x000017b9       0xa6 World1Level2_Tiles.o
- .debug_line    0x0000185f       0xa4 World1MapCollisions.o
- .debug_line    0x00001903       0x9f World1Map_Maps.o
- .debug_line    0x000019a2       0xa2 World1Map_Palette.o
- .debug_line    0x00001a44       0xa0 World1Map_Tiles.o
- .debug_line    0x00001ae4      0x431 main.o
- .debug_line    0x00001f15       0x59 EnemySprites.o
- .debug_line    0x00001f6e       0x8e Fireball.o
- .debug_line    0x00001ffc       0x57 Mario_Fire.o
- .debug_line    0x00002053       0x58 Mario_Small.o
- .debug_line    0x000020ab       0x57 Mario_Tall.o
- .debug_line    0x00002102       0x55 Powerups.o
- .debug_line    0x00002157       0x9c PrizeBlockEmpty.o
- .debug_line    0x000021f3       0x5a ScoreParticle.o
- .debug_line    0x0000224d      0x160 gab_mathUtil.o
- .debug_line    0x000023ad      0x1a5 gba_gfx.o
- .debug_line    0x00002552      0x126 gba_input.o
- .debug_line    0x00002678      0x14e gba_math.o
- .debug_line    0x000027c6       0x56 particles.o
+ .debug_line    0x00000000      0x2f4 DM_AIManager.o
+ .debug_line    0x000002f4      0x62b DM_MarioManager.o
+ .debug_line    0x0000091f      0x277 DM_ParticleManager.o
+ .debug_line    0x00000b96      0x21a DM_PrizeBlockManager.o
+ .debug_line    0x00000db0      0x257 DM_SpriteManager.o
+ .debug_line    0x00001007      0x2b7 DM_TileManager.o
+ .debug_line    0x000012be       0xab World1Level1_Collisions.o
+ .debug_line    0x00001369       0xa5 World1Level1_Maps.o
+ .debug_line    0x0000140e       0xa8 World1Level1_Palette.o
+ .debug_line    0x000014b6       0xa6 World1Level1_Tiles.o
+ .debug_line    0x0000155c       0xab World1Level2_Collisions.o
+ .debug_line    0x00001607       0xa5 World1Level2_Maps.o
+ .debug_line    0x000016ac       0xa8 World1Level2_Palette.o
+ .debug_line    0x00001754       0xa6 World1Level2_Tiles.o
+ .debug_line    0x000017fa       0xa4 World1MapCollisions.o
+ .debug_line    0x0000189e       0x9f World1Map_Maps.o
+ .debug_line    0x0000193d       0xa2 World1Map_Palette.o
+ .debug_line    0x000019df       0xa0 World1Map_Tiles.o
+ .debug_line    0x00001a7f      0x42b main.o
+ .debug_line    0x00001eaa       0x59 EnemySprites.o
+ .debug_line    0x00001f03       0x8e Fireball.o
+ .debug_line    0x00001f91       0x57 Mario_Fire.o
+ .debug_line    0x00001fe8       0x58 Mario_Small.o
+ .debug_line    0x00002040       0x57 Mario_Tall.o
+ .debug_line    0x00002097       0x58 NewParticle.o
+ .debug_line    0x000020ef       0x55 Powerups.o
+ .debug_line    0x00002144       0x9c PrizeBlockEmpty.o
+ .debug_line    0x000021e0       0x5a ScoreParticle.o
+ .debug_line    0x0000223a      0x15c gab_mathUtil.o
+ .debug_line    0x00002396      0x1a5 gba_gfx.o
+ .debug_line    0x0000253b      0x126 gba_input.o
+ .debug_line    0x00002661      0x14e gba_math.o
+ .debug_line    0x000027af       0x56 particles.o
 
-.debug_frame    0x00000000      0xe10
+.debug_frame    0x00000000      0xd54
  *(.debug_frame)
  .debug_frame   0x00000000       0xf4 DM_AIManager.o
  .debug_frame   0x000000f4      0x264 DM_MarioManager.o
- .debug_frame   0x00000358      0x130 DM_ParticleManager.o
- .debug_frame   0x00000488       0xb4 DM_PrizeBlockManager.o
- .debug_frame   0x0000053c      0x1d4 DM_SpriteManager.o
- .debug_frame   0x00000710       0xd0 DM_TileManager.o
- .debug_frame   0x000007e0      0x1e4 main.o
- .debug_frame   0x000009c4       0xac gab_mathUtil.o
- .debug_frame   0x00000a70      0x250 gba_gfx.o
- .debug_frame   0x00000cc0      0x150 gba_math.o
+ .debug_frame   0x00000358       0xf4 DM_ParticleManager.o
+ .debug_frame   0x0000044c       0x74 DM_PrizeBlockManager.o
+ .debug_frame   0x000004c0      0x1d4 DM_SpriteManager.o
+ .debug_frame   0x00000694       0xb0 DM_TileManager.o
+ .debug_frame   0x00000744      0x1e4 main.o
+ .debug_frame   0x00000928       0x8c gab_mathUtil.o
+ .debug_frame   0x000009b4      0x250 gba_gfx.o
+ .debug_frame   0x00000c04      0x150 gba_math.o
 
-.debug_str      0x00000000     0x2c2a
+.debug_str      0x00000000     0x2f01
  *(.debug_str)
- .debug_str     0x00000000      0x9b7 DM_AIManager.o
-                                0xa97 (size before relaxing)
- .debug_str     0x000009b7      0xb40 DM_MarioManager.o
-                               0x14fc (size before relaxing)
- .debug_str     0x000014f7       0xf9 DM_ParticleManager.o
-                                0x8d3 (size before relaxing)
- .debug_str     0x000015f0       0xc5 DM_PrizeBlockManager.o
-                                0xad5 (size before relaxing)
- .debug_str     0x000016b5      0x54f DM_SpriteManager.o
-                                0xa98 (size before relaxing)
- .debug_str     0x00001c04      0x32e DM_TileManager.o
-                                0x9af (size before relaxing)
- .debug_str     0x00001f32       0xa7 World1Level1_Collisions.o
+ .debug_str     0x00000000      0xa77 DM_AIManager.o
+                                0xb49 (size before relaxing)
+ .debug_str     0x00000a77      0xd54 DM_MarioManager.o
+                               0x1631 (size before relaxing)
+ .debug_str     0x000017cb       0xfa DM_ParticleManager.o
+                                0x87d (size before relaxing)
+ .debug_str     0x000018c5       0x98 DM_PrizeBlockManager.o
+                                0xa6a (size before relaxing)
+ .debug_str     0x0000195d      0x573 DM_SpriteManager.o
+                                0xa7e (size before relaxing)
+ .debug_str     0x00001ed0      0x2cc DM_TileManager.o
+                                0x96c (size before relaxing)
+ .debug_str     0x0000219c       0xa7 World1Level1_Collisions.o
                                 0x15d (size before relaxing)
- .debug_str     0x00001fd9       0x40 World1Level1_Maps.o
+ .debug_str     0x00002243       0x40 World1Level1_Maps.o
                                 0x157 (size before relaxing)
- .debug_str     0x00002019       0x43 World1Level1_Palette.o
+ .debug_str     0x00002283       0x43 World1Level1_Palette.o
                                 0x15a (size before relaxing)
- .debug_str     0x0000205c       0x41 World1Level1_Tiles.o
+ .debug_str     0x000022c6       0x41 World1Level1_Tiles.o
                                 0x158 (size before relaxing)
- .debug_str     0x0000209d       0x92 World1Level2_Collisions.o
+ .debug_str     0x00002307       0x92 World1Level2_Collisions.o
                                 0x148 (size before relaxing)
- .debug_str     0x0000212f       0x40 World1Level2_Maps.o
+ .debug_str     0x00002399       0x40 World1Level2_Maps.o
                                 0x142 (size before relaxing)
- .debug_str     0x0000216f       0x43 World1Level2_Palette.o
+ .debug_str     0x000023d9       0x43 World1Level2_Palette.o
                                 0x145 (size before relaxing)
- .debug_str     0x000021b2       0x41 World1Level2_Tiles.o
+ .debug_str     0x0000241c       0x41 World1Level2_Tiles.o
                                 0x143 (size before relaxing)
- .debug_str     0x000021f3       0xb3 World1MapCollisions.o
+ .debug_str     0x0000245d       0xb3 World1MapCollisions.o
                                 0x169 (size before relaxing)
- .debug_str     0x000022a6       0x3d World1Map_Maps.o
+ .debug_str     0x00002510       0x3d World1Map_Maps.o
                                 0x164 (size before relaxing)
- .debug_str     0x000022e3       0x40 World1Map_Palette.o
+ .debug_str     0x0000254d       0x40 World1Map_Palette.o
                                 0x167 (size before relaxing)
- .debug_str     0x00002323       0x3e World1Map_Tiles.o
+ .debug_str     0x0000258d       0x3e World1Map_Tiles.o
                                 0x165 (size before relaxing)
- .debug_str     0x00002361      0x38a main.o
-                               0x187a (size before relaxing)
- .debug_str     0x000026eb       0x8a EnemySprites.o
+ .debug_str     0x000025cb      0x39e main.o
+                               0x179e (size before relaxing)
+ .debug_str     0x00002969       0x8a EnemySprites.o
                                  0xf5 (size before relaxing)
- .debug_str     0x00002775       0x35 Fireball.o
+ .debug_str     0x000029f3       0x35 Fireball.o
                                  0xe9 (size before relaxing)
- .debug_str     0x000027aa       0x37 Mario_Fire.o
+ .debug_str     0x00002a28       0x37 Mario_Fire.o
                                  0xef (size before relaxing)
- .debug_str     0x000027e1       0x38 Mario_Small.o
+ .debug_str     0x00002a5f       0x38 Mario_Small.o
                                  0xf2 (size before relaxing)
- .debug_str     0x00002819       0x37 Mario_Tall.o
+ .debug_str     0x00002a97       0x37 Mario_Tall.o
                                  0xef (size before relaxing)
- .debug_str     0x00002850       0x35 Powerups.o
+ .debug_str     0x00002ace       0x38 NewParticle.o
+                                 0xf2 (size before relaxing)
+ .debug_str     0x00002b06       0x35 Powerups.o
                                  0xe9 (size before relaxing)
- .debug_str     0x00002885       0x3c PrizeBlockEmpty.o
+ .debug_str     0x00002b3b       0x3c PrizeBlockEmpty.o
                                  0xfe (size before relaxing)
- .debug_str     0x000028c1       0x3a ScoreParticle.o
+ .debug_str     0x00002b77       0x3a ScoreParticle.o
                                  0xf8 (size before relaxing)
- .debug_str     0x000028fb       0x61 gab_mathUtil.o
-                                0x187 (size before relaxing)
- .debug_str     0x0000295c      0x1b4 gba_gfx.o
+ .debug_str     0x00002bb1       0x5c gab_mathUtil.o
+                                0x182 (size before relaxing)
+ .debug_str     0x00002c0d      0x1da gba_gfx.o
                                 0x43f (size before relaxing)
- .debug_str     0x00002b10       0x36 gba_input.o
+ .debug_str     0x00002de7       0x36 gba_input.o
                                 0x15e (size before relaxing)
- .debug_str     0x00002b46       0x92 gba_math.o
+ .debug_str     0x00002e1d       0x92 gba_math.o
                                 0x1c2 (size before relaxing)
- .debug_str     0x00002bd8       0x52 particles.o
+ .debug_str     0x00002eaf       0x52 particles.o
                                  0xec (size before relaxing)
 
-.debug_loc      0x00000000     0x1717
+.debug_loc      0x00000000     0x15d2
  *(.debug_loc)
- .debug_loc     0x00000000      0x18c DM_AIManager.o
- .debug_loc     0x0000018c      0x401 DM_MarioManager.o
- .debug_loc     0x0000058d      0x1ec DM_ParticleManager.o
- .debug_loc     0x00000779      0x118 DM_PrizeBlockManager.o
- .debug_loc     0x00000891      0x310 DM_SpriteManager.o
- .debug_loc     0x00000ba1      0x150 DM_TileManager.o
- .debug_loc     0x00000cf1      0x312 main.o
- .debug_loc     0x00001003      0x10c gab_mathUtil.o
- .debug_loc     0x0000110f      0x3d8 gba_gfx.o
- .debug_loc     0x000014e7      0x230 gba_math.o
+ .debug_loc     0x00000000      0x18b DM_AIManager.o
+ .debug_loc     0x0000018b      0x401 DM_MarioManager.o
+ .debug_loc     0x0000058c      0x188 DM_ParticleManager.o
+ .debug_loc     0x00000714       0xa8 DM_PrizeBlockManager.o
+ .debug_loc     0x000007bc      0x310 DM_SpriteManager.o
+ .debug_loc     0x00000acc      0x118 DM_TileManager.o
+ .debug_loc     0x00000be4      0x312 main.o
+ .debug_loc     0x00000ef6       0xd4 gab_mathUtil.o
+ .debug_loc     0x00000fca      0x3d8 gba_gfx.o
+ .debug_loc     0x000013a2      0x230 gba_math.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -1101,41 +1099,43 @@ Linker script and memory map
  .ARM.attributes
                 0x000004b6       0x30 Mario_Tall.o
  .ARM.attributes
-                0x000004e6       0x30 Powerups.o
+                0x000004e6       0x30 NewParticle.o
  .ARM.attributes
-                0x00000516       0x30 PrizeBlockEmpty.o
+                0x00000516       0x30 Powerups.o
  .ARM.attributes
-                0x00000546       0x30 ScoreParticle.o
+                0x00000546       0x30 PrizeBlockEmpty.o
  .ARM.attributes
-                0x00000576       0x30 gab_mathUtil.o
+                0x00000576       0x30 ScoreParticle.o
  .ARM.attributes
-                0x000005a6       0x30 gba_gfx.o
+                0x000005a6       0x30 gab_mathUtil.o
  .ARM.attributes
-                0x000005d6       0x30 gba_input.o
+                0x000005d6       0x30 gba_gfx.o
  .ARM.attributes
-                0x00000606       0x30 gba_math.o
+                0x00000606       0x30 gba_input.o
  .ARM.attributes
-                0x00000636       0x30 particles.o
+                0x00000636       0x30 gba_math.o
  .ARM.attributes
-                0x00000666       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_divsi3.o)
+                0x00000666       0x30 particles.o
  .ARM.attributes
-                0x0000067e       0x16 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_dvmd_tls.o)
+                0x00000696       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_divsi3.o)
  .ARM.attributes
-                0x00000694       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_arm_addsubsf3.o)
+                0x000006ae       0x16 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_dvmd_tls.o)
  .ARM.attributes
-                0x000006ac       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_arm_muldivsf3.o)
+                0x000006c4       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_arm_addsubsf3.o)
  .ARM.attributes
-                0x000006c4       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_arm_fixsfsi.o)
+                0x000006dc       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_arm_muldivsf3.o)
  .ARM.attributes
-                0x000006dc       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-init.o)
+                0x000006f4       0x18 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb\libgcc.a(_arm_fixsfsi.o)
  .ARM.attributes
-                0x0000070c       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-memcpy-stub.o)
+                0x0000070c       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-init.o)
  .ARM.attributes
-                0x0000073c       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(malloc_vars.o)
+                0x0000073c       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(lib_a-memcpy-stub.o)
  .ARM.attributes
-                0x0000076c       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtend.o
+                0x0000076c       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(malloc_vars.o)
  .ARM.attributes
-                0x0000079c       0x16 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtn.o
+                0x0000079c       0x30 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtend.o
+ .ARM.attributes
+                0x000007cc       0x16 c:/devkitpro/devkitarm/bin/../lib/gcc/arm-none-eabi/7.1.0/thumb/crtn.o
 
 /DISCARD/
  *(.note.GNU-stack)
@@ -1166,6 +1166,7 @@ LOAD Fireball.o
 LOAD Mario_Fire.o
 LOAD Mario_Small.o
 LOAD Mario_Tall.o
+LOAD NewParticle.o
 LOAD Powerups.o
 LOAD PrizeBlockEmpty.o
 LOAD ScoreParticle.o

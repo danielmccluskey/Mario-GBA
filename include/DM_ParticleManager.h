@@ -23,14 +23,15 @@ public:
 	fixed fx, fy;
 	bool bActive = false;
 	s32 iMaxParticles = 10;
+	s32 iLifeTime = 0;
 
 	~ParticleManager() {};
-	Particle sParticles[10];
+	Particle sParticles[MAX_PARTICLES];
 
 	void InitParticle(Particle& a_p);
 	void EmitParticle(Particle& a_p);
 	void UpdateParticle(Particle& a_p, SpriteManager& a_oSpriteManager);
-	void InitArray(SpriteManager& a_oSpriteManager, s32 a_iSpriteType);
+	void InitArray(SpriteManager& a_oSpriteManager, s32 a_iSpriteType, s32 a_iLifeTime);
 	void DeleteArray(SpriteManager& a_oSpriteManager);
 	void UpdateParticleArray(SpriteManager& a_oSpriteManager);
 	void SetEmitterPos(s32 a_ix, s32 a_iy);

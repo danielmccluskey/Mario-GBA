@@ -5,10 +5,10 @@
 #include "gba_mathUtil.h"
 enum POWERUPTYPES
 {
-	MUSHROOM,
-	FLOWER,
-	STAR,
-	COIN
+	POWERUP_TYPES_MUSHROOM,
+	POWERUP_TYPES_FLOWER,
+	POWERUP_TYPES_STAR,
+	POWERUP_TYPES_COIN
 };
 s16 PrizeBlockManager::CreateBlock(s32 a_ix, s32 a_iy, PrizeBlockManager* a_PrizeBlockArray, SpriteManager& a_oSpriteManager, u16 a_iScrollOffset, bool a_bRightSide)
 {
@@ -54,16 +54,9 @@ s16 PrizeBlockManager::CreateBlock(s32 a_ix, s32 a_iy, PrizeBlockManager* a_Priz
 		}
 
 	}
+	return -1;
 }
 
-void PrizeBlockManager::PlaceEmptyBlock(s32 a_ix, s32 a_iy, SpriteManager& a_oSpriteManager)
-{
-
-}
-void PrizeBlockManager::ChoosePowerUp(s32 a_iTileX, s32 a_iTileY, s32 a_iMapWidth, const unsigned short* a_bgCollisions)
-{
-
-}
 void PrizeBlockManager::SpawnPowerUp(PrizeBlockManager* a_PrizeBlockArray, SpriteManager& a_oSpriteManager, AIManager* a_AIManager)
 {
 

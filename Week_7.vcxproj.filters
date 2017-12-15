@@ -142,6 +142,9 @@
     <ClCompile Include="source\ScoreParticle.c">
       <Filter>Resource Files\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="source\NewParticle.c">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\DM_MarioManager.h">
@@ -229,6 +232,9 @@
       <Filter>Resource Files\Map\Level2</Filter>
     </ClInclude>
     <ClInclude Include="include\ScoreParticle.h">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NewParticle.h">
       <Filter>Resource Files\Sprites</Filter>
     </ClInclude>
   </ItemGroup>

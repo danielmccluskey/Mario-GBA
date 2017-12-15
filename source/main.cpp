@@ -85,8 +85,6 @@ int main()
 	
 	TileManager oTilemanager;
 	PrizeBlockManager aoPrizeManager[MAX_PRIZEBLOCKS];
-	
-	s32 frame = 0;
 
 	s32 iCheapEnemySpawner = 0;
 	s32 iCurrentLevel = 0;
@@ -99,12 +97,12 @@ int main()
 		
 		if (iGameState == WORLDMAPINIT)
 		{
-			oTilemanager.iCurrentMapArray = (unsigned short*)World1MapMap;
+			oTilemanager.piCurrentMapArray = (unsigned short*)World1MapMap;
 			oTilemanager.SetupBG(0, 0, World1MapTilesA, 1024 * 2, World1MapPalette, 512, World1MapMap, 32);
 			iGameState = WORLDMAP;
 			oMarioSprite.bMapMode = true;
 			oMarioSprite.SetPos(24, 40, Spritemanager);
-			oTilemanager.ScrollBackGround(false, false, 0);
+			oTilemanager.ScrollBackGround(false, false);
 		}
 		if (iGameState == WORLDMAP)
 		{
@@ -125,9 +123,9 @@ int main()
 		}
 		if (iGameState == LOAD_LEVEL1)
 		{
-			oTilemanager.iCurrentMapArray = (unsigned short*)World1Level1Map;
+			oTilemanager.piCurrentMapArray = (unsigned short*)World1Level1Map;
 			oTilemanager.SetupBG(2, 12, World1Level1Tiles, 816 * 2, World1Level1Palette, 32, World1Level1Map, 424);
-			oTilemanager.SetPos(2, 12, World1Level1Map, 424);			
+			oTilemanager.SetPos(2, 12, 424);			
 			CopyCollision(World1Level1Collision, iCurrentCollisionMap, 13568);
 			oMarioSprite.apiMarioBGCollision = iCurrentCollisionMap;
 			aoEnemyArray[0].iEnemyBGCollision = iCurrentCollisionMap;
@@ -138,9 +136,9 @@ int main()
 		}
 		if (iGameState == LOAD_LEVEL2)
 		{
-			oTilemanager.iCurrentMapArray = (unsigned short*)World1Level2Map;
+			oTilemanager.piCurrentMapArray = (unsigned short*)World1Level2Map;
 			oTilemanager.SetupBG(2, 12, World1Level2Tiles, 816 * 2, World1Level2Palette, 32, World1Level2Map, 424);
-			oTilemanager.SetPos(2, 12, World1Level2Map, 424);
+			oTilemanager.SetPos(2, 12, 424);
 			CopyCollision(World1Level2Collision, iCurrentCollisionMap, 13568);
 			oMarioSprite.apiMarioBGCollision = iCurrentCollisionMap;
 			aoEnemyArray[0].iEnemyBGCollision = iCurrentCollisionMap;
@@ -192,11 +190,11 @@ int main()
 			{
 				oMarioSprite.fpVelocityX = 0;
 			}
-			if (fix2int(oMarioSprite.ix) >= 160 && keyDown(KEYS::RIGHT) && oTilemanager.scroll_x <= 3392 - 248)
+			if (fix2int(oMarioSprite.ix) >= 160 && keyDown(KEYS::RIGHT) && oTilemanager.iScroll_X <= 3392 - 248)
 			{
 				oMarioSprite.fpVelocityX = 0;
-				oTilemanager.right = true;
-				if (!((bool*)oMarioSprite.uiAlmostBotRight))
+				oTilemanager.bRight = true;
+				if (!(oMarioSprite.uiAlmostBotRight > 0))
 				{
 					iCheapEnemySpawner += 2;
 					oMarioSprite.bMoving = true;
@@ -218,7 +216,7 @@ int main()
 
 
 			aoEnemyArray[0].UpdateEnemies(Spritemanager, aoEnemyArray);
-			oTilemanager.ScrollBackGround((bool*)oMarioSprite.uiAlmostBotLeft, (bool*)oMarioSprite.uiAlmostBotRight, World1Level1Map);
+			oTilemanager.ScrollBackGround(oMarioSprite.uiAlmostBotLeft, oMarioSprite.uiAlmostBotRight);
 			
 
 			

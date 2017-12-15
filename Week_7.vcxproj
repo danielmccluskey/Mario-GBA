@@ -76,6 +76,7 @@
     <ClCompile Include="source\Mario_Fire.c" />
     <ClCompile Include="source\Mario_Small.c" />
     <ClCompile Include="source\Mario_Tall.c" />
+    <ClCompile Include="source\NewParticle.c" />
     <ClCompile Include="source\particles.c" />
     <ClCompile Include="source\Powerups.c" />
     <ClCompile Include="source\PrizeBlockEmpty.c" />
@@ -115,6 +116,7 @@
     <ClInclude Include="include\Mario_Fire.h" />
     <ClInclude Include="include\Mario_Small.h" />
     <ClInclude Include="include\Mario_Tall.h" />
+    <ClInclude Include="include\NewParticle.h" />
     <ClInclude Include="include\particles.h" />
     <ClInclude Include="include\Powerups.h" />
     <ClInclude Include="include\PrizeBlockEmpty.h" />

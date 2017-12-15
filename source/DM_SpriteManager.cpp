@@ -112,30 +112,30 @@ void SpriteManager::MoveSprite(s16 a_ix, s16 a_iy, s32 a_SpriteID)
 	//SpriteInformation[a_SpriteID]->i_x = a_ix;
 }
 
-u16 SpriteManager::setSpriteAttr0(u16 a_y, u8 a_objectMode, u8 a_gfxMode, u8 a_mosaic, u8 a_colormode, u8 a_shape)
+u16 SpriteManager::setSpriteAttr0(u16 a_uiY, u8 a_uiObjectMode, u8 a_uiGfxMode, u8 a_uiMosaic, u8 a_uiColormode, u8 a_uiShape)
 {
-	u16 attrib0 = a_y & A0_YMASK |
-		((a_objectMode & A0_MODE_MASK) << 8) |
-		((a_gfxMode & 0x3) << 10) |
-		((a_mosaic & 1) << 12) |
-		((a_colormode & 1) << 13) |
-		((a_shape & 0x3) << 14);
+	u16 attrib0 = ((a_uiY & A0_YMASK) |
+		((a_uiObjectMode & A0_MODE_MASK) << 8) |
+		((a_uiGfxMode & 0x3) << 10) |
+		((a_uiMosaic & 1) << 12) |
+		((a_uiColormode & 1) << 13) |
+		((a_uiShape & 0x3) << 14));
 	return attrib0;
 }
-u16 SpriteManager::setSpriteAttr1(u16 a_x, u8 a_affine, u8 a_horiFlip, u8 a_vertFlip, u8 a_size)
+u16 SpriteManager::setSpriteAttr1(u16 a_uiX, u8 a_uiAffine, u8 a_uiHoriFlip, u8 a_uiVertFlip, u8 a_uiSize)
 {
-	u16 attrib1 = a_x & A0_YMASK |
-		((a_affine & 0x3) << 9) |
-		((a_horiFlip & 0x3) << 12) |
-		((a_vertFlip & 0x1) << 13) |
-		((a_size & 0x3) << 14);
+	u16 attrib1 = ((a_uiX & A1_XMASK) |
+		((a_uiAffine & 0x3) << 9) |
+		((a_uiHoriFlip & 0x3) << 12) |
+		((a_uiVertFlip & 0x1) << 13) |
+		((a_uiSize & 0x3) << 14));
 	return attrib1;
 }
-u16 SpriteManager::setSpriteAttr2(u32 a_tileId, u32 a_palBank, u32 a_priority)
+u16 SpriteManager::setSpriteAttr2(u32 a_uiTileId, u32 a_uiPalBank, u32 a_uiPriority)
 {
-	u16 attrib2 = (((a_tileId) & 0x3FF) |
-		(((a_palBank) & 15) << 12) |
-		(((a_priority) & 3) << 10));
+	u16 attrib2 = (((a_uiTileId) & 0x3FF) |
+		(((a_uiPalBank) & 15) << 12) |
+		(((a_uiPriority) & 3) << 10));
 	return attrib2;
 }
 

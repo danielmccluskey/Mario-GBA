@@ -8,28 +8,28 @@
 
 enum EnemyTypes
 {
-	GOOMBA,
-	GREENTURTLE,
-	REDTURTLE,
-	MUSHROOM,
-	FLOWER,
-	STAR,
-	GREENSHELL,
-	REDSHELL
+	ENEMY_TYPES_GOOMBA,
+	ENEMY_TYPES_GREENTURTLE,
+	ENEMY_TYPES_REDTURTLE,
+	ENEMY_TYPES_MUSHROOM,
+	ENEMY_TYPES_FLOWER,
+	ENEMY_TYPES_STAR,
+	ENEMY_TYPES_GREENSHELL,
+	ENEMY_TYPES_REDSHELL
 };
 enum ENEMYPHYSICS
 {
-	WALKSPEED = 32,
-	JUMPHEIGHT = -1024,
-	GRAVITY = 32,
-	PUSHBACK = 8,
-	ALIGNMASK = ~0x7ff,
-	STOPPED = 0,
-	COLLISIONTILE = 0,
-	MAXXVELOCITY = 550,
-	MAXYVELOCITY = 550,
-	QUESTIONRANGEA = 2,
-	QUESTIONRANGEB = 5
+	ENEMY_PHYSICS_WALKSPEED = 32,
+	ENEMY_PHYSICS_JUMPHEIGHT = -1024,
+	ENEMY_PHYSICS_GRAVITY = 32,
+	ENEMY_PHYSICS_PUSHBACK = 8,
+	ENEMY_PHYSICS_ALIGNMASK = ~0x7ff,
+	ENEMY_PHYSICS_STOPPED = 0,
+	ENEMY_PHYSICS_COLLISIONTILE = 0,
+	ENEMY_PHYSICS_MAXXVELOCITY = 550,
+	ENEMY_PHYSICS_MAXYVELOCITY = 550,
+	ENEMY_PHYSICS_QUESTIONRANGEA = 2,
+	ENEMY_PHYSICS_QUESTIONRANGEB = 5
 };
 
 void AIManager::CreateEnemy(SpriteManager& a_oSpriteManager, AIManager* a_aoEnemyArray, s8 a_iEnemyType, s32 a_ix, s32 a_iy)
@@ -40,34 +40,34 @@ void AIManager::CreateEnemy(SpriteManager& a_oSpriteManager, AIManager* a_aoEnem
 		{
 			switch (a_iEnemyType)
 			{
-			case GOOMBA:
+			case ENEMY_TYPES_GOOMBA:
 				a_aoEnemyArray[i].iStartingFrame = EnemyTileBlock;
 				a_aoEnemyArray[i].bDirection = -1;
 				a_aoEnemyArray[i].iSpriteID = a_oSpriteManager.CreateSprite((u16*)EnemySpritesTiles, (u16*)EnemySpritesPal, EnemySpritesTilesLen, EnemySpritesPalLen, EnemyTileBlock, EnemyPalb);
 				a_aoEnemyArray[i].bAnimate = true;
 				break;
-			case GREENTURTLE:
+			case ENEMY_TYPES_GREENTURTLE:
 				a_aoEnemyArray[i].iStartingFrame = EnemyTileBlock + 8;
 				a_aoEnemyArray[i].bDirection = -1;
 				a_aoEnemyArray[i].iSpriteID = a_oSpriteManager.CreateSprite((u16*)EnemySpritesTiles, (u16*)EnemySpritesPal, EnemySpritesTilesLen, EnemySpritesPalLen, EnemyTileBlock, EnemyPalb);
 				a_aoEnemyArray[i].bAnimate = true;
 
 				break;
-			case REDTURTLE:
+			case ENEMY_TYPES_REDTURTLE:
 				a_aoEnemyArray[i].iStartingFrame = EnemyTileBlock + 16;
 				a_aoEnemyArray[i].bDirection = -1;
 				a_aoEnemyArray[i].iSpriteID = a_oSpriteManager.CreateSprite((u16*)EnemySpritesTiles, (u16*)EnemySpritesPal, EnemySpritesTilesLen, EnemySpritesPalLen, EnemyTileBlock, EnemyPalb);
 				a_aoEnemyArray[i].bAnimate = true;
 
 				break;
-			case MUSHROOM:
+			case ENEMY_TYPES_MUSHROOM:
 				a_aoEnemyArray[i].iStartingFrame = PowerupsTileBlock;
 				a_aoEnemyArray[i].bDirection = 1;
 				a_aoEnemyArray[i].iSpriteID = a_oSpriteManager.CreateSprite((u16*)PowerupsTiles, (u16*)PowerupsPal, PowerupsTilesLen, PowerupsPalLen, PowerupsTileBlock, PowerupsPalb);
 				a_aoEnemyArray[i].bAnimate = false;
 
 				break;
-			case FLOWER:
+			case ENEMY_TYPES_FLOWER:
 				a_aoEnemyArray[i].iStartingFrame = PowerupsTileBlock + 4;
 				a_aoEnemyArray[i].bDirection = 1;
 				a_aoEnemyArray[i].iSpriteID = a_oSpriteManager.CreateSprite((u16*)PowerupsTiles, (u16*)PowerupsPal, PowerupsTilesLen, PowerupsPalLen, PowerupsTileBlock, PowerupsPalb);
@@ -129,7 +129,7 @@ u16 AIManager::CheckSpriteCollision(SpriteManager& a_oSpriteManager, AIManager* 
 	{
 		if (a_AIManager[i].bActive == true && a_AIManager[i].bDead == false)
 		{
-			if (a_bMarioInvulnerable && !(a_AIManager[i].iSpriteType >= MUSHROOM))
+			if (a_bMarioInvulnerable && !(a_AIManager[i].iSpriteType >= ENEMY_TYPES_MUSHROOM))
 			{
 				continue;
 			}
@@ -150,7 +150,7 @@ u16 AIManager::CheckSpriteCollision(SpriteManager& a_oSpriteManager, AIManager* 
 			}
 			
 
-			if (y2Min + 5 > y1Max && a_AIManager[i].iSpriteType < MUSHROOM)
+			if (y2Min + 5 > y1Max && a_AIManager[i].iSpriteType < ENEMY_TYPES_MUSHROOM)
 			{
 				a_AIManager[i].bDead = true;
 				a_AIManager[i].bSquish = true;
@@ -158,7 +158,7 @@ u16 AIManager::CheckSpriteCollision(SpriteManager& a_oSpriteManager, AIManager* 
 			}
 			else
 			{
-				if (a_AIManager[i].iSpriteType >= MUSHROOM)
+				if (a_AIManager[i].iSpriteType >= ENEMY_TYPES_MUSHROOM)
 				{
 					a_AIManager[i].bActive = false;
 					a_oSpriteManager.DeleteSprite(a_AIManager[i].iSpriteID);
@@ -183,7 +183,6 @@ u16 AIManager::tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap,
 
 void AIManager::UpdateEnemies(SpriteManager& a_oSpriteManager, AIManager* a_aoEnemyArray)
 {
-	s32 iTileTest = 0;
 	iFrame++;
 	if (iFrame == 2)
 	{
@@ -211,16 +210,16 @@ void AIManager::UpdateEnemies(SpriteManager& a_oSpriteManager, AIManager* a_aoEn
 				iMapOffsetY, (u16*)iEnemyBGCollision, 424, 32);
 
 
-			if (a_aoEnemyArray[i].iSpriteType != FLOWER )
+			if (a_aoEnemyArray[i].iSpriteType != ENEMY_TYPES_FLOWER )
 			{
-				if (Left > COLLISIONTILE)
+				if (Left > ENEMY_PHYSICS_COLLISIONTILE)
 				{
 					a_aoEnemyArray[i].bDirection = 1;
 					a_oSpriteManager.SetHFlip(true, a_aoEnemyArray[i].iSpriteID);
 
 
 				}
-				if (Right > COLLISIONTILE)
+				if (Right > ENEMY_PHYSICS_COLLISIONTILE)
 				{
 					a_aoEnemyArray[i].bDirection = -1;
 					a_oSpriteManager.SetHFlip(false, a_aoEnemyArray[i].iSpriteID);
@@ -228,15 +227,15 @@ void AIManager::UpdateEnemies(SpriteManager& a_oSpriteManager, AIManager* a_aoEn
 				a_aoEnemyArray[i].ix += a_aoEnemyArray[i].bDirection;
 			}
 
-			if ((Bottom > COLLISIONTILE || BottomRight > COLLISIONTILE ) && !(a_aoEnemyArray[i].bDead))
+			if ((Bottom > ENEMY_PHYSICS_COLLISIONTILE || BottomRight > ENEMY_PHYSICS_COLLISIONTILE ) && !(a_aoEnemyArray[i].bDead))
 			{
-				a_aoEnemyArray[i].iy &= ALIGNMASK;
+				a_aoEnemyArray[i].iy &= ENEMY_PHYSICS_ALIGNMASK;
 				a_aoEnemyArray[i].bOnGround = true;
 			}
 			else
 			{
 				a_aoEnemyArray[i].bOnGround = false;
-				a_aoEnemyArray[i].iVelocityY = fixAdd(a_aoEnemyArray[i].iVelocityY, GRAVITY);
+				a_aoEnemyArray[i].iVelocityY = fixAdd(a_aoEnemyArray[i].iVelocityY, ENEMY_PHYSICS_GRAVITY);
 				a_aoEnemyArray[i].iy = fixAdd(a_aoEnemyArray[i].iy, a_aoEnemyArray[i].iVelocityY);
 			}
 

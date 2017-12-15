@@ -8,9 +8,9 @@
 
 
 #define MAX_ENEMIES 5
-#define MAX_PARTICLES 10
-#define MAX_FIREBALLS 10
-#define MAX_PRIZEBLOCKS 100
+#define MAX_PARTICLES 30
+#define MAX_FIREBALLS 5
+#define MAX_PRIZEBLOCKS 5
 
 
 //temp defines for sprite palette banks and tile blocks
@@ -32,7 +32,10 @@
 #define ParticlePalb 6
 #define ScoreParticlePalb 9
 
+//Background Scrollers
 
+#define BG_HOFFSET0			*(vu16*)(REG_BASE+0x0010)		
+#define BG_VOFFSET0			*(vu16*)(REG_BASE+0x0012)
 
 //base address pointer for base register
 #define REG_DISPLAYCONTROL *((vu32*)(REG_BASE))
@@ -98,7 +101,6 @@ typedef struct BackgroundOffsets
 }__attribute__((packed, aligned(4))) BGOffset;
 //set up define for REG_BG_OFS accessed as an array to access offset data for bg 0-3 
 //REG_BG_OFS[1].x accesses x .y accesses y value
-#define REG_BG_OFS  ((BackgroundOffsets*)(REG_BASE+0x0010))
 
 #define TILE_BLOCK_SIZE 0x4000
 #define TILEMAP_BLOCK_SIZE 0x0800

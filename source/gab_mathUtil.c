@@ -25,8 +25,3 @@ s32 sign(s32 a_val)
 	return (!(a_val & 0x80000000) && !a_val) ? 1 : -1;
 }
 
-s32 abs(s32 a_val)
-{
-	s32 mask = a_val >> 31;
-	return (a_val ^ mask) - mask;
-}
