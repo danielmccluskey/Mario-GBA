@@ -20,11 +20,11 @@ public:
 
 	~PrizeBlockManager() {};
 
-	s16 CreateBlock(s32 a_ix, s32 a_iy, PrizeBlockManager* a_PrizeBlockArray, SpriteManager& a_SpriteManager, u16 a_iScrollOffset, bool a_bRightSide);
-	void PlaceEmptyBlock(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
+	s16 CreateBlock(s32 a_ix, s32 a_iy, PrizeBlockManager* a_PrizeBlockArray, SpriteManager& a_oSpriteManager, u16 a_iScrollOffset, bool a_bRightSide);
+	void PlaceEmptyBlock(s32 a_ix, s32 a_iy, SpriteManager& a_oSpriteManager);
 	void ChoosePowerUp(s32 a_iTileX, s32 a_iTileY, s32 a_iMapWidth, const unsigned short* a_bgCollisions);
-	void SpawnPowerUp(PrizeBlockManager* a_PrizeBlockArray, SpriteManager& a_SpriteManager, AIManager* a_AIManager);
-	void MoveBlocks(SpriteManager& a_SpriteManager, PrizeBlockManager* a_PrizeBlockArray, s32 a_ix);
+	void SpawnPowerUp(PrizeBlockManager* a_PrizeBlockArray, SpriteManager& a_oSpriteManager, AIManager* a_AIManager);
+	void MoveBlocks(SpriteManager& a_oSpriteManager, PrizeBlockManager* a_PrizeBlockArray, s32 a_ix);
 };
 
 

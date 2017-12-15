@@ -5,7 +5,7 @@
 #define __WORLD1MAP_H__
 extern const unsigned short World1MapPalette[256];
 extern const unsigned short World1MapMap[1024];
-extern const unsigned short World1MapCollision[1024];
+extern unsigned short World1MapCollision[1024];
 
 extern const unsigned short World1MapTilesA[1024];
 extern const unsigned short World1MapTilesB[1024];

@@ -9,7 +9,7 @@ fixed g_antigravity = 0x9CC;
 fixed g_frameTime = 0x04;
 fixed g_pixels2Meter = int2fix(5);
 
-void ParticleManager::InitArray(SpriteManager& a_SpriteManager, s32 a_iSpriteType)
+void ParticleManager::InitArray(SpriteManager& a_oSpriteManager, s32 a_iSpriteType)
 {
 	if (a_iSpriteType == 0)
 	{
@@ -25,21 +25,21 @@ void ParticleManager::InitArray(SpriteManager& a_SpriteManager, s32 a_iSpriteTyp
 	{
 		if (a_iSpriteType == 0)
 		{
-			sParticles[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)ScoreParticleTiles, (u16*)ScoreParticlePal, ScoreParticleTilesLen, ScoreParticlePalLen, ScoreParticleTileBlock, ScoreParticlePalb);//Create sprite and grab generated spriteID
-			a_SpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr0(fix2int(fy), 0, 0, 0, A0_4BPP, A0_WIDE);																								  //a_SpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(fy, 0, 0, 0, A0_4BPP, A0_SQUARE);//Set attributes
-			a_SpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(fx), 0, 0, 0, A1_SIZE_0);//Set attributes
+			sParticles[i].iSpriteID = a_oSpriteManager.CreateSprite((u16*)ScoreParticleTiles, (u16*)ScoreParticlePal, ScoreParticleTilesLen, ScoreParticlePalLen, ScoreParticleTileBlock, ScoreParticlePalb);//Create sprite and grab generated spriteID
+			a_oSpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr0(fix2int(fy), 0, 0, 0, A0_4BPP, A0_WIDE);																								  //a_oSpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(fy, 0, 0, 0, A0_4BPP, A0_SQUARE);//Set attributes
+			a_oSpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(fix2int(fx), 0, 0, 0, A1_SIZE_0);//Set attributes
 			sParticles[i].iGravity = g_gravity;
-			//a_SpriteManager.HideSprite(sParticles[i].iSpriteID);//Hide sprite
+			//a_oSpriteManager.HideSprite(sParticles[i].iSpriteID);//Hide sprite
 			
 		}
 		else
 		{
-			//sParticles[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)ScoreParticleTiles, (u16*)ScoreParticlePal, ScoreParticleTilesLen, ScoreParticlePalLen, ScoreParticleTileBlock, ScoreParticlePalb);//Create sprite and grab generated spriteID
+			//sParticles[i].iSpriteID = a_oSpriteManager.CreateSprite((u16*)ScoreParticleTiles, (u16*)ScoreParticlePal, ScoreParticleTilesLen, ScoreParticlePalLen, ScoreParticleTileBlock, ScoreParticlePalb);//Create sprite and grab generated spriteID
 
-			sParticles[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)FireballTiles, (u16*)FireballPal, FireballTilesLen, FireballPalLen, FireballTileBlock, FireballPalb);//Create sprite and grab generated spriteID
-			a_SpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr0(fix2int(fy), 0, 0, 0, A0_4BPP, A0_SQUARE);																																										  //a_SpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(fy, 0, 0, 0, A0_4BPP, A0_SQUARE);//Set attributes
-			a_SpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(fx), 0, 0, 0, A1_SIZE_0);//Set attributes
-			//a_SpriteManager.HideSprite(sParticles[i].iSpriteID);//Hide sprite
+			sParticles[i].iSpriteID = a_oSpriteManager.CreateSprite((u16*)FireballTiles, (u16*)FireballPal, FireballTilesLen, FireballPalLen, FireballTileBlock, FireballPalb);//Create sprite and grab generated spriteID
+			a_oSpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr0(fix2int(fy), 0, 0, 0, A0_4BPP, A0_SQUARE);																																										  //a_oSpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(fy, 0, 0, 0, A0_4BPP, A0_SQUARE);//Set attributes
+			a_oSpriteManager.SpriteArray[sParticles[i].iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(fix2int(fx), 0, 0, 0, A1_SIZE_0);//Set attributes
+			//a_oSpriteManager.HideSprite(sParticles[i].iSpriteID);//Hide sprite
 			sParticles[i].iGravity = g_antigravity;
 		}
 		
@@ -49,11 +49,11 @@ void ParticleManager::InitArray(SpriteManager& a_SpriteManager, s32 a_iSpriteTyp
 		EmitParticle(sParticles[i]);
 	}
 }
-void ParticleManager::DeleteArray(SpriteManager& a_SpriteManager)
+void ParticleManager::DeleteArray(SpriteManager& a_oSpriteManager)
 {
 	for (int i = 0; i < iMaxParticles; ++i)
 	{
-		a_SpriteManager.DeleteSprite(sParticles[i].iSpriteID);
+		a_oSpriteManager.DeleteSprite(sParticles[i].iSpriteID);
 	
 	}
 }
@@ -71,36 +71,36 @@ void ParticleManager::EmitParticle(Particle& a_p)
 
 }
 
-void ParticleManager::UpdateParticle(Particle& a_p, SpriteManager& a_SpriteManager)
+void ParticleManager::UpdateParticle(Particle& a_p, SpriteManager& a_oSpriteManager)
 {
 	a_p.fx = fixAdd(a_p.fx, fixMul(fixMul(a_p.fvx, g_frameTime), a_p.iGravity));
 	a_p.fy = fixAdd(a_p.fy, fixMul(fixMul(a_p.fvy, g_frameTime), a_p.iGravity));
 	a_p.fvy -= fixMul(a_p.iGravity, g_frameTime);
 	a_p.iLife += 16;
-	a_SpriteManager.ShowSprite(a_p.iSpriteID);
+	a_oSpriteManager.ShowSprite(a_p.iSpriteID);
 	if ((a_p.iParticleType == 0 && (a_p.fy + fy) < (40 << 8)) || (a_p.iParticleType == 1 && (a_p.fy - fy) > (10 << 8)))
 	{
 		EmitParticle(a_p);
 		
 		for (int y = 0; y < iMaxParticles; ++y)
 		{
-			a_SpriteManager.DeleteSprite(sParticles[y].iSpriteID);
+			a_oSpriteManager.DeleteSprite(sParticles[y].iSpriteID);
 		}
 		
 		bActive = false;
 	}
 }
 
-void ParticleManager::UpdateParticleArray(SpriteManager& a_SpriteManager)
+void ParticleManager::UpdateParticleArray(SpriteManager& a_oSpriteManager)
 {
 	if (bActive)
 	{
 		for (int i = 0; i < iMaxParticles; ++i)
 		{
 			
-			UpdateParticle(sParticles[i], a_SpriteManager);
+			UpdateParticle(sParticles[i], a_oSpriteManager);
 			
-			a_SpriteManager.MoveSprite(fix2int(sParticles[i].fx), fix2int(sParticles[i].fy), sParticles[i].iSpriteID);
+			a_oSpriteManager.MoveSprite(fix2int(sParticles[i].fx), fix2int(sParticles[i].fy), sParticles[i].iSpriteID);
 			
 		}
 		

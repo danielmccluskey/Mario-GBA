@@ -1,7 +1,7 @@
 
 
 
-#include "DM_TileManager.h"
+#include "DM_Tilemanager.h"
 
 #include "gba.h"
 #include <string.h>

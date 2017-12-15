@@ -64,34 +64,35 @@ enum MarioFrames
 s32 iTimer = 0;
 s32 iMapWidth = 424;
 s32 iMapHeight = 32;
-void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
+void MarioManager::CreateMario(SpriteManager& a_oSpriteManager)
 {
-	iSpriteID=	a_SpriteManager.CreateSprite((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*3, MarioTileBlock, MarioPalb);
-	a_SpriteManager.MoveSprite(32, 120, iSpriteID);
+	iSpriteID=	a_oSpriteManager.CreateSprite((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*3, MarioTileBlock, MarioPalb);
+	a_oSpriteManager.MoveSprite(32, 120, iSpriteID);
 
 	iCurrentType = NORMAL;
-	iVelocityX = 0;
-	iVelocityY = 0;
+	fpVelocityX = 0;
+	fpVelocityY = 0;
 	ix = 32;
 	iy = 120;
 	bDead = false;
 	bFinished = false;
 
 	
-	///particleee.InitArray(a_SpriteManager,0);
-	InitFireBall(a_SpriteManager);
-	//particleee.DeleteArray(a_SpriteManager);
+	///particleee.InitArray(a_oSpriteManager,0);
+	InitFireBall(a_oSpriteManager);
+	//particleee.DeleteArray(a_oSpriteManager);
 }
 
-void MarioManager::ResetMario()
+void MarioManager::ResetMario(SpriteManager& a_oSpriteManager)
 {
 	iInvulnerableTime = 0;
 	bInvulnerable = false;
 	iTimer = -128;
 	bFinished = false;
 	bDead = false;
-	iVelocityX = 0;
-	iVelocityY = 0;
+	bMoving = false;
+	fpVelocityX = 0;
+	fpVelocityY = 0;
 	iCurrentType = NORMAL;
 
 	for (int i = 0; i < MAX_FIREBALLS; i++)
@@ -101,9 +102,12 @@ void MarioManager::ResetMario()
 			sfire[i].bActive = false;
 		}
 	}
+
+	Particlemanager.DeleteArray(a_oSpriteManager);
+	EnemyParticlemanager.DeleteArray(a_oSpriteManager);
 }
 
-void MarioManager::FlashMario(SpriteManager& a_SpriteManager)
+void MarioManager::FlashMario(SpriteManager& a_oSpriteManager)
 {
 	if (bInvulnerable && iTimer == -128)
 	{
@@ -117,7 +121,7 @@ void MarioManager::FlashMario(SpriteManager& a_SpriteManager)
 		iInvulnerableTime = 0;
 		bInvulnerable = false;
 		iTimer = -128;
-		a_SpriteManager.ShowSprite(iSpriteID);
+		a_oSpriteManager.ShowSprite(iSpriteID);
 	}
 	if (bInvulnerable && iInvulnerableTime >= 0)
 	{
@@ -125,12 +129,12 @@ void MarioManager::FlashMario(SpriteManager& a_SpriteManager)
 		iTimer -= 1;
 		if (iTimer == 0)
 		{
-			a_SpriteManager.HideSprite(iSpriteID);
+			a_oSpriteManager.HideSprite(iSpriteID);
 			iTimer = 20;
 		}
 		else if (iTimer == 10)
 		{
-			a_SpriteManager.ShowSprite(iSpriteID);
+			a_oSpriteManager.ShowSprite(iSpriteID);
 		}
 	}
 
@@ -138,7 +142,7 @@ void MarioManager::FlashMario(SpriteManager& a_SpriteManager)
 
 }
 
-void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager, bool a_bHurtMario)
+void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_oSpriteManager, bool a_bHurtMario)
 {
 	if (!a_bHurtMario && a_iMarioType == TALL && iCurrentType == FIRE)
 	{
@@ -170,9 +174,9 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManag
 	{
 		iSpriteHeight = 16;
 		iFrameSize = 4;
-		a_SpriteManager.LoadTiles((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*2, MarioTileBlock, MarioPalb);
-		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(fix2int(iy), 0, 0, 0, A0_4BPP, A0_SQUARE);
-		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_1);
+		a_oSpriteManager.LoadTiles((u16*)Mario_SmallTiles, (u16*)Mario_SmallPal, Mario_SmallTilesLen, Mario_SmallPalLen*2, MarioTileBlock, MarioPalb);
+		a_oSpriteManager.SpriteArray[iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(fix2int(iy), 0, 0, 0, A0_4BPP, A0_SQUARE);
+		a_oSpriteManager.SpriteArray[iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_1);
 
 
 		
@@ -184,9 +188,9 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManag
 		iFrameSize = 8;
 		iy = fix2int(iy);
 		iy -= 16;
-		a_SpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 2, MarioTileBlock, MarioPalb);
-		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
-		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
+		a_oSpriteManager.LoadTiles((u16*)Mario_TallTiles, (u16*)Mario_TallPal, Mario_TallTilesLen, Mario_TallPalLen * 2, MarioTileBlock, MarioPalb);
+		a_oSpriteManager.SpriteArray[iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
+		a_oSpriteManager.SpriteArray[iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
 		iy = int2fix(iy);
 
 		break;
@@ -199,9 +203,9 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManag
 		iFrameSize = 8;
 		iy = fix2int(iy);
 		iy -= 16;
-		a_SpriteManager.LoadTiles((u16*)Mario_FireTiles, (u16*)Mario_FirePal, Mario_FireTilesLen, Mario_FirePalLen * 2, MarioTileBlock, MarioPalb);
-		a_SpriteManager.SpriteArray[iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
-		a_SpriteManager.SpriteArray[iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
+		a_oSpriteManager.LoadTiles((u16*)Mario_FireTiles, (u16*)Mario_FirePal, Mario_FireTilesLen, Mario_FirePalLen * 2, MarioTileBlock, MarioPalb);
+		a_oSpriteManager.SpriteArray[iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(iy, 0, 0, 0, A0_4BPP, A0_TALL);
+		a_oSpriteManager.SpriteArray[iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(fix2int(ix), 1, 0, 0, A1_SIZE_2);
 		iy = int2fix(iy);
 		break;
 	}
@@ -213,27 +217,27 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManag
 
 }
 
-void MarioManager::MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager)
+void MarioManager::MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_oSpriteManager)
 {
-	if ((iVelocityX < MAXXVELOCITY) && (iVelocityX > -MAXXVELOCITY))
+	if ((fpVelocityX < MAXXVELOCITY) && (fpVelocityX > -MAXXVELOCITY))
 	{
-		iVelocityX = fixAdd(a_ix, iVelocityX);
+		fpVelocityX = fixAdd(a_ix, fpVelocityX);
 	}
-	if (iVelocityY < MAXYVELOCITY)
+	if (fpVelocityY < MAXYVELOCITY)
 	{
-		iVelocityY = fixAdd(iVelocityY, 10);
-		iVelocityY = fixAdd(a_iy, iVelocityY);
+		fpVelocityY = fixAdd(fpVelocityY, 10);
+		fpVelocityY = fixAdd(a_iy, fpVelocityY);
 	}
 }
 
-void MarioManager::SetPos(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager)
+void MarioManager::SetPos(s32 a_ix, s32 a_iy, SpriteManager& a_oSpriteManager)
 {
 	ix = a_ix;
 	iy = a_iy;
-	a_SpriteManager.MoveSprite(ix, iy, iSpriteID);
+	a_oSpriteManager.MoveSprite(ix, iy, iSpriteID);
 }
 
-u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManager a_SpriteManager)
+u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManager a_oSpriteManager)
 {
 	
 	s32 i = 0;
@@ -258,7 +262,7 @@ u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManag
 
 			for (i = 0; i < 16; i++)
 			{
-				SetPos(ix + 1, iy, a_SpriteManager);
+				SetPos(ix + 1, iy, a_oSpriteManager);
 			}
 		}
 	}
@@ -271,7 +275,7 @@ u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManag
 
 			for (i = 0; i < 16; i++)
 			{
-				SetPos(ix - 1, iy, a_SpriteManager);
+				SetPos(ix - 1, iy, a_oSpriteManager);
 			}
 		}
 	}
@@ -284,7 +288,7 @@ u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManag
 
 			for (i = 0; i < 16; i++)
 			{
-				SetPos(ix, iy - 1, a_SpriteManager);
+				SetPos(ix, iy - 1, a_oSpriteManager);
 			}
 		}
 	}
@@ -296,7 +300,7 @@ u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManag
 			bMoving = true;
 			for (i = 0; i < 16; i++)
 			{
-				SetPos(ix, iy + 1, a_SpriteManager);
+				SetPos(ix, iy + 1, a_oSpriteManager);
 			}
 		}
 	}
@@ -311,13 +315,13 @@ u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManag
 
 			for (i = 0; i < 8; i++)
 			{
-				SetPos(ix + 1, iy, a_SpriteManager);
+				SetPos(ix + 1, iy, a_oSpriteManager);
 			}
 			return 0;
 		}
 		for (i = 0; i < 4; i++)
 		{
-			SetPos(ix + 1, iy, a_SpriteManager);
+			SetPos(ix + 1, iy, a_oSpriteManager);
 		}
 	}
 	if (bLeft)
@@ -328,13 +332,13 @@ u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManag
 			bLeft = false;
 			for (i = 0; i < 8; i++)
 			{
-				SetPos(ix - 1, iy, a_SpriteManager);
+				SetPos(ix - 1, iy, a_oSpriteManager);
 			}
 			return 0;
 		}
 		for (i = 0; i < 4; i++)
 		{
-			SetPos(ix - 1, iy, a_SpriteManager);
+			SetPos(ix - 1, iy, a_oSpriteManager);
 		}
 	}
 	else if (bTop)
@@ -345,13 +349,13 @@ u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManag
 			bTop = false;
 			for (i = 0; i < 8; i++)
 			{
-				SetPos(ix , iy - 1, a_SpriteManager);
+				SetPos(ix , iy - 1, a_oSpriteManager);
 			}
 			return 0;
 		}
 		for (i = 0; i < 4; i++)
 		{
-			SetPos(ix, iy - 1, a_SpriteManager);
+			SetPos(ix, iy - 1, a_oSpriteManager);
 		}
 	}
 	else if (bBottom)
@@ -362,13 +366,13 @@ u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManag
 			bBottom = false;
 			for (i = 0; i < 8; i++)
 			{
-				SetPos(ix, iy + 1, a_SpriteManager);
+				SetPos(ix, iy + 1, a_oSpriteManager);
 			}
 			return 0;
 		}
 		for ( i = 0; i < 4; i++)
 		{
-			SetPos(ix, iy + 1, a_SpriteManager);
+			SetPos(ix, iy + 1, a_oSpriteManager);
 		}
 	}
 
@@ -404,34 +408,34 @@ void MarioManager::CheckCollisions()
 {
 	s32 iTileX = fix2int(ix);
 	s32 iTileY = fix2int(iy);
-	TopLeft = tile_lookup(iTileX, iTileY, iMapOffsetX,
-		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
+	uiTopLeft = tile_lookup(iTileX, iTileY, iMapOffsetX,
+		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 
-	TopMiddle = tile_lookup(iTileX+8, iTileY, iMapOffsetX,
-		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
+	uiTopMiddle = tile_lookup(iTileX+8, iTileY, iMapOffsetX,
+		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 
-	BottomLeft = tile_lookup(iTileX, iTileY + iSpriteHeight, iMapOffsetX,
-		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
-	TopRight = tile_lookup(iTileX + iSpriteWidth, iTileY, iMapOffsetX,
-		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
-	BottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, iMapOffsetX,
-		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
+	uiBottomLeft = tile_lookup(iTileX, iTileY + iSpriteHeight, iMapOffsetX,
+		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
+	uiTopRight = tile_lookup(iTileX + iSpriteWidth, iTileY, iMapOffsetX,
+		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
+	uiBottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, iMapOffsetX,
+		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 
-	AlmostBotRight = tile_lookup(iTileX + iSpriteWidth+2, iTileY + iSpriteHeight - (iSpriteHeight >> 3), iMapOffsetX,
-		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
-	AlmostBotLeft = tile_lookup(iTileX-2, iTileY + iSpriteHeight - (iSpriteHeight >> 3), iMapOffsetX,
-		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
+	uiAlmostBotRight = tile_lookup(iTileX + iSpriteWidth+2, iTileY + iSpriteHeight - (iSpriteHeight >> 3), iMapOffsetX,
+		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
+	uiAlmostBotLeft = tile_lookup(iTileX-2, iTileY + iSpriteHeight - (iSpriteHeight >> 3), iMapOffsetX,
+		iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 
 
-	if (AlmostBotRight == ENDMAPTILE)
+	if (uiAlmostBotRight == ENDMAPTILE)
 	{
 		bFinished = true;
 	}
 }
 
-void MarioManager::AnimateMario(SpriteManager& a_SpriteManager)
+void MarioManager::AnimateMario(SpriteManager& a_oSpriteManager)
 {
-	if (iVelocityX != STOPPED || bMoving == true)
+	if (fpVelocityX != STOPPED || bMoving == true)
 	{
 		iFrame += iFrameSize;
 		if (iFrame >= 4 * iFrameSize)
@@ -439,7 +443,7 @@ void MarioManager::AnimateMario(SpriteManager& a_SpriteManager)
 			iFrame = 0;
 		}
 
-		if (iVelocityX >= 0)
+		if (fpVelocityX >= 0)
 		{
 			bFacing = FACERIGHT;
 		}
@@ -449,31 +453,31 @@ void MarioManager::AnimateMario(SpriteManager& a_SpriteManager)
 		}
 	}
 
-	a_SpriteManager.SetFrame(iFrame, iSpriteID);
+	a_oSpriteManager.SetFrame(iFrame, iSpriteID);
 }
 void MarioManager::PhysicsHandler()
 {
-	if (iVelocityX != STOPPED || bMoving == true)
+	if (fpVelocityX != STOPPED || bMoving == true)
 	{
-		if (iVelocityX > STOPPED && ((TopRight > COLLISIONTILE || AlmostBotRight > COLLISIONTILE)))
+		if (fpVelocityX > STOPPED && ((uiTopRight > COLLISIONTILE || uiAlmostBotRight > COLLISIONTILE)))
 		{
-			iVelocityX = STOPPED;
+			fpVelocityX = STOPPED;
 			ix -= 500;
 		}
-		if (iVelocityX < STOPPED && ((TopLeft > COLLISIONTILE || AlmostBotLeft > COLLISIONTILE)))
+		if (fpVelocityX < STOPPED && ((uiTopLeft > COLLISIONTILE || uiAlmostBotLeft > COLLISIONTILE)))
 		{
-			iVelocityX = STOPPED;
+			fpVelocityX = STOPPED;
 		}
 
-		ix = fixAdd(ix, iVelocityX);
+		ix = fixAdd(ix, fpVelocityX);
 	}
 
-	if (iVelocityY < STOPPED && ((TopLeft > COLLISIONTILE || TopRight > COLLISIONTILE)))
+	if (fpVelocityY < STOPPED && ((uiTopLeft > COLLISIONTILE || uiTopRight > COLLISIONTILE)))
 	{
-		iVelocityY = PUSHBACK;
+		fpVelocityY = PUSHBACK;
 	}
 
-	if (BottomLeft > COLLISIONTILE || BottomRight > COLLISIONTILE)
+	if (uiBottomLeft > COLLISIONTILE || uiBottomRight > COLLISIONTILE)
 	{
 		iy &= ALIGNMASK;
 		if (bOnGround == false)
@@ -483,60 +487,60 @@ void MarioManager::PhysicsHandler()
 		bOnGround = true;
 		if (bJump)
 		{
-			iVelocityY = JUMPHEIGHT;
-			iy = fixAdd(iy, iVelocityY);
+			fpVelocityY = JUMPHEIGHT;
+			iy = fixAdd(iy, fpVelocityY);
 		}
 	}
 	else
 	{
 		bOnGround = false;
-		iVelocityY = fixAdd(iVelocityY, GRAVITY);
-		iy = fixAdd(iy, iVelocityY);
+		fpVelocityY = fixAdd(fpVelocityY, GRAVITY);
+		iy = fixAdd(iy, fpVelocityY);
 	}
 	bJump = false;
 
 
-	if (iVelocityX >= WALKSPEED)
+	if (fpVelocityX >= WALKSPEED)
 	{
-		iVelocityX = fixSub(iVelocityX, WALKSPEED);
+		fpVelocityX = fixSub(fpVelocityX, WALKSPEED);
 	}
-	else if (iVelocityX <= -WALKSPEED)
+	else if (fpVelocityX <= -WALKSPEED)
 	{
-		iVelocityX = fixAdd(iVelocityX, WALKSPEED);
+		fpVelocityX = fixAdd(fpVelocityX, WALKSPEED);
 	}
-	else
+	else if (!bMoving)
 	{
-		iVelocityX = 0;
+		fpVelocityX = 0;
 		iFrame = 0;
 	}
 }
 
-void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager* a_PrizeBlockManagerArray, u16 a_iScrollOffset)
+void MarioManager::UpdateMario(SpriteManager& a_oSpriteManager, PrizeBlockManager* a_oPrizeBlockManagerArray, u16 a_iScrollOffset)
 {
 	CheckCollisions();
 
-	if (TopMiddle == 5)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
+	if (uiTopMiddle == 5)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
 	{
 		s32 iTileX = fix2int(ix);// >> 8;
 		s32 iTileY = fix2int(iy);// >> 8;
-		s32 newindex = GrabIndex(iTileX+8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
-		iMarioBGCollision[newindex] = 0x0019;
-		iMarioBGCollision[newindex + 1] = 0x0019;
-		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset, false);
+		s32 newindex = GrabIndex(iTileX+8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
+		apiMarioBGCollision[newindex] = 0x0019;
+		apiMarioBGCollision[newindex + 1] = 0x0019;
+		a_oPrizeBlockManagerArray[0].CreateBlock(ix, iy, a_oPrizeBlockManagerArray, a_oSpriteManager, a_iScrollOffset, false);
 	}
-	if (TopMiddle == 4)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
+	if (uiTopMiddle == 4)// && TopLeft <= QUESTIONRANGEB || keyHit(KEYS::DOWN))
 	{
 		s32 iTileX = fix2int(ix);// >> 8;
 		s32 iTileY = fix2int(iy);// >> 8;
-		s32 newindex = GrabIndex(iTileX + 8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
-		iMarioBGCollision[newindex] = 0x0019;
-		iMarioBGCollision[newindex + 1] = 0x0019;
-		a_PrizeBlockManagerArray[0].CreateBlock(ix, iy, a_PrizeBlockManagerArray, a_SpriteManager, a_iScrollOffset, true);
+		s32 newindex = GrabIndex(iTileX + 8, iTileY, iMapOffsetX, iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
+		apiMarioBGCollision[newindex] = 0x0019;
+		apiMarioBGCollision[newindex + 1] = 0x0019;
+		a_oPrizeBlockManagerArray[0].CreateBlock(ix, iy, a_oPrizeBlockManagerArray, a_oSpriteManager, a_iScrollOffset, true);
 	}
-	FlashMario(a_SpriteManager);
+	FlashMario(a_oSpriteManager);
 	PhysicsHandler();
-	AnimateMario(a_SpriteManager);
-	UpdateFireBall(a_SpriteManager);
+	AnimateMario(a_oSpriteManager);
+	UpdateFireBall(a_oSpriteManager);
 
 
 	if (fix2int(iy) >= SCREEN_H)
@@ -549,7 +553,7 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 
 
 
-	a_SpriteManager.MoveSprite(fix2int(ix), fix2int(iy), iSpriteID);
+	a_oSpriteManager.MoveSprite(fix2int(ix), fix2int(iy), iSpriteID);
 	
 
 	
@@ -558,17 +562,17 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 		bJustLanded = false;
 		if (Particlemanager.bActive == true)
 		{
-			Particlemanager.DeleteArray(a_SpriteManager);
+			Particlemanager.DeleteArray(a_oSpriteManager);
 		}
-		Particlemanager.InitArray(a_SpriteManager, 1);
+		Particlemanager.InitArray(a_oSpriteManager, 1);
 		Particlemanager.bActive = true;
 		Particlemanager.SetEmitterPos(ix + int2fix(iSpriteWidth >> 2), iy + int2fix(iSpriteHeight));
 	}
 
 	//particleee.bActive = true;
 	
-	Particlemanager.UpdateParticleArray(a_SpriteManager);
-	EnemyParticlemanager.UpdateParticleArray(a_SpriteManager);
+	Particlemanager.UpdateParticleArray(a_oSpriteManager);
+	EnemyParticlemanager.UpdateParticleArray(a_oSpriteManager);
 
 	
 
@@ -582,7 +586,7 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 
 
 
-void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
+void MarioManager::UpdateFireBall(SpriteManager& a_oSpriteManager)
 {
 	for (int i = 0; i < MAX_FIREBALLS; i++)
 	{
@@ -591,9 +595,9 @@ void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
 			s32 iTileXA = (sfire[i].fx >> 8);
 			s32 iTileYA = (sfire[i].fy >> 8);
 			u16 Bottom = tile_lookup(iTileXA + 4, iTileYA + 8, iMapOffsetX,
-				iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
+				iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 			u16 Right = tile_lookup(iTileXA + 8, iTileYA + 4, iMapOffsetX,
-				iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
+				iMapOffsetY, (u16*)apiMarioBGCollision, iMapWidth, iMapHeight);
 
 			if (Bottom > COLLISIONTILE)
 			{
@@ -603,19 +607,19 @@ void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
 			sfire[i].fx = fixAdd(sfire[i].fx, sfire[i].fvx);
 			sfire[i].fy = fixAdd(sfire[i].fy, sfire[i].fvy);
 
-			a_SpriteManager.MoveSprite(fix2int(sfire[i].fx), fix2int(sfire[i].fy), sfire[i].iSpriteID);
+			a_oSpriteManager.MoveSprite(fix2int(sfire[i].fx), fix2int(sfire[i].fy), sfire[i].iSpriteID);
 
 			sfire[i].iFrame++;
 			if (sfire[i].iFrame >= 4)
 			{
 				sfire[i].iFrame = 0;
 			}
-			a_SpriteManager.SetFrame(FireballTileBlock+(sfire[i].iFrame*sfire[i].iFrameSize), sfire[i].iSpriteID);
+			a_oSpriteManager.SetFrame(FireballTileBlock+(sfire[i].iFrame*sfire[i].iFrameSize), sfire[i].iSpriteID);
 
 			if (fix2int(sfire[i].fx) > SCREEN_W || Right > COLLISIONTILE)
 			{
 				sfire[i].bActive = false;
-				a_SpriteManager.HideSprite(sfire[i].iSpriteID);
+				a_oSpriteManager.HideSprite(sfire[i].iSpriteID);
 			}
 
 		}
@@ -623,7 +627,7 @@ void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
 	
 }
 
-void MarioManager::ShootFireBall(SpriteManager& a_SpriteManager)
+void MarioManager::ShootFireBall(SpriteManager& a_oSpriteManager)
 {
 	for (int i = 0; i < MAX_FIREBALLS; i++)
 	{
@@ -642,51 +646,51 @@ void MarioManager::ShootFireBall(SpriteManager& a_SpriteManager)
 			sfire[i].fx = ix;
 			sfire[i].fy = iy;
 			sfire[i].bActive = true;
-			a_SpriteManager.ShowSprite(sfire[i].iSpriteID);
+			a_oSpriteManager.ShowSprite(sfire[i].iSpriteID);
 			break;
 		}
 		
 	}
 }
-void MarioManager::InitFireBall(SpriteManager& a_SpriteManager)
+void MarioManager::InitFireBall(SpriteManager& a_oSpriteManager)
 {
 
 	for (int i = 0; i < MAX_FIREBALLS; i++)
 	{
 		sfire[i].fx = ix;
 		sfire[i].fy = iy;
-		sfire[i].iSpriteID = a_SpriteManager.CreateSprite((u16*)FireballTiles, (u16*)FireballPal, FireballTilesLen, FireballPalLen, FireballTileBlock, FireballPalb);
-		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr0 = a_SpriteManager.setSpriteAttr0(sfire[i].fy, 2, 0, 0, A0_4BPP, A0_SQUARE);
-		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr1 = a_SpriteManager.setSpriteAttr1(sfire[i].fx, 0, 0, 0, A1_SIZE_0);
-		a_SpriteManager.SpriteArray[sfire[i].iSpriteID]->attr2 = a_SpriteManager.setSpriteAttr2(FireballTileBlock, FireballPalb, 0);
-		a_SpriteManager.HideSprite(sfire[i].iSpriteID);
+		sfire[i].iSpriteID = a_oSpriteManager.CreateSprite((u16*)FireballTiles, (u16*)FireballPal, FireballTilesLen, FireballPalLen, FireballTileBlock, FireballPalb);
+		a_oSpriteManager.SpriteArray[sfire[i].iSpriteID]->attr0 = a_oSpriteManager.setSpriteAttr0(sfire[i].fy, 2, 0, 0, A0_4BPP, A0_SQUARE);
+		a_oSpriteManager.SpriteArray[sfire[i].iSpriteID]->attr1 = a_oSpriteManager.setSpriteAttr1(sfire[i].fx, 0, 0, 0, A1_SIZE_0);
+		a_oSpriteManager.SpriteArray[sfire[i].iSpriteID]->attr2 = a_oSpriteManager.setSpriteAttr2(FireballTileBlock, FireballPalb, 0);
+		a_oSpriteManager.HideSprite(sfire[i].iSpriteID);
 	}
 
 	
 }
 
-void MarioManager::CheckFireballCollisions(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray)
+void MarioManager::CheckFireballCollisions(SpriteManager& a_oSpriteManager, AIManager* a_aoEnemyArray)
 {
 	
 
 			for (int y = 0; y < MAX_ENEMIES; y++)
 			{
-				if (a_EnemyArray[y].bSquish)
+				if (a_aoEnemyArray[y].bSquish)
 				{
-					EnemyParticlemanager.InitArray(a_SpriteManager, 0);
+					EnemyParticlemanager.InitArray(a_oSpriteManager, 0);
 					EnemyParticlemanager.bActive = true;
-					EnemyParticlemanager.SetEmitterPos(int2fix(a_EnemyArray[y].ix) + int2fix(iSpriteWidth >> 2), a_EnemyArray[y].iy + int2fix(iSpriteHeight));
-					a_EnemyArray[y].bSquish = false;
+					EnemyParticlemanager.SetEmitterPos(int2fix(a_aoEnemyArray[y].ix) + int2fix(iSpriteWidth >> 2), a_aoEnemyArray[y].iy + int2fix(iSpriteHeight));
+					a_aoEnemyArray[y].bSquish = false;
 
 				}
 
 
-				if (a_EnemyArray[y].bActive == true && a_EnemyArray[y].bDead == false)
+				if (a_aoEnemyArray[y].bActive == true && a_aoEnemyArray[y].bDead == false)
 				{
-					int x2Min = a_EnemyArray[y].ix;
-					int x2Max = a_EnemyArray[y].ix + 16;
-					int y2Max = fix2int(a_EnemyArray[y].iy) + 16;
-					int y2Min = fix2int(a_EnemyArray[y].iy);
+					int x2Min = a_aoEnemyArray[y].ix;
+					int x2Max = a_aoEnemyArray[y].ix + 16;
+					int y2Max = fix2int(a_aoEnemyArray[y].iy) + 16;
+					int y2Min = fix2int(a_aoEnemyArray[y].iy);
 
 					for (int i = 0; i < MAX_FIREBALLS; i++)
 					{
@@ -707,11 +711,11 @@ void MarioManager::CheckFireballCollisions(SpriteManager& a_SpriteManager, AIMan
 							}
 							else
 							{
-								//a_SpriteManager.DeleteSprite(a_EnemyArray[y].iSpriteID);
-								a_EnemyArray[y].bSquish = true;
-								a_EnemyArray[y].bDead = true;
+								//a_oSpriteManager.DeleteSprite(a_aoEnemyArray[y].iSpriteID);
+								a_aoEnemyArray[y].bSquish = true;
+								a_aoEnemyArray[y].bDead = true;
 								sfire[i].bActive = false;
-								a_SpriteManager.HideSprite(sfire[i].iSpriteID);
+								a_oSpriteManager.HideSprite(sfire[i].iSpriteID);
 								sfire[i].fx = 0;
 								sfire[i].fy = 0;
 

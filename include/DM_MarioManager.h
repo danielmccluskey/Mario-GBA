@@ -52,8 +52,8 @@ public:
 	bool bFacing = false;
 	u16 iInvulnerableTime = 0;
 
-	fixed iVelocityX;
-	fixed iVelocityY;
+	fixed fpVelocityX;
+	fixed fpVelocityY;
 
 
 	bool bRight = false;
@@ -62,13 +62,13 @@ public:
 	bool bLeft = false;
 
 
-	u8 TopLeft;
-	u8 TopMiddle;
-	u8 BottomLeft;
-	u8 TopRight;
-	u8 BottomRight;
-	u8 AlmostBotRight;
-	u8 AlmostBotLeft;
+	u8 uiTopLeft;
+	u8 uiTopMiddle;
+	u8 uiBottomLeft;
+	u8 uiTopRight;
+	u8 uiBottomRight;
+	u8 uiAlmostBotRight;
+	u8 uiAlmostBotLeft;
 
 	s8 iCurrentType = 0;
 
@@ -76,25 +76,25 @@ public:
 	ParticleManager EnemyParticlemanager;
 	Fireball sfire[MAX_FIREBALLS];
 
-	unsigned short* iMarioBGCollision;
+	unsigned short* apiMarioBGCollision;
 	
 
-	void CreateMario(SpriteManager& a_SpriteManager);
-	void MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
-	void ResetMario();
-	void SetPos(s32 a_ix, s32 a_iy, SpriteManager& a_SpriteManager);
-	void UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager* a_PrizeBlockManagerArray, u16 a_iScrollOffset);
-	void AnimateMario(SpriteManager& a_SpriteManager);
+	void CreateMario(SpriteManager& a_oSpriteManager);
+	void MoveMario(s32 a_ix, s32 a_iy, SpriteManager& a_oSpriteManager);
+	void ResetMario(SpriteManager& a_oSpriteManager);
+	void SetPos(s32 a_ix, s32 a_iy, SpriteManager& a_oSpriteManager);
+	void UpdateMario(SpriteManager& a_oSpriteManager, PrizeBlockManager* a_oPrizeBlockManagerArray, u16 a_iScrollOffset);
+	void AnimateMario(SpriteManager& a_oSpriteManager);
 	void PhysicsHandler();
-	void FlashMario(SpriteManager& a_SpriteManager);
-	u16 MapManager(const unsigned short* a_bgCollisionMap, SpriteManager a_SpriteManager);
+	void FlashMario(SpriteManager& a_oSpriteManager);
+	u16 MapManager(const unsigned short* a_bgCollisionMap, SpriteManager a_oSpriteManager);
 	s32 GrabIndex(u32 x, u32 y, u32 xscroll, u32 yscroll, u16* tilemap, u32 tilemap_w, u32 tilemap_h);
 	void CheckCollisions();
-	void TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager, bool a_bHurtMario);
-	void UpdateFireBall(SpriteManager& a_SpriteManager);
-	void ShootFireBall(SpriteManager& a_SpriteManager);
-	void InitFireBall(SpriteManager& a_SpriteManager);
-	void CheckFireballCollisions(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray);
+	void TransformMario(s32 a_iMarioType, SpriteManager& a_oSpriteManager, bool a_bHurtMario);
+	void UpdateFireBall(SpriteManager& a_oSpriteManager);
+	void ShootFireBall(SpriteManager& a_oSpriteManager);
+	void InitFireBall(SpriteManager& a_oSpriteManager);
+	void CheckFireballCollisions(SpriteManager& a_oSpriteManager, AIManager* a_aoEnemyArray);
 
 	u16 tile_lookup(u32 x, u32 y, u32 xscroll, u32 yscroll,u16* tilemap, u32 tilemap_w, u32 tilemap_h);
 
