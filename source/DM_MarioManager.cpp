@@ -550,7 +550,7 @@ void MarioManager::UpdateMario(SpriteManager& a_oSpriteManager, PrizeBlockManage
 	UpdateFireBall(a_oSpriteManager);//Update the fireball array
 
 
-	if (fix2int(iy) >= SCREEN_H-1)//Simple check to see if mario is off screen
+	if (fix2int(iy) >= (SCREEN_H-8))//Simple check to see if mario is off screen
 	{
 		bDead = true;//Set dead flag
 	}
