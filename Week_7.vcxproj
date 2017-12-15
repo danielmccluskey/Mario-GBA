@@ -79,10 +79,15 @@
     <ClCompile Include="source\particles.c" />
     <ClCompile Include="source\Powerups.c" />
     <ClCompile Include="source\PrizeBlockEmpty.c" />
+    <ClCompile Include="source\ScoreParticle.c" />
     <ClCompile Include="source\World1Level1_Collisions.cpp" />
     <ClCompile Include="source\World1Level1_Maps.cpp" />
     <ClCompile Include="source\World1Level1_Palette.cpp" />
     <ClCompile Include="source\World1Level1_Tiles.cpp" />
+    <ClCompile Include="source\World1Level2_Collisions.cpp" />
+    <ClCompile Include="source\World1Level2_Maps.cpp" />
+    <ClCompile Include="source\World1Level2_Palette.cpp" />
+    <ClCompile Include="source\World1Level2_Tiles.cpp" />
     <ClCompile Include="source\World1MapCollisions.cpp" />
     <ClCompile Include="source\World1Map_Maps.cpp" />
     <ClCompile Include="source\World1Map_Palette.cpp" />
@@ -113,7 +118,9 @@
     <ClInclude Include="include\particles.h" />
     <ClInclude Include="include\Powerups.h" />
     <ClInclude Include="include\PrizeBlockEmpty.h" />
+    <ClInclude Include="include\ScoreParticle.h" />
     <ClInclude Include="include\World1Level1_Externs.h" />
+    <ClInclude Include="include\World1Level2_Externs.h" />
     <ClInclude Include="include\World1Map_Externs.h" />
     <ClInclude Include="source\DM_ParticleManager.cpp" />
   </ItemGroup>

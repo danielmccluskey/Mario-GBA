@@ -7,6 +7,7 @@ DM_AIManager.o: \
  c:/Users/Betat/Documents/gba-mario/include/gba_gfx.h \
  c:/Users/Betat/Documents/gba-mario/include/Intellisense.h \
  c:/Users/Betat/Documents/gba-mario/include/gba_reg.h \
+ c:/Users/Betat/Documents/gba-mario/include/DM_ParticleManager.h \
  c:/Users/Betat/Documents/gba-mario/include/EnemySprites.h \
  c:/Users/Betat/Documents/gba-mario/include/Powerups.h \
  c:/Users/Betat/Documents/gba-mario/include/DM_Enums.h
@@ -24,6 +25,8 @@ c:/Users/Betat/Documents/gba-mario/include/gba_gfx.h:
 c:/Users/Betat/Documents/gba-mario/include/Intellisense.h:
 
 c:/Users/Betat/Documents/gba-mario/include/gba_reg.h:
+
+c:/Users/Betat/Documents/gba-mario/include/DM_ParticleManager.h:
 
 c:/Users/Betat/Documents/gba-mario/include/EnemySprites.h:
 

@@ -147,11 +147,11 @@ void TileManager::ScrollBackGround(bool a_bLeftCollide, bool a_bRightCollide, co
 		else if (left)	// add on right
 			AddRow(tvx + 31, tvy, iCurrentMapArray);
 
-		if (tvy < tby)		// add on top
-			AddCol(tvx, tvy, iCurrentMapArray);
-		else if (tvy > tby)	// add on bottom
-			AddCol(tvx, tvy + 31, iCurrentMapArray);
-
+		//if (tvy < tby)		// add on top
+		//	AddCol(tvx, tvy, iCurrentMapArray);
+		//else if (tvy > tby)	// add on bottom
+		//	AddCol(tvx, tvy + 31, iCurrentMapArray);
+//
 		left = false;
 		right = false;
 	}

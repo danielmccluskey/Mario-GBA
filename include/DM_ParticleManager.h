@@ -13,6 +13,8 @@ struct Particle
 	fixed fvx, fvy;
 	u32 iLife;
 	u16 iSpriteID;
+	u8 iParticleType;
+	s32 iGravity;
 };
 
 class ParticleManager
@@ -20,14 +22,15 @@ class ParticleManager
 public:
 	fixed fx, fy;
 	bool bActive = false;
+	s32 iMaxParticles = 10;
 
 	~ParticleManager() {};
 	Particle sParticles[10];
 
 	void InitParticle(Particle& a_p);
 	void EmitParticle(Particle& a_p);
-	void UpdateParticle(Particle& a_p);
-	void InitArray(SpriteManager& a_SpriteManager);
+	void UpdateParticle(Particle& a_p, SpriteManager& a_SpriteManager);
+	void InitArray(SpriteManager& a_SpriteManager, s32 a_iSpriteType);
 	void DeleteArray(SpriteManager& a_SpriteManager);
 	void UpdateParticleArray(SpriteManager& a_SpriteManager);
 	void SetEmitterPos(s32 a_ix, s32 a_iy);

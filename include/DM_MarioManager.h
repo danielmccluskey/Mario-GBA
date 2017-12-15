@@ -43,6 +43,7 @@ public:
 	bool bMapMode = false;
 	bool bJump = false;
 	bool bOnGround = false;
+	bool bJustLanded = false;
 	bool bMoving = false;
 	bool bHitPrizeBlock = false;
 	bool bInvulnerable = false;
@@ -70,7 +71,8 @@ public:
 
 	s8 iCurrentType = 0;
 
-	ParticleManager particleee;
+	ParticleManager Particlemanager;
+	ParticleManager EnemyParticlemanager;
 	Fireball sfire[MAX_FIREBALLS];
 
 	unsigned short* iMarioBGCollision;

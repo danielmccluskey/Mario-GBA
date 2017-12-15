@@ -40,6 +40,9 @@
     <Filter Include="Header Files\Defs">
       <UniqueIdentifier>{99166240-9f9e-4e50-bb8f-3051fa4cfeeb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Map\Level2">
+      <UniqueIdentifier>{79584e49-11aa-40bd-989d-fed0eb43eae2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
@@ -124,6 +127,21 @@
     <ClCompile Include="source\Fireball.c">
       <Filter>Resource Files\Sprites</Filter>
     </ClCompile>
+    <ClCompile Include="source\World1Level2_Collisions.cpp">
+      <Filter>Resource Files\Map\Level2</Filter>
+    </ClCompile>
+    <ClCompile Include="source\World1Level2_Maps.cpp">
+      <Filter>Resource Files\Map\Level2</Filter>
+    </ClCompile>
+    <ClCompile Include="source\World1Level2_Palette.cpp">
+      <Filter>Resource Files\Map\Level2</Filter>
+    </ClCompile>
+    <ClCompile Include="source\World1Level2_Tiles.cpp">
+      <Filter>Resource Files\Map\Level2</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ScoreParticle.c">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\DM_MarioManager.h">
@@ -205,6 +223,12 @@
       <Filter>Resource Files\Sprites</Filter>
     </ClInclude>
     <ClInclude Include="include\Fireball.h">
+      <Filter>Resource Files\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World1Level2_Externs.h">
+      <Filter>Resource Files\Map\Level2</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ScoreParticle.h">
       <Filter>Resource Files\Sprites</Filter>
     </ClInclude>
   </ItemGroup>

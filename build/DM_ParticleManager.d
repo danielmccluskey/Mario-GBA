@@ -11,7 +11,8 @@ DM_ParticleManager.o: \
  c:/Users/Betat/Documents/gba-mario/include/DM_ParticleManager.h \
  c:/Users/Betat/Documents/gba-mario/include/DM_SpriteManager.h \
  c:/Users/Betat/Documents/gba-mario/include/Mario_Small.h \
- c:/Users/Betat/Documents/gba-mario/include/particles.h
+ c:/Users/Betat/Documents/gba-mario/include/Fireball.h \
+ c:/Users/Betat/Documents/gba-mario/include/ScoreParticle.h
 
 c:/Users/Betat/Documents/gba-mario/include/gba.h:
 
@@ -35,4 +36,6 @@ c:/Users/Betat/Documents/gba-mario/include/DM_SpriteManager.h:
 
 c:/Users/Betat/Documents/gba-mario/include/Mario_Small.h:
 
-c:/Users/Betat/Documents/gba-mario/include/particles.h:
+c:/Users/Betat/Documents/gba-mario/include/Fireball.h:
+
+c:/Users/Betat/Documents/gba-mario/include/ScoreParticle.h:

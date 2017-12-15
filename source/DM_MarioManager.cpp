@@ -73,7 +73,7 @@ void MarioManager::CreateMario(SpriteManager& a_SpriteManager)
 	bFinished = false;
 
 	
-	particleee.InitArray(a_SpriteManager);
+	///particleee.InitArray(a_SpriteManager,0);
 	InitFireBall(a_SpriteManager);
 	//particleee.DeleteArray(a_SpriteManager);
 }
@@ -135,7 +135,10 @@ void MarioManager::FlashMario(SpriteManager& a_SpriteManager)
 
 void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManager, bool a_bHurtMario)
 {
-	
+	if (!a_bHurtMario && a_iMarioType == TALL && iCurrentType == FIRE)
+	{
+		return;
+	}
 	if (a_bHurtMario)
 	{
 		iCurrentType -= 1;
@@ -153,6 +156,8 @@ void MarioManager::TransformMario(s32 a_iMarioType, SpriteManager& a_SpriteManag
 	{
 		iCurrentType = a_iMarioType;
 	}
+
+	
 
 	switch (iCurrentType)
 	{
@@ -363,10 +368,9 @@ u16 MarioManager::MapManager(const unsigned short* a_bgCollisionMap, SpriteManag
 	}
 
 
-	if (keyHit(KEYS::A) && Current == LEVEL1)
+	if (keyHit(KEYS::A) && Current >= LEVEL1)
 	{
-		return 1;
-
+		return Current - LEVEL1+1;
 	}
 
 	return 0;
@@ -408,9 +412,9 @@ void MarioManager::CheckCollisions()
 	BottomRight = tile_lookup(iTileX + iSpriteWidth, iTileY + iSpriteHeight, iMapOffsetX,
 		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
 
-	AlmostBotRight = tile_lookup(iTileX + iSpriteWidth+2, iTileY + iSpriteHeight - 2, iMapOffsetX,
+	AlmostBotRight = tile_lookup(iTileX + iSpriteWidth+2, iTileY + iSpriteHeight - (iSpriteHeight >> 3), iMapOffsetX,
 		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
-	AlmostBotLeft = tile_lookup(iTileX-2, iTileY + iSpriteHeight - 2, iMapOffsetX,
+	AlmostBotLeft = tile_lookup(iTileX-2, iTileY + iSpriteHeight - (iSpriteHeight >> 3), iMapOffsetX,
 		iMapOffsetY, (u16*)iMarioBGCollision, iMapWidth, iMapHeight);
 
 
@@ -458,6 +462,10 @@ void MarioManager::PhysicsHandler()
 	if (BottomLeft > COLLISIONTILE || BottomRight > COLLISIONTILE)
 	{
 		iy &= ALIGNMASK;
+		if (bOnGround == false)
+		{
+			bJustLanded = true;
+		}
 		bOnGround = true;
 		if (bJump)
 		{
@@ -531,11 +539,22 @@ void MarioManager::UpdateMario(SpriteManager& a_SpriteManager, PrizeBlockManager
 	
 
 	
+	if (bJustLanded)
+	{
+		bJustLanded = false;
+		if (Particlemanager.bActive == true)
+		{
+			Particlemanager.DeleteArray(a_SpriteManager);
+		}
+		Particlemanager.InitArray(a_SpriteManager, 1);
+		Particlemanager.bActive = true;
+		Particlemanager.SetEmitterPos(ix + int2fix(iSpriteWidth >> 2), iy + int2fix(iSpriteHeight));
+	}
 
-
-	particleee.bActive = false;
-	//particleee.SetEmitterPos(ix, iy+iSpriteHeight);
-	//particleee.UpdateParticleArray(a_SpriteManager);
+	//particleee.bActive = true;
+	
+	Particlemanager.UpdateParticleArray(a_SpriteManager);
+	EnemyParticlemanager.UpdateParticleArray(a_SpriteManager);
 
 	
 
@@ -630,6 +649,16 @@ void MarioManager::CheckFireballCollisions(SpriteManager& a_SpriteManager, AIMan
 
 			for (int y = 0; y < MAX_ENEMIES; y++)
 			{
+				if (a_EnemyArray[y].bSquish)
+				{
+					EnemyParticlemanager.InitArray(a_SpriteManager, 0);
+					EnemyParticlemanager.bActive = true;
+					EnemyParticlemanager.SetEmitterPos(ix + int2fix(iSpriteWidth >> 2), iy + int2fix(iSpriteHeight));
+					a_EnemyArray[y].bSquish = false;
+
+				}
+
+
 				if (a_EnemyArray[y].bActive == true && a_EnemyArray[y].bDead == false)
 				{
 					int x2Min = a_EnemyArray[y].ix;

@@ -1,31 +1,18 @@
-﻿  main.cpp
-  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/main.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/main.cpp -o main.o 
+﻿  DM_ParticleManager.cpp
+  arm-none-eabi-g++ -MMD -MP -MF /c/Users/Betat/Documents/gba-mario/build/DM_ParticleManager.d -gdwarf-2 -Wall -mcpu=arm7tdmi -mtune=arm7tdmi -mthumb -mthumb-interwork -iquote /c/Users/Betat/Documents/gba-mario/include -I/c/devkitPro/libgba/include -I/c/Users/Betat/Documents/gba-mario/build -fno-rtti -fno-exceptions -c /c/Users/Betat/Documents/gba-mario/source/DM_ParticleManager.cpp -o DM_ParticleManager.o 
   In file included from c:/Users/Betat/Documents/gba-mario/include/gba.h:13:0,
-                   from c:/Users/Betat/Documents/gba-mario/source/main.cpp:2:
-  c:/Users/Betat/Documents/gba-mario/include/gba_gfx.h:98:0: warning: "REG_BG_OFS" redefined
+                   from c:/Users/Betat/Documents/gba-mario/source/DM_ParticleManager.cpp:1:
+  c:/Users/Betat/Documents/gba-mario/include/gba_gfx.h:101:0: warning: "REG_BG_OFS" redefined
    #define REG_BG_OFS  ((BackgroundOffsets*)(REG_BASE+0x0010))
    
-  c:/Users/Betat/Documents/gba-mario/include/gba_gfx.h:59:0: note: this is the location of the previous definition
+  c:/Users/Betat/Documents/gba-mario/include/gba_gfx.h:62:0: note: this is the location of the previous definition
    #define REG_BG_OFS      ((BG_POINT*)(REG_BASE+0x0010))
    
   In file included from c:/Users/Betat/Documents/gba-mario/include/gba.h:11:0,
-                   from c:/Users/Betat/Documents/gba-mario/source/main.cpp:2:
+                   from c:/Users/Betat/Documents/gba-mario/source/DM_ParticleManager.cpp:1:
   c:/Users/Betat/Documents/gba-mario/include/gba_mathUtil.h:14:12: warning: declaration of 's32 abs(s32)' conflicts with built-in declaration 'int abs(int)' [-Wbuiltin-declaration-mismatch]
    extern s32 abs(s32 a_val);
               ^~~
-  c:/Users/Betat/Documents/gba-mario/source/main.cpp: In function 'int main()':
-  c:/Users/Betat/Documents/gba-mario/source/main.cpp:163:30: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
-       if (!((bool*)MarioSprite.AlmostBotRight))
-                                ^~~~~~~~~~~~~~
-  c:/Users/Betat/Documents/gba-mario/source/main.cpp:177:52: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
-      Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight, World1Level1Map);
-                                                      ^~~~~~~~~~~~~
-  c:/Users/Betat/Documents/gba-mario/source/main.cpp:177:86: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
-      Tilemanager.ScrollBackGround((bool*)MarioSprite.AlmostBotLeft, (bool*)MarioSprite.AlmostBotRight, World1Level1Map);
-                                                                                        ^~~~~~~~~~~~~~
-  c:/Users/Betat/Documents/gba-mario/source/main.cpp:78:6: warning: unused variable 'frame' [-Wunused-variable]
-    s32 frame = 0;
-        ^~~~~
   linking cartridge
   built ... gba-mario.gba
   ROM fixed!

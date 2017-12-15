@@ -3,6 +3,9 @@
 #include "Powerups.h"
 #include "DM_Enums.h"
 
+
+
+
 enum EnemyTypes
 {
 	GOOMBA,
@@ -76,6 +79,8 @@ void AIManager::CreateEnemy(SpriteManager& a_SpriteManager, AIManager* a_EnemyAr
 			a_EnemyArray[i].iy = a_iy;
 			a_EnemyArray[i].bActive = true;
 			a_EnemyArray[i].bDead = false;
+			a_EnemyArray[i].bSquish = false;
+
 			a_SpriteManager.MoveSprite(a_EnemyArray[i].ix, a_EnemyArray[i].iy, a_EnemyArray[i].iSpriteID);
 			break;
 		}
@@ -130,13 +135,16 @@ u16 AIManager::CheckSpriteCollision(SpriteManager& a_SpriteManager, AIManager* a
 			{
 				continue;
 			}
-			else if (y1Max < y2Min || y1Min > y2Max)
+			if (y1Max < y2Min || y1Min > y2Max)
 			{
 				continue;
 			}
-			else if (y2Min + 5 > y1Max)
+			
+
+			if (y2Min + 5 > y1Max && a_AIManager[i].iSpriteType < MUSHROOM)
 			{
 				a_AIManager[i].bDead = true;
+				a_AIManager[i].bSquish = true;
 				continue;
 			}
 			else
@@ -227,12 +235,12 @@ void AIManager::UpdateEnemies(SpriteManager& a_SpriteManager, AIManager* a_Enemy
 
 
 
-
-			if (a_EnemyArray[i].ix <= 1 || fix2int(a_EnemyArray[i].iy) >= 160)
+			if (a_EnemyArray[i].ix < 0 || fix2int(a_EnemyArray[i].iy) >= 160)
 			{
 				a_EnemyArray[i].bActive = false;
 				a_SpriteManager.DeleteSprite(a_EnemyArray[i].iSpriteID);
 				a_EnemyArray[i].bDead = false;
+				a_EnemyArray[i].bDeleteParticles = true;
 			}
 			
 			if (a_EnemyArray[i].bAnimate)

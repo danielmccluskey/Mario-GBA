@@ -72,7 +72,7 @@ void PrizeBlockManager::SpawnPowerUp(PrizeBlockManager* a_PrizeBlockArray, Sprit
 		if (a_PrizeBlockArray[i].bActive == true && a_PrizeBlockArray[i].bNeedsSpawn == true)
 		{
 			a_PrizeBlockArray[i].bNeedsSpawn = false;
-			s32 iRandomNumber = qran_range(3, 4);
+			s32 iRandomNumber = qran_range(3, 5);
 
 			a_AIManager[0].CreateEnemy(a_SpriteManager, a_AIManager, iRandomNumber, a_PrizeBlockArray[i].ix, int2fix(a_PrizeBlockArray[i].iy-16));
 		}

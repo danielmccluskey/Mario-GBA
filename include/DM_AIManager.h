@@ -2,6 +2,7 @@
 #define _AIMANAGER_H_
 #include "gba_math.h"
 #include "DM_SpriteManager.h"
+#include "DM_ParticleManager.h"
 class AIManager
 {
 public:
@@ -22,6 +23,8 @@ public:
 	bool bActive = false;
 	bool bAnimate = false;
 	bool bDead = false;
+	bool bSquish = false;
+	bool bDeleteParticles = false;
 
 	s32 iMapOffsetX = 0;
 	s32 iMapOffsetY = 0;
@@ -32,6 +35,10 @@ public:
 	fixed iVelocityY;
 
 	fixed iMaxVelocityY;
+
+	
+
+
 
 	void CreateEnemy(SpriteManager& a_SpriteManager, AIManager* a_EnemyArray, s8 a_iEnemyType, s32 a_ix, s32 a_iy);
 	void MoveEnemy();

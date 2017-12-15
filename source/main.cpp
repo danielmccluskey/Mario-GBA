@@ -7,6 +7,7 @@
 #include "DM_AIManager.h"
 #include "World1Map_Externs.h"
 #include "World1Level1_Externs.h"
+#include "World1Level2_Externs.h"
 #include "DM_Enums.h"
 
 
@@ -100,6 +101,10 @@ int main()
 			{
 				iGameState = LOAD_LEVEL1;
 			}
+			else if (LevelSelected == 2)
+			{
+				iGameState = LOAD_LEVEL2;
+			}
 
 		}
 		if (iGameState == LOAD_LEVEL1)
@@ -108,6 +113,19 @@ int main()
 			Tilemanager.SetupBG(2, 12, World1Level1Tiles, 816 * 2, World1Level1Palette, 32, World1Level1Map, 424);
 			Tilemanager.SetPos(2, 12, World1Level1Map, 424);			
 			CopyCollision(World1Level1Collision, iCurrentCollisionMap, 13568);
+			MarioSprite.iMarioBGCollision = iCurrentCollisionMap;
+			EnemyArray[0].iEnemyBGCollision = iCurrentCollisionMap;
+
+
+			iGameState = GAMEINIT;
+
+		}
+		if (iGameState == LOAD_LEVEL2)
+		{
+			Tilemanager.iCurrentMapArray = (unsigned short*)World1Level2Map;
+			Tilemanager.SetupBG(2, 12, World1Level2Tiles, 816 * 2, World1Level2Palette, 32, World1Level2Map, 424);
+			Tilemanager.SetPos(2, 12, World1Level2Map, 424);
+			CopyCollision(World1Level2Collision, iCurrentCollisionMap, 13568);
 			MarioSprite.iMarioBGCollision = iCurrentCollisionMap;
 			EnemyArray[0].iEnemyBGCollision = iCurrentCollisionMap;
 
