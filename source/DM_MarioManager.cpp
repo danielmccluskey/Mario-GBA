@@ -13,6 +13,11 @@ enum MARIOTYPES
 	TALL,
 	FIRE
 };
+enum MARIOFACING
+{
+	FACERIGHT,
+	FACELEFT
+};
 
 enum MARIOPHYSICS
 {
@@ -433,6 +438,15 @@ void MarioManager::AnimateMario(SpriteManager& a_SpriteManager)
 		{
 			iFrame = 0;
 		}
+
+		if (iVelocityX >= 0)
+		{
+			bFacing = FACERIGHT;
+		}
+		else
+		{
+			bFacing = FACELEFT;
+		}
 	}
 
 	a_SpriteManager.SetFrame(iFrame, iSpriteID);
@@ -583,7 +597,7 @@ void MarioManager::UpdateFireBall(SpriteManager& a_SpriteManager)
 
 			if (Bottom > COLLISIONTILE)
 			{
-				sfire[i].fvy = -256;
+				sfire[i].fvy = -356;
 			}
 			sfire[i].fvy = fixAdd(sfire[i].fvy, GRAVITY);
 			sfire[i].fx = fixAdd(sfire[i].fx, sfire[i].fvx);
@@ -615,7 +629,15 @@ void MarioManager::ShootFireBall(SpriteManager& a_SpriteManager)
 	{
 		if (sfire[i].bActive == false)
 		{
-			sfire[i].fvx = int2fix(2);
+			if (bFacing == false)
+			{
+				sfire[i].fvx = int2fix(2);
+			}
+			else
+			{
+				sfire[i].fvx = int2fix(-2);
+			}
+			
 			sfire[i].fvy = int2fix(1);
 			sfire[i].fx = ix;
 			sfire[i].fy = iy;

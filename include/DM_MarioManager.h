@@ -49,6 +49,7 @@ public:
 	bool bInvulnerable = false;
 	bool bDead = false;
 	bool bFinished = false;
+	bool bFacing = false;
 	u16 iInvulnerableTime = 0;
 
 	fixed iVelocityX;
